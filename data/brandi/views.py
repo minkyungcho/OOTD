@@ -7,13 +7,7 @@ from bs4 import BeautifulSoup
 
 # Create your views here.
 def index(request):
-    # url1 = 'https://cf-api-c.brandi.me/v1/web/categories/3/'
-    # url = 'https://www.brandi.co.kr/categories/33'
-    # url = 'https://cf-api-c.brandi.me/v1/web/main'
     url = 'https://cf-api-c.brandi.me/v1/web/categories/3/products?offset=0&limit=100&order=popular&type=all&order=popular'
-    # url2 = 'https://cf-api-c.brandi.me/v1/web/categories/2/products?offset=0&limit=100&order=popular&type=all&order=popular'
-    # url3 = 'https://cf-api-c.brandi.me/v1/web/categories/47/products?offset=0&limit=100&order=popular&type=all&order=popular'
-    # url4 = 'https://cf-api-c.brandi.me/v1/web/categories/50/products?offset=0&limit=100&order=popular&type=all&order=popular'
     headers = {
         'authority': 'cf-api-c.brandi.me',
         'method': 'GET',
@@ -35,17 +29,12 @@ def index(request):
     print(response)
     
     data = response.json()
-    print(data['data']['id'])
-    # print(response.text)
-    
-    html = BeautifulSoup(response.text, 'html.parser')
-    product_names = html.select('ul li.list_title')
-    # for product in product_names:
-    #     print(product.text)
-    # context = {
-    #     # app > div > div.frame > div.content_right > div > div.list_full > ul:nth-child(1)
-    #     # document.querySelector("#app > div > div.frame > div.content_right > div > div.list_full > ul:nth-child(1) > li.list_title")
-    # }
-    # print(response)
-    # return render(request, 'index.html', )
-    return ''
+
+    dics = data['data']
+    for dic in dics:
+        idd = dic['id']
+        print(idd)
+    context = {
+        'dics': dics
+    }
+    return render(request, 'index.html', context)

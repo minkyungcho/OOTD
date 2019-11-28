@@ -1,18 +1,29 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
 </head>
-
 <body>
-    {% for dic in dics %}
-    <a href="">{{dic.id}}</a>
-    {% endfor %}
-
+    <h1><a href="{% url 'link' 3 %}">아우터 전체</a></h1>
+    <h3><a href="{% url 'link' 21 %}">코트</a></h3>
+    <h3><a href="{% url 'link' 22 %}">점퍼</a></h3>
+    <h3><a href="{% url 'link' 20 %}">재킷</a></h3>
+    <h3><a href="{% url 'link' 18 %}">가디건</a></h3>
+    <h1><a href="{% url 'link' 2 %}">상의 전체</a></h1>
+    <h3><a href="{% url 'link' 17 %}">니트</a></h3>
+    <h3><a href="{% url 'link' 13 %}">티셔츠</a></h3>
+    <h3><a href="{% url 'link' 15 %}">블라우스</a></h3>
+    <h3><a href="{% url 'link' 120 %}">후드/맨투맨</a></h3>
+    <h1><a href="{% url 'link' 50 %}">바지 전체</a></h1>
+    <h3><a href="{% url 'link' 25 %}">청바지</a></h3>
+    <h3><a href="{% url 'link' 24 %}">슬랙스</a></h3>
+    <h3><a href="{% url 'link' 51 %}">반바지</a></h3>
+    <h1><a href="{% url 'link' 47 %}">치마 전체</a></h1>
+    <h3><a href="{% url 'link' 48 %}">미니스커트</a></h3>
+    <h3><a href="{% url 'link' 49 %}">롱스커트</a></h3>
+    <h1><a href="{% url 'link' 33 %}">원피스 전체</a></h1>
 </body>
-
 </html>

@@ -4,6 +4,9 @@
 from django.shortcuts import render, redirect
 import requests, json
 from bs4 import BeautifulSoup
+import os
+from PIL import Image
+import requests
 
 # Create your views here.
 def index(request):
@@ -64,16 +67,25 @@ def product(request, product_id):
     category_hierarchies = data["data"]["category_hierarchies"]
     options = data["data"]["options"]
     colors = []
-    if len(options) > 1:
-        for option in options:
-            if len(option["attributes"]) > 1:
-                a = option["attributes"][0]["value"]
-                print(a)
-                if a in colors:
-                    continue
-                colors.append(a)        
-    
-    print(colors)
+    # if len(options) > 1:
+    #     for option in options:
+    #         if len(option["attributes"]) > 1:
+    #             a = option["attributes"][0]["value"]
+    #             print(a)
+    #             if a in colors:
+    #                 continue
+    #             colors.append(a)        
+    for option in options:
+        a = option["attributes"][0]["title"]
+        b = option["attributes"][0]["value"]
+        if a == "색상" or a == "색상1" or a == "color" or a == "COLOR" or a == "Color" or a == "컬러" or a == "컬러1":
+            # print(a+" "+b)
+            if b in colors:
+                continue
+            colors.append(b)
+
+        
+    # print(colors)
         # attributes = data["data"]["options"][0]["attributes"]
     # attributes = data["data"]["options"][0]["attributes"]
     # for attr in attributes:
@@ -85,21 +97,60 @@ def product(request, product_id):
     else:
         category_type = category
     # print(category+" "+category_type+" "+str(length))
-    
+    # print(len(colors))
 
     products = []
-    for color in colors:
+    if len(colors)>=1:
+        for color in colors:
+            temp = {
+                "id": product_id,
+                "category": category,
+                "category_type": category_type,
+                "color": color
+            }
+            products.append(temp)
+    else:
         temp = {
             "id": product_id,
             "category": category,
             "category_type": category_type,
-            "color": color
+            "color": '-'
         }
         products.append(temp)
     
     context = {
-        'products': products
+        'products': products,
+        'product_id': product_id
     }
     
     return render(request, 'product.html', context)
-    # return render(request, 'product.html', temp)
+
+def detail(request, product_id):
+    url = f'https://cf-api-c.brandi.me/v1/web/products/{product_id}?res-type=section1'
+    headers = {
+        'authorization': '3b17176f2eb5fdffb9bafdcc3e4bc192b013813caddccd0aad20c23ed272f076_1423639497'
+    }
+    response = requests.get(url, headers=headers)
+    print(response)
+    data = response.json()
+    image_urls = data["data"]["images"]
+    # print(image_urls)
+    images = []
+    for image_url in image_urls:
+        temp = image_url["image_url"]
+        images.append(temp)
+    # print(images)
+    filenames = []
+    for image in images:
+        img = requests.get(image).content
+        filename = os.path.basename(image)
+        filenames.append(filename)
+        with open(filename, 'wb') as f:
+            f.write(img)
+    # print(filenames)
+    
+    context = {
+        'images': images,
+        'filenames': filenames
+    }
+    return render(request, 'detail.html', context)

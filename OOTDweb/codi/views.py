@@ -7,5 +7,5 @@ def index(request):
 def home(request):
     return render(request, 'index.html')
 
-def about(request):
-    return render(request, 'codi/about.html')
+def codiWorldcup(request):
+    return render(request, 'codi/codiWorldcup.html')

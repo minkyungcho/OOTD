@@ -6,12 +6,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
+    <link rel="icon" href="data:;base64,iVBORw0KGgo=">
 </head>
 
 <body>
     <a href="{% url 'detail' product_id %}">상세페이지</a>
     {% for product in products %}
     <p> {{product.id}} {{product.category}} {{product.category_type}} {{product.color}}</p>
+    {% endfor %}
+    <br>
+    {% for image in images %}
+    <img src="{{image}}">
+    <p><a href="{% url 'data' product_id %}">데이터 넣기</a></p>
+    <br>
+    <br>
     {% endfor %}
 </body>
 

@@ -7,6 +7,7 @@ from bs4 import BeautifulSoup
 import os
 from PIL import Image
 import requests
+from .models import Cloth, Closet, Category, Month, Temp
 
 # Create your views here.
 def index(request):
@@ -117,13 +118,43 @@ def product(request, product_id):
             "color": '-'
         }
         products.append(temp)
-    
+
+    ########################
+    # 이미지
+    image_urls = data["data"]["images"]
+    # print(image_urls)
+    images = []
+    for image_url in image_urls:
+        temp = image_url["image_url"]
+        images.append(temp)
+    # print(images)
+    filenames = []
+    for image in images:
+        img = requests.get(image).content
+        filename = os.path.basename(image)
+        filenames.append(filename)
+        with open(filename, 'wb') as f:
+            f.write(img)
+    # print(filenames)
+
     context = {
         'products': products,
-        'product_id': product_id
+        'product_id': product_id,
+        'images': images,
+        'filenames': filenames
     }
     
     return render(request, 'product.html', context)
+
+
+def data(request, product_id):
+
+    cloth = Cloth()
+    cloth.product_id = product_id
+    cloth.category = ''
+
+
+    return redirect('')
 
 def detail(request, product_id):
     url = f'https://cf-api-c.brandi.me/v1/web/products/{product_id}?res-type=section1'
@@ -154,3 +185,4 @@ def detail(request, product_id):
         'filenames': filenames
     }
     return render(request, 'detail.html', context)
+

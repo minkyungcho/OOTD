@@ -27,3 +27,21 @@
 - 제품 클릭 시 color 출력
 - 제품 클릭 시 상품 이미지 띄우기
 
+
+
+------------------------------------
+
+
+
+### OOTDweb
+
+* .gitignore(ignore.io)
+  * python
+  * django
+  * venv
+  * .vscode/
+
+* pip freeze(install) list
+  * `pip install django`
+  * `pip install django_extensions`
+  * 

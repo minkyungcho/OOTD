@@ -1,14 +1,10 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
-    <link rel="icon" href="data:;base64,iVBORw0KGgo=">
-</head>
-<body>
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container">
     <h1><a href="{% url 'data' %}">데이터 넣기</a></h1>
+    <br>
+
     <h1><a href="{% url 'link' 3 %}">아우터 전체</a></h1>
     <h3><a href="{% url 'link' 21 %}">코트</a></h3>
     <h3><a href="{% url 'link' 22 %}">점퍼</a></h3>
@@ -27,5 +23,9 @@
     <h3><a href="{% url 'link' 48 %}">미니스커트</a></h3>
     <h3><a href="{% url 'link' 49 %}">롱스커트</a></h3>
     <h1><a href="{% url 'link' 33 %}">원피스 전체</a></h1>
-</body>
-</html>
+</div>
+{% endblock %}
+
+
+{% block script %}
+{% endblock %}

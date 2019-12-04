@@ -1,13 +1,15 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
-    <link rel="icon" href="data:;base64,iVBORw0KGgo=">
-</head>
-<body>
-    data
-</body>
-</html>
+{% extends 'base.html' %}
+
+{% block content %}
+{% for cloth in cloth_all %}
+<h4>{{cloth.label}}<h4>
+<img src="{{cloth.img_url}}">
+<br>
+<br>
+{% endfor %}
+
+{% endblock %}
+
+
+{% block script %}
+{% endblock %}

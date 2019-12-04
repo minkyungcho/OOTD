@@ -38,24 +38,15 @@ def link(request, category_id):
     }
     response = requests.get(url, headers=headers)
     print(response)
-    
     data = response.json()
-
     dics = data['data']
-    for dic in dics:
-        idd = dic['id']
-        # print(idd)
-        name = dic['name']
-        # print(name)
     context = {
         'dics': dics
-        # 'product_id': dic
     }
     return render(request, 'link.html', context)
 
 def product(request, product_id):
     url = f'https://cf-api-c.brandi.me/v1/web/products/{product_id}?res-type=section1'
-    # url = 'https://cf-api-c.brandi.me/v1/web/products/11339428?res-type=section1'
     headers = {
         'authorization': '3b17176f2eb5fdffb9bafdcc3e4bc192b013813caddccd0aad20c23ed272f076_1423639497'
     }
@@ -63,42 +54,22 @@ def product(request, product_id):
     print(response)
     
     data = response.json()
-    # products = data[]
-    # print(data["data"]["category_hierarchies"])
     category_hierarchies = data["data"]["category_hierarchies"]
     options = data["data"]["options"]
-    colors = []
-    # if len(options) > 1:
-    #     for option in options:
-    #         if len(option["attributes"]) > 1:
-    #             a = option["attributes"][0]["value"]
-    #             print(a)
-    #             if a in colors:
-    #                 continue
-    #             colors.append(a)        
+    colors = []      
     for option in options:
         a = option["attributes"][0]["title"]
         b = option["attributes"][0]["value"]
         if a == "색상" or a == "색상1" or a == "color" or a == "COLOR" or a == "Color" or a == "컬러" or a == "컬러1":
-            # print(a+" "+b)
             if b in colors:
                 continue
             colors.append(b)
-
-        
-    # print(colors)
-        # attributes = data["data"]["options"][0]["attributes"]
-    # attributes = data["data"]["options"][0]["attributes"]
-    # for attr in attributes:
-        # print(attr)
     category = category_hierarchies[0]['name']
     length = len(category_hierarchies)
     if length == 2:
         category_type = category_hierarchies[1]['name']
     else:
         category_type = category
-    # print(category+" "+category_type+" "+str(length))
-    # print(len(colors))
 
     products = []
     if len(colors)>=1:
@@ -120,41 +91,86 @@ def product(request, product_id):
         products.append(temp)
 
     ########################
-    # 이미지
+    # 이미지 url만 저장 근데 이걸로 이미지 불러올수 있음
     image_urls = data["data"]["images"]
     # print(image_urls)
     images = []
+    images_thumbnail = []
+    imglists = []
     for image_url in image_urls:
-        temp = image_url["image_url"]
-        images.append(temp)
-    # print(images)
+        img = image_url["image_url"]
+        img_th = image_url["image_thumbnail_url"]
+        images.append(img)
+        images_thumbnail.append(img_th)
+        imglist = [img, img_th]
+        imglists.append(imglist)
+        
     filenames = []
-    for image in images:
-        img = requests.get(image).content
-        filename = os.path.basename(image)
-        filenames.append(filename)
-        with open(filename, 'wb') as f:
-            f.write(img)
+    # 이미지 저장
+    # for image in images:
+    #     img = requests.get(image).content
+    #     filename = os.path.basename(image)
+    #     filenames.append(filename)
+    #     with open(filename, 'wb') as f:
+    #         f.write(img)
     # print(filenames)
 
     context = {
         'products': products,
         'product_id': product_id,
         'images': images,
+        'images_thumbnail': images_thumbnail,
+        'imglists': imglists,
         'filenames': filenames
     }
-    
     return render(request, 'product.html', context)
 
 
-def data(request, product_id):
-
-    cloth = Cloth()
-    cloth.product_id = product_id
-    cloth.category = ''
-
-
-    return redirect('')
+def data(request):
+    product_id = request.POST["ProductId"]
+    category = request.POST["ProductCategory"]
+    cate_type = request.POST["ProductCategoryType"]
+    color = request.POST["ProductColor"]
+    pattern = request.POST["ProductPattern"]
+    months = request.POST.getlist('ProductMonth')
+    temp = request.POST["ProductTemp"]
+    label = request.POST["ProductLabel"]
+    img_url = request.POST["img_url"]
+    img_th_url = request.POST["img_th_url"]
+    clothes = []
+    for mon in months:
+        cloth = Cloth(product_id=product_id, category=Category(id=2), cloth_type=cate_type, color=color, pattern=pattern, month=Month(id=mon), temp=Temp(id=temp), label=label, img_url=img_url)
+        cloth.save()
+        # temp = {
+        #     "product_id": product_id,
+        #     "category": category,
+        #     "category_type": cate_type,
+        #     "color": color,
+        #     "pattern": pattern,
+        #     "month": mon,
+        #     "temp": temp,
+        #     "label": label,
+        #     "img_url": img_url
+        #     }
+        # clothes.append(temp)
+        
+    # print("###############")
+    # print(product_id)
+    # print(category)
+    # print(cate_type)
+    # print(color)
+    # print(pattern)
+    # print(month)
+    # print(temp)
+    # print(label)
+    # print(img_url)
+    cloth_all = Cloth.objects.all()
+    # print(cloth_all)
+    context = {
+        'clothes': clothes,
+        'cloth_all': cloth_all
+    }
+    return render(request, 'data.html', context)
 
 def detail(request, product_id):
     url = f'https://cf-api-c.brandi.me/v1/web/products/{product_id}?res-type=section1'
@@ -165,12 +181,10 @@ def detail(request, product_id):
     print(response)
     data = response.json()
     image_urls = data["data"]["images"]
-    # print(image_urls)
     images = []
     for image_url in image_urls:
         temp = image_url["image_url"]
         images.append(temp)
-    # print(images)
     filenames = []
     for image in images:
         img = requests.get(image).content
@@ -178,7 +192,6 @@ def detail(request, product_id):
         filenames.append(filename)
         with open(filename, 'wb') as f:
             f.write(img)
-    # print(filenames)
     
     context = {
         'images': images,

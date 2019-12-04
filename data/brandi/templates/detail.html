@@ -1,20 +1,21 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
-    <link rel="icon" href="data:;base64,iVBORw0KGgo=">
-</head>
-<body>
-    <p>detail page</p>
+{% extends 'base.html' %}
+
+{% block content %}
+<p>img download page</p>
+
+<div class="container">
+<form class="data-form">
+    
     {% for image in images %}
     <img src="{{image}}">
     <p><a href="{% url 'data' %}">데이터 넣기</a></p>
     <br>
     <br>
     {% endfor %}
-    
-</body>
-</html>
+    </form>
+</div>
+{% endblock %}
+
+
+{% block script %}
+{% endblock %}

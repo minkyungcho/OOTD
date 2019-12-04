@@ -24,7 +24,9 @@ class Cloth(models.Model):
     pattern = models.CharField(max_length=16)
     month = models.ForeignKey(Month, on_delete=models.CASCADE)
     temp = models.ForeignKey(Temp, on_delete=models.CASCADE)
-    label = models.ImageField(blank=True)
+    # label = models.ImageField(blank=True)
+    label = models.CharField(max_length=16)
+    img_url = models.CharField(max_length=300)
 
 class Closet(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)

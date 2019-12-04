@@ -13,122 +13,67 @@
             <label class="form-check-label" for="exampleRadios1">
                 {{product.id}} {{product.category}} {{product.category_type}} {{product.color}}
             </label>
-            {% comment %} p_id {% endcomment %}
+            {% comment %} product data {% endcomment %}
             <div class="input-group mb-3">
-
+                {% comment %} p_id {% endcomment %}
                 <span class="input-group-text" id="basic-addon1">id</span>
-
                 <input type="text" class="form-control" aria-label="Username" aria-describedby="basic-addon1"
                     value="{{product.id}}" name="ProductId">
-
                 {% comment %} category {% endcomment %}
-
-
                 <span class="input-group-text" id="basic-addon1">category</span>
-
                 <input type="text" class="form-control" aria-label="Username" aria-describedby="basic-addon1"
                     value="{{product.category}}" name="ProductCategory">
-
                 {% comment %} type {% endcomment %}
-
-
                 <span class="input-group-text" id="basic-addon1">type</span>
-
                 <input type="text" class="form-control" aria-label="Username" aria-describedby="basic-addon1"
                     value="{{product.category_type}}" name="ProductCategoryType">
-
                 {% comment %} color {% endcomment %}
-
-
                 <span class="input-group-text" id="basic-addon1">color</span>
-
                 <input type="text" class="form-control" aria-label="Username" aria-describedby="basic-addon1"
                     value="{{product.color}}" name="ProductColor">
-
                 {% comment %} pattern {% endcomment %}
-
-
                 <span class="input-group-text" id="basic-addon1">pattern</span>
-
                 <input type="text" class="form-control" aria-label="Username" aria-describedby="basic-addon1"
                     name="ProductPattern">
                 {% comment %} temp {% endcomment %}
-
-
                 <span class="input-group-text" id="basic-addon1">temp</span>
-
                 <input type="text" class="form-control" aria-label="Username" aria-describedby="basic-addon1"
                     name="ProductTemp">
-
                 {% comment %} label {% endcomment %}
-
-
                 <span class="input-group-text" id="basic-addon1">label</span>
-
                 <input type="text" class="form-control" aria-label="Username" aria-describedby="basic-addon1"
                     name="ProductLabel">
                 {% comment %} month {% endcomment %}
-
                 <div class="input-group-prepend">
                     <span class="input-group-text" id="basic-addon1">month</span>
-
-
                     <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="1" name="ProductMonth">
                     <label class="form-check-label" for="inlineCheckbox1">1</label>
-
-
                     <input class="form-check-input" type="checkbox" id="inlineCheckbox2" value="2" name="ProductMonth">
                     <label class="form-check-label" for="inlineCheckbox2">2</label>
-
-
                     <input class="form-check-input" type="checkbox" id="inlineCheckbox3" value="3" name="ProductMonth">
                     <label class="form-check-label" for="inlineCheckbox3">3</label>
-
-
                     <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="4" name="ProductMonth">
                     <label class="form-check-label" for="inlineCheckbox1">4</label>
-
-
                     <input class="form-check-input" type="checkbox" id="inlineCheckbox2" value="5" name="ProductMonth">
                     <label class="form-check-label" for="inlineCheckbox2">5</label>
-
-
                     <input class="form-check-input" type="checkbox" id="inlineCheckbox3" value="6" name="ProductMonth">
                     <label class="form-check-label" for="inlineCheckbox3">6</label>
-
-
                     <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="7" name="ProductMonth">
                     <label class="form-check-label" for="inlineCheckbox1">7</label>
-
-
                     <input class="form-check-input" type="checkbox" id="inlineCheckbox2" value="8" name="ProductMonth">
                     <label class="form-check-label" for="inlineCheckbox2">8</label>
-
-
                     <input class="form-check-input" type="checkbox" id="inlineCheckbox3" value="9" name="ProductMonth">
                     <label class="form-check-label" for="inlineCheckbox3">9</label>
-
-
                     <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="10" name="ProductMonth">
                     <label class="form-check-label" for="inlineCheckbox1">10</label>
-
-
                     <input class="form-check-input" type="checkbox" id="inlineCheckbox2" value="11" name="ProductMonth">
                     <label class="form-check-label" for="inlineCheckbox2">11</label>
-
-
                     <input class="form-check-input" type="checkbox" id="inlineCheckbox3" value="12" name="ProductMonth">
                     <label class="form-check-label" for="inlineCheckbox3">12</label>
-
                 </div>
-
-
-
-
                 {% comment %} img {% endcomment %}
                 <h3>이미지 선택</h3>
                 {% for imglist in imglists %}
-
                 <div class="form-check">
                     <div class="input-group-prepend">
                         <input class="form-check-input" type="radio" name="img_url" id="exampleRadios1"
@@ -142,6 +87,8 @@
                 </div>
                 {% endfor %}
                 <button type="submit" class="btn btn-primary">데이터 넣기</button>
+            </div>
+        </div>
     </form>
     <br>
     <br>

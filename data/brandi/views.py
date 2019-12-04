@@ -65,6 +65,7 @@ def product(request, product_id):
                 continue
             colors.append(b)
     category = category_hierarchies[0]['name']
+    print(category)
     length = len(category_hierarchies)
     if length == 2:
         category_type = category_hierarchies[1]['name']
@@ -129,6 +130,7 @@ def product(request, product_id):
 def data(request):
     product_id = request.POST["ProductId"]
     category = request.POST["ProductCategory"]
+    print(category)
     cate_type = request.POST["ProductCategoryType"]
     color = request.POST["ProductColor"]
     pattern = request.POST["ProductPattern"]
@@ -138,21 +140,33 @@ def data(request):
     img_url = request.POST["img_url"]
     img_th_url = request.POST["img_th_url"]
     clothes = []
+    cate_id = ''
+    if category == "아우터":
+        cate_id = 2
+    elif category == "상의":
+        cate_id = 1
+    elif category == "스커트":
+        cate_id = 3
+    elif category == "바지":
+        cate_id = 4
+    elif category == "원피스":
+        cate_id = 5
     for mon in months:
-        cloth = Cloth(product_id=product_id, category=Category(id=2), cloth_type=cate_type, color=color, pattern=pattern, month=Month(id=mon), temp=Temp(id=temp), label=label, img_url=img_url)
+        cloth = Cloth(product_id=product_id, category=Category(id=cate_id), cloth_type=cate_type, color=color, pattern=pattern, month=Month(id=mon), temp=Temp(id=temp), label=label, img_url=img_url)
         cloth.save()
-        # temp = {
-        #     "product_id": product_id,
-        #     "category": category,
-        #     "category_type": cate_type,
-        #     "color": color,
-        #     "pattern": pattern,
-        #     "month": mon,
-        #     "temp": temp,
-        #     "label": label,
-        #     "img_url": img_url
-        #     }
-        # clothes.append(temp)
+
+    # temp = {
+    #     "product_id": product_id,
+    #     "category": category,
+    #     "category_type": cate_type,
+    #     "color": color,
+    #     "pattern": pattern,
+    #     "month": mon,
+    #     "temp": temp,
+    #     "label": label,
+    #     "img_url": img_url
+    #     }
+    # clothes.append(temp)
         
     # print("###############")
     # print(product_id)
@@ -186,12 +200,12 @@ def detail(request, product_id):
         temp = image_url["image_url"]
         images.append(temp)
     filenames = []
-    for image in images:
-        img = requests.get(image).content
-        filename = os.path.basename(image)
-        filenames.append(filename)
-        with open(filename, 'wb') as f:
-            f.write(img)
+    # for image in images:
+    #     img = requests.get(image).content
+    #     filename = os.path.basename(image)
+    #     filenames.append(filename)
+    #     with open(filename, 'wb') as f:
+    #         f.write(img)
     
     context = {
         'images': images,

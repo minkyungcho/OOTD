@@ -3,8 +3,8 @@
 {% block content %}
     {% for dic in dics %}
     
-    <a href="{% url 'product' dic.id %}">{{dic.id}}</a><span> {{dic.name}}</span>
-    <p></p>
+    <p><a href="{% url 'product' dic.id %}">{{dic.id}}</a><span> {{dic.name}}</span></p>
+    <img src="{{dic.image_thumbnail_url}}">
     <br>
     {% endfor %}
 {% endblock %}

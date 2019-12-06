@@ -39,6 +39,8 @@ m11.save()
 m12 = Month(month="12")
 m12.save()
 
+t1 = Temp(temp="0")
+t1.save()
 t1 = Temp(temp="1")
 t2 = Temp(temp="2")
 t3 = Temp(temp="3")
@@ -73,4 +75,20 @@ cloth.closets
 # delete cloth
 Cloth.objects.filter(product_id=8503628).delete()
 
+# update cloth
+# 한개만 수정
+c = Cloth.objects.get(id=..)
+c.label = ...
+c.save()
+# 여러개 동시에 수정
+c = Cloth.objects.filter(label="1C2CFF6").update(category_id=1)
+c = Cloth.objects.filter(label="1T00FF5", product_id=12331893).update(color="화이트")
 
+
+# read cloth
+Cloth.objects.filter(cloth_type="후드/맨투맨")
+
+# update temp
+t = Temp.objects.filter(temp=0).update(temp=9)
+
+git rm -rf --cached *.pyc

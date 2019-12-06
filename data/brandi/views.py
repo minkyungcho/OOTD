@@ -137,23 +137,34 @@ def data(request):
     label = request.POST["ProductLabel"]
     img_url = request.POST["img_url"]
     img_th_url = request.POST["img_th_url"]
-    clothes = []
+    cate_id = ''
+    if category == "아우터":
+        cate_id = 2
+    elif category == "상의":
+        cate_id = 1
+    elif category == "스커트":
+        cate_id = 3
+    elif category == "바지":
+        cate_id = 4
+    elif category == "원피스":
+        cate_id = 5
     for mon in months:
-        cloth = Cloth(product_id=product_id, category=Category(id=2), cloth_type=cate_type, color=color, pattern=pattern, month=Month(id=mon), temp=Temp(id=temp), label=label, img_url=img_url)
+        cloth = Cloth(product_id=product_id, category=Category(id=cate_id), cloth_type=cate_type, color=color, pattern=pattern, month=Month(id=mon), temp=Temp(id=temp), label=label, img_url=img_url)
         cloth.save()
-        # temp = {
-        #     "product_id": product_id,
-        #     "category": category,
-        #     "category_type": cate_type,
-        #     "color": color,
-        #     "pattern": pattern,
-        #     "month": mon,
-        #     "temp": temp,
-        #     "label": label,
-        #     "img_url": img_url
-        #     }
-        # clothes.append(temp)
-        
+
+    # temp = {
+    #     "product_id": product_id,
+    #     "category": category,
+    #     "category_type": cate_type,
+    #     "color": color,
+    #     "pattern": pattern,
+    #     "month": mon,
+    #     "temp": temp,
+    #     "label": label,
+    #     "img_url": img_url
+    #     }
+    # clothes.append(temp)
+    
     # print("###############")
     # print(product_id)
     # print(category)
@@ -167,7 +178,7 @@ def data(request):
     cloth_all = Cloth.objects.all()
     # print(cloth_all)
     context = {
-        'clothes': clothes,
+        # 'clothes': clothes,
         'cloth_all': cloth_all
     }
     return render(request, 'data.html', context)
@@ -185,17 +196,17 @@ def detail(request, product_id):
     for image_url in image_urls:
         temp = image_url["image_url"]
         images.append(temp)
-    filenames = []
-    for image in images:
-        img = requests.get(image).content
-        filename = os.path.basename(image)
-        filenames.append(filename)
-        with open(filename, 'wb') as f:
-            f.write(img)
+    # filenames = []
+    # for image in images:
+    #     img = requests.get(image).content
+    #     filename = os.path.basename(image)
+    #     filenames.append(filename)
+    #     with open(filename, 'wb') as f:
+    #         f.write(img)
     
     context = {
         'images': images,
-        'filenames': filenames
+        # 'filenames': filenames
     }
     return render(request, 'detail.html', context)
 

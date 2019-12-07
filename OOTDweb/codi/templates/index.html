@@ -4,29 +4,36 @@
 
 {% block content %}
 
-
 <!-- 메인(HOME)에서 서비스 선택하는 곳 -->
 <section class="ftco-section">
 	<div class="container">
-	<div class="row">
-		<!-- 오늘의 날씨 : 날씨 데이터 바로 보여주기 -->
-		<div class="col-md-4">
-			<div class="listing-wrap img rounded d-flex align-items-end" style='background-image: url("{% static "images/home_temperature.png" %}");'>
+		<div class="row" style="margin-top: 150px;">
+			<!-- 오늘의 날씨 : 날씨 데이터 바로 보여주기 -->
+			<div class="col-md-4">
+				<div class="listing-wrap img rounded d-flex align-items-end"
+					style='background-image: url("{% static "images/home_temperature_bg.png" %}");'>
+				<ul style="margin-top: 10px; margin-bottom: auto;">
+				<li><img src="{% static "images/thermometer.png" %}" style="width: 50px; height: auto;"><h5>현재 온도 : </h5></li>
+				<li><img src="{% static "images/thermometer_hot.png" %}" style="width: 50px; height: auto;"><h5 style= "color : black;">최고 온도 : </h5></li>
+				<li><img src="{% static "images/thermometer_cold.png" %}" style="width: 50px; height: auto;"><h5 style= "color : black;">최저 온도 : </h5></li>
+				</ul>	
+				</div>
 			</div>
-		</div>
-		
-		<!-- 코디월드컵 : 누르면 코디월드컵 실행 -->
-		<div class="col-md-4">
-			<div class="listing-wrap img rounded d-flex align-items-end" style='background-image: url("{% static "images/home_codiworldcup.png" %}");'>
-			</div>
-		</div>
 
-		<!-- 코디북 : 누르면 코디북 작성 페이지 or 로그인 페이지 -->
-		<div class="col-md-4">
-			<div class="listing-wrap img rounded d-flex align-items-end" style='background-image: url("{% static "images/home_codibook.png" %}");'>
+			<!-- 코디월드컵 : 누르면 코디월드컵 실행 -->
+			<div class="col-md-4">
+				<div class="listing-wrap img rounded d-flex align-items-end"
+					style='background-image: url("{% static "images/home_codiworldcup.png" %}");'>
+				</div>
+			</div>
+
+			<!-- 코디북 : 누르면 코디북 작성 페이지 or 로그인 페이지 -->
+			<div class="col-md-4">
+				<div class="listing-wrap img rounded d-flex align-items-end"
+					style='background-image: url("{% static "images/home_codibook.png" %}");'>
+				</div>
 			</div>
 		</div>
-	</div>
 	</div>
 </section>
 
@@ -34,189 +41,206 @@
 
 <section class="ftco-section ftco-no-pt">
 	<div class="container">
-	<div class="row justify-content-center mb-5">
-		<div class="col-md-7 heading-section text-center ftco-animate">
-		<span class="subheading">Codi&nbsp;Book</span>
-		<h2>Like Codi</h2>
+		<div class="row justify-content-center mb-5">
+			<div class="col-md-7 heading-section text-center ftco-animate">
+				<span class="subheading">Codi&nbsp;Book</span>
+				<h2>Like Codi</h2>
+			</div>
+		</div>
+		<div class="row d-flex">
+			<div class="col-md-3 d-flex ftco-animate">
+				<div class="blog-entry justify-content-end">
+					<div class="text">
+						<a href="blog-single.html" class="block-20 img"
+							style='background-image: url("{% static "images/image_1.jpg" %}");'>
+						</a>
+						<h3 class="heading"><a href="#">코디북 게시글 제목</a></h3>
+						<div class="meta mb-3">
+							<div><a href="#">코드북 작성일</a></div>
+							<div><a href="#">작성자</a></div>
+							<div><a href="#" class="meta-chat"><i class="fas fa-heart" style="color:#DDB8CF;"></i> 3</a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-3 d-flex ftco-animate">
+				<div class="blog-entry justify-content-end">
+					<div class="text">
+						<a href="blog-single.html" class="block-20 img"
+							style='background-image: url("{% static "images/image_2.jpg" %}");'>
+						</a>
+						<h3 class="heading"><a href="#">코디북 게시글 제목</a></h3>
+						<div class="meta mb-3">
+							<div><a href="#">October 17, 2019</a></div>
+							<div><a href="#">작성자</a></div>
+							<div><a href="#" class="meta-chat"><i class="fas fa-heart" style="color:#DDB8CF;"></i> 3</a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-3 d-flex ftco-animate">
+				<div class="blog-entry justify-content-end">
+					<div class="text">
+						<a href="blog-single.html" class="block-20 img"
+							style='background-image: url("{% static "images/image_3.jpg" %}");'>
+						</a>
+						<h3 class="heading"><a href="#">코디북 게시글 제목</a></h3>
+						<div class="meta mb-3">
+							<div><a href="#">October 17, 2019</a></div>
+							<div><a href="#">작성자</a></div>
+							<div><a href="#" class="meta-chat"><i class="fas fa-heart" style="color:#DDB8CF;"></i> 3</a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-3 d-flex ftco-animate">
+				<div class="blog-entry justify-content-end">
+					<div class="text">
+						<a href="blog-single.html" class="block-20 img"
+							style='background-image: url("{% static "images/image_4.jpg" %}");'>
+						</a>
+						<h3 class="heading"><a href="#">코디북 게시글 제목</a></h3>
+						<div class="meta mb-3">
+							<div><a href="#">October 17, 2019</a></div>
+							<div><a href="#">작성자</a></div>
+							<div><a href="#" class="meta-chat"><i class="fas fa-heart" style="color:#DDB8CF;"></i> 3</a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
 		</div>
 	</div>
-	<div class="row d-flex">
-		<div class="col-md-3 d-flex ftco-animate">
-		<div class="blog-entry justify-content-end">
-			<div class="text">
-			<a href="blog-single.html" class="block-20 img" style='background-image: url("{% static "images/image_1.jpg" %}");'>
-				</a>
-			<h3 class="heading"><a href="#">코디북 게시글 제목</a></h3>
-			<div class="meta mb-3">
-				<div><a href="#">코드북 작성일</a></div>
-				<div><a href="#">작성자</a></div>
-				<div><a href="#" class="meta-chat"><i class="fas fa-heart" style="color:#DDB8CF;"></i> 3</a></div>
-			</div>
-			</div>
-		</div>
-		</div>
-		<div class="col-md-3 d-flex ftco-animate">
-		<div class="blog-entry justify-content-end">
-			<div class="text">
-			<a href="blog-single.html" class="block-20 img" style='background-image: url("{% static "images/image_2.jpg" %}");'>
-				</a>
-			<h3 class="heading"><a href="#">코디북 게시글 제목</a></h3>
-			<div class="meta mb-3">
-				<div><a href="#">October 17, 2019</a></div>
-				<div><a href="#">작성자</a></div>
-				<div><a href="#" class="meta-chat"><i class="fas fa-heart" style="color:#DDB8CF;"></i> 3</a></div>
-			</div>
-			</div>
-		</div>
-		</div>
-		<div class="col-md-3 d-flex ftco-animate">
-		<div class="blog-entry justify-content-end">
-			<div class="text">
-			<a href="blog-single.html" class="block-20 img" style='background-image: url("{% static "images/image_3.jpg" %}");'>
-				</a>
-			<h3 class="heading"><a href="#">코디북 게시글 제목</a></h3>
-			<div class="meta mb-3">
-				<div><a href="#">October 17, 2019</a></div>
-				<div><a href="#">작성자</a></div>
-				<div><a href="#" class="meta-chat"><i class="fas fa-heart" style="color:#DDB8CF;"></i> 3</a></div>
-			</div>
-			</div>
-		</div>
-		</div>
-		<div class="col-md-3 d-flex ftco-animate">
-		<div class="blog-entry justify-content-end">
-			<div class="text">
-			<a href="blog-single.html" class="block-20 img" style='background-image: url("{% static "images/image_4.jpg" %}");'>
-				</a>
-			<h3 class="heading"><a href="#">코디북 게시글 제목</a></h3>
-			<div class="meta mb-3">
-				<div><a href="#">October 17, 2019</a></div>
-				<div><a href="#">작성자</a></div>
-				<div><a href="#" class="meta-chat"><i class="fas fa-heart" style="color:#DDB8CF;"></i> 3</a></div>
-			</div>
-			</div>
-		</div>
-		</div>
-	</div>
-	</div>
-</section>	
+</section>
 
 
 <section class="ftco-section ftco-no-pt">
 	<div class="container">
-	<div class="row justify-content-center mb-5">
-		<div class="col-md-7 heading-section text-center ftco-animate">
-		<span class="subheading">Codi&nbsp;Book</span>
-		<h2>Recent Codi</h2>
+		<div class="row justify-content-center mb-5">
+			<div class="col-md-7 heading-section text-center ftco-animate">
+				<span class="subheading">Codi&nbsp;Book</span>
+				<h2>Recent Codi</h2>
+			</div>
+		</div>
+		<div class="row d-flex">
+			<div class="col-md-3 d-flex ftco-animate">
+				<div class="blog-entry justify-content-end">
+					<div class="text">
+						<a href="blog-single.html" class="block-20 img"
+							style='background-image: url("{% static "images/image_1.jpg" %}");'>
+						</a>
+						<h3 class="heading"><a href="#">코디북 게시글 제목</a></h3>
+						<div class="meta mb-3">
+							<div><a href="#">코디북 작성일</a></div>
+							<div><a href="#">작성자</a></div>
+							<div><a href="#" class="meta-chat"><i class="fas fa-heart" style="color:#DDB8CF;"></i> 3</a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-3 d-flex ftco-animate">
+				<div class="blog-entry justify-content-end">
+					<div class="text">
+						<a href="blog-single.html" class="block-20 img"
+							style='background-image: url("{% static "images/image_2.jpg" %}");'>
+						</a>
+						<h3 class="heading"><a href="#">코디북 게시글 제목</a></h3>
+						<div class="meta mb-3">
+							<div><a href="#">October 17, 2019</a></div>
+							<div><a href="#">작성자</a></div>
+							<div><a href="#" class="meta-chat"><i class="fas fa-heart" style="color:#DDB8CF;"></i> 3</a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-3 d-flex ftco-animate">
+				<div class="blog-entry justify-content-end">
+					<div class="text">
+						<a href="blog-single.html" class="block-20 img"
+							style='background-image: url("{% static "images/image_3.jpg" %}");'>
+						</a>
+						<h3 class="heading"><a href="#">코디북 게시글 제목</a></h3>
+						<div class="meta mb-3">
+							<div><a href="#">October 17, 2019</a></div>
+							<div><a href="#">작성자</a></div>
+							<div><a href="#" class="meta-chat"><i class="fas fa-heart" style="color:#DDB8CF;"></i> 3</a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-3 d-flex ftco-animate">
+				<div class="blog-entry justify-content-end">
+					<div class="text">
+						<a href="blog-single.html" class="block-20 img"
+							style='background-image: url("{% static "images/image_4.jpg" %}");'>
+						</a>
+						<h3 class="heading"><a href="#">코디북 게시글 제목</a></h3>
+						<div class="meta mb-3">
+							<div><a href="#">October 17, 2019</a></div>
+							<div><a href="#">작성자</a></div>
+							<div><a href="#" class="meta-chat"><i class="fas fa-heart" style="color:#DDB8CF;"></i> 3</a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
 		</div>
 	</div>
-	<div class="row d-flex">
-		<div class="col-md-3 d-flex ftco-animate">
-		<div class="blog-entry justify-content-end">
-			<div class="text">
-			<a href="blog-single.html" class="block-20 img" style='background-image: url("{% static "images/image_1.jpg" %}");'>
-				</a>
-			<h3 class="heading"><a href="#">코디북 게시글 제목</a></h3>
-			<div class="meta mb-3">
-				<div><a href="#">코디북 작성일</a></div>
-				<div><a href="#">작성자</a></div>
-				<div><a href="#" class="meta-chat"><i class="fas fa-heart" style="color:#DDB8CF;"></i> 3</a></div>
-			</div>
-			</div>
-		</div>
-		</div>
-		<div class="col-md-3 d-flex ftco-animate">
-		<div class="blog-entry justify-content-end">
-			<div class="text">
-			<a href="blog-single.html" class="block-20 img" style='background-image: url("{% static "images/image_2.jpg" %}");'>
-				</a>
-			<h3 class="heading"><a href="#">코디북 게시글 제목</a></h3>
-			<div class="meta mb-3">
-				<div><a href="#">October 17, 2019</a></div>
-				<div><a href="#">작성자</a></div>
-				<div><a href="#" class="meta-chat"><i class="fas fa-heart" style="color:#DDB8CF;"></i> 3</a></div>
-			</div>
-			</div>
-		</div>
-		</div>
-		<div class="col-md-3 d-flex ftco-animate">
-		<div class="blog-entry justify-content-end">
-			<div class="text">
-			<a href="blog-single.html" class="block-20 img" style='background-image: url("{% static "images/image_3.jpg" %}");'>
-				</a>
-			<h3 class="heading"><a href="#">코디북 게시글 제목</a></h3>
-			<div class="meta mb-3">
-				<div><a href="#">October 17, 2019</a></div>
-				<div><a href="#">작성자</a></div>
-				<div><a href="#" class="meta-chat"><i class="fas fa-heart" style="color:#DDB8CF;"></i> 3</a></div>
-			</div>
-			</div>
-		</div>
-		</div>
-		<div class="col-md-3 d-flex ftco-animate">
-		<div class="blog-entry justify-content-end">
-			<div class="text">
-			<a href="blog-single.html" class="block-20 img" style='background-image: url("{% static "images/image_4.jpg" %}");'>
-				</a>
-			<h3 class="heading"><a href="#">코디북 게시글 제목</a></h3>
-			<div class="meta mb-3">
-				<div><a href="#">October 17, 2019</a></div>
-				<div><a href="#">작성자</a></div>
-				<div><a href="#" class="meta-chat"><i class="fas fa-heart" style="color:#DDB8CF;"></i> 3</a></div>
-			</div> 
-			</div>
-		</div>
-		</div>
-	</div>
-	</div>
-</section>	
+</section>
 
 <section class="ftco-section ftco-agent">
 	<div class="container">
 		<div class="row justify-content-center pb-5">
-		<div class="col-md-12 heading-section text-center ftco-animate">
-		<span class="subheading">Our Team</span>
-		<h2 class="mb-4">옷입혀조</h2>
+			<div class="col-md-12 heading-section text-center ftco-animate">
+				<span class="subheading">Our Team</span>
+				<h2 class="mb-4">옷입혀조</h2>
+			</div>
 		</div>
-	</div>
-	
-	<div class="row" style="text-align:center;">
-	<div> <!-- 이미지를 중앙정렬하기 위한 div 추가 -->
-		<div class="col-md-3 ftco-animate" style="display:inline-block;">
-			<div class="agent">
-					<div class="img">
-						<img src='{% static "images/team.png" %}' class="img-fluid" alt="Colorlib Template">
-					</div>
-					<div class="desc">
-						<h3><a href="properties.html">김지연</a></h3>
+
+		<div class="row" style="text-align:center;">
+			<div>
+				<!-- 이미지를 중앙정렬하기 위한 div 추가 -->
+				<div class="col-md-3 ftco-animate" style="display:inline-block;">
+					<div class="agent">
+						<div class="img">
+							<img src='{% static "images/team.png" %}' class="img-fluid" alt="Colorlib Template">
+						</div>
+						<div class="desc">
+							<h3><a href="properties.html">김지연</a></h3>
 							<p class="h-info"><span class="details">안뇽</span></p>
+						</div>
 					</div>
 				</div>
-		</div>
-		<div class="col-md-3 ftco-animate" style="display:inline-block;">
-			<div class="agent">
-					<div class="img">
-						<img src='{% static "images/team.png" %}' class="img-fluid" alt="Colorlib Template">
-					</div>
-					<div class="desc">
-						<h3><a href="properties.html">안소현</a></h3>
+				<div class="col-md-3 ftco-animate" style="display:inline-block;">
+					<div class="agent">
+						<div class="img">
+							<img src='{% static "images/team.png" %}' class="img-fluid" alt="Colorlib Template">
+						</div>
+						<div class="desc">
+							<h3><a href="properties.html">안소현</a></h3>
 							<p class="h-info"><span class="details">하이</span></p>
+						</div>
 					</div>
 				</div>
-		</div>
-		<div class="col-md-3 ftco-animate" style="display:inline-block;">
-			<div class="agent">
-					<div class="img">
-						<img src='{% static "images/team.png" %}'class="img-fluid" alt="Colorlib Template">
-					</div>
-					<div class="desc">
-						<h3><a href="properties.html">조민경</a></h3>
+				<div class="col-md-3 ftco-animate" style="display:inline-block;">
+					<div class="agent">
+						<div class="img">
+							<img src='{% static "images/team.png" %}' class="img-fluid" alt="Colorlib Template">
+						</div>
+						<div class="desc">
+							<h3><a href="properties.html">조민경</a></h3>
 							<p class="h-info"><span class="details">헬로</span></p>
+						</div>
 					</div>
 				</div>
+			</div>
 		</div>
-	</div>
-	</div>
 	</div>
 	</div>
 </section>
@@ -224,4 +248,4 @@
 {% endblock content %}
 
 {% block script %}
-{% endblock script %}  
+{% endblock script %}

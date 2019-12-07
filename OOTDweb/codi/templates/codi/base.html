@@ -34,20 +34,26 @@
 <body>
 
 <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
-    <div class="container">
-        <a class="navbar-brand" href="{% url 'codi:home' %}">OOTD</a>
+    <div class="container" style='background-image: url("{% static "images/nav-back-2.png" %}"); display:inline-block;'>
+        <!-- 'OOTD' logo -->
+        <a class="navbar-brand" href="{% url 'codi:home' %}" style="display:table; margin-left:auto; margin-right:auto;"><img src = "{% static "images/icon.png" %}" style="width: 300px; height: auto;"></a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="oi oi-menu"></span> Menu
         </button>
-
-        <div class="collapse navbar-collapse" id="ftco-nav">
-        <ul class="navbar-nav ml-auto">
-            <li class="nav-item"><a href="{% url 'codi:codiWorldcup' %}" class="nav-link">코디 월드컵</a></li>
-            <li class="nav-item"><a href="services.html" class="nav-link">코디북</a></li>
-            <li class="nav-item"><a href="agent.html" class="nav-link">내옷장</a></li>
-            <li class="nav-item"><a href="properties.html" class="nav-link">로그인</a></li>
+        <!-- END 'OOTD' logo -->
+        <!-- navbar's menu-->
+        <div class="collapse navbar-collapse" id="ftco-nav" 
+        style='display:inline-block; border-bottom: 2px solid #A4AFC3; border-top: 2px solid #A4AFC3;'>
+        <ul class="navbar-nav ml-auto" style="margin-left: auto; margin-right: auto;">
+            <li class="nav-item"><a href="{% url 'codi:codiWorldcup' %}" class="nav-link"
+            style = "border-right: 2px dashed #A4AFC3; border-left: 2px dashed #A4AFC3;">코디 월드컵</a></li>
+            <li class="nav-item"><a href="services.html" class="nav-link" style = "border-right : 2px dashed #A4AFC3;">코디북</a></li>
+            <li class="nav-item"><a href="agent.html" class="nav-link" style = "border-right : 2px dashed #A4AFC3;">내옷장</a></li>
+            <li class="nav-item"><a href="properties.html" class="nav-link" style = "border-right : 2px dashed #A4AFC3;">로그인</a></li>
         </ul>
-        </div>
+        </div> 
+        <!-- END nav bar's menu -->
+        {% comment %} <img src = "{% static "images/nav.png" %}"> {% endcomment %}
     </div>
 </nav>
 <!-- END nav -->

@@ -8206,7 +8206,9 @@ h1, h2, h3, h4, h5,
 
 .navbar-brand {
   font-weight: 700;
-  font-size: 20px; }
+  font-size: 60px;
+  /* color: #DDB8CF; */
+ }
 
 .hero-wrap {
   width: 100%;

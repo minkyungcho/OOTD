@@ -12,11 +12,17 @@
 			<div class="col-md-4">
 				<div class="listing-wrap img rounded d-flex align-items-end"
 					style='background-image: url("{% static "images/home_temperature_bg.png" %}");'>
-				<ul style="margin-top: 10px; margin-bottom: auto;">
-				<li><img src="{% static "images/thermometer.png" %}" style="width: 50px; height: auto;"><h5>현재 온도 : </h5></li>
-				<li><img src="{% static "images/thermometer_hot.png" %}" style="width: 50px; height: auto;"><h5 style= "color : black;">최고 온도 : </h5></li>
-				<li><img src="{% static "images/thermometer_cold.png" %}" style="width: 50px; height: auto;"><h5 style= "color : black;">최저 온도 : </h5></li>
-				</ul>	
+					<ul style="margin-top: 10px; margin-bottom: auto;">
+						<li><img src="{% static "images/thermometer.png" %}" style="width: 50px; height: auto;">
+							<h5>현재 온도 : <span id="now_temp"></span></h5>
+						</li>
+						<li><img src="{% static "images/thermometer_hot.png" %}" style="width: 50px; height: auto;">
+							<h5 style="color : black;">최고 온도 : <span id="max_temp"></span></h5>
+						</li>
+						<li><img src="{% static "images/thermometer_cold.png" %}" style="width: 50px; height: auto;">
+							<h5 style="color : black;">최저 온도 : <span id="min_temp"></span></h5>
+						</li>
+					</ul>
 				</div>
 			</div>
 
@@ -248,4 +254,41 @@
 {% endblock content %}
 
 {% block script %}
+<script>
+	var latitude;
+	var longitude;
+
+	function getLocation() {
+		if (navigator.geolocation) {
+			navigator.geolocation.getCurrentPosition(function (position) {
+				latitude = position.coords.latitude
+				longitude = position.coords.longitude
+				$.ajax({
+					url: '{% url "codi:getWeather" %}',
+					method: 'POST',
+					data: {
+						lng: longitude,
+						lat: latitude,
+						csrfmiddlewaretoken: '{{csrf_token}}'
+					},
+					success: function (data) {
+						console.log(data)
+						$('#now_temp').append(data.now)
+						$('#min_temp').append(data.min)
+						$('#max_temp').append(data.max)
+					},
+					error: function (data) {
+						'요청이 정상적으로 완료되지 않았을 때'
+					}
+
+				})
+			})
+		} else {
+			alert('GPS를 지원하지 않습니다.')
+		}
+	}
+	$(function () {
+		getLocation()
+	})
+</script>
 {% endblock script %}

@@ -6,6 +6,11 @@ from .weather2 import get_forecast_data , ForecastTimeData
 from .models import Cloth
 import json
 import math
+import random
+from PIL import Image
+import requests
+from django.db.models import Q
+from .models import Cloth, Closet, Category, Month, Temp
 # Create your views here.
 
 def index(request):
@@ -57,6 +62,32 @@ def mapToGrid(lat, lon, code = 0 ):
     return x, y
 
 def codiWorldcup(request):
+    top = Cloth.objects.filter(category_id = 1)
+    bottom = Cloth.objects.filter(Q(category_id = 3)|Q(category_id=4))
+    outer = Cloth.objects.filter(category_id = 2)
+    onepiece = Cloth.objects.filter(category_id = 5)
+    ran_top = random.sample(list(top),4)
+    ran_bot = random.sample(list(bottom),4)
+    ran_out = random.sample(list(outer),4)
+    ran_one = random.sample(list(onepiece),2)
+
+    top1=ran_top[:2]
+    top2=ran_top[2:4]
+    bot1=ran_bot[:2]
+    bot2=ran_bot[2:4]
+    out1=ran_out[:2]
+    out2=ran_out[2:4]
+
+    
+    context1 ={
+        'top1':top1,
+        'top2':top2,
+        'bot1':bot1,
+        'bot2':bot2,
+        'out1':out1,
+        'out2':out2,
+        'ran_one':ran_one,
+    }
     a = [1,2]
     context = {
         'top1':a, 
@@ -67,7 +98,7 @@ def codiWorldcup(request):
         'out2':a ,
         'ran_one':a 
     }
-    return render(request, 'codi/codiWorldcup.html', context)
+    return render(request, 'codi/codiWorldcup.html', context1)
 
 def myCloset(request):
     top = Cloth.objects.filter(month=11, category_id=1)

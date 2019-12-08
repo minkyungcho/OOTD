@@ -65,17 +65,17 @@ display: none;
     <div class="row">
       <div class="matchup round1">
       {% for  top in top1 %}
-        <img src="{% static 'hanger.png' %}" class="versus mr-3 border border-dark rounded img_ootd" data-id="{{top.id}}">
+        <img src="{{top.img_url}}" class="versus mr-3 border border-dark rounded img_ootd" data-id="{{top.id}}">
       {% endfor %}
       </div>
     <div class="matchup round2">
       {% for top in top2 %}
-        <img src="{% static 'hanger.png' %}" class="versus mr-3 border border-dark rounded img_ootd" data-id="{{top.id}}">
+        <img src="{{top.img_url}}" class="versus mr-3 border border-dark rounded img_ootd" data-id="{{top.id}}">
     {% endfor %}
     </div>
     <div class="matchup final">
-        <img id="first" src="{% static 'hanger.png' %}" class="versus mr-3 border border-dark rounded img_ootd" data-id="{{top.id}}">
-        <img id="second" src="{% static 'hanger.png' %}" class="versus mr-3 border border-dark rounded img_ootd" data-id="{{top.id}}">
+        <img id="first" src="{{top.img_url}}" class="versus mr-3 border border-dark rounded img_ootd" data-id="{{top.id}}">
+        <img id="second" src="{{top.img_url}}" class="versus mr-3 border border-dark rounded img_ootd" data-id="{{top.id}}">
         </div>
     </div>
     </div>
@@ -90,17 +90,17 @@ display: none;
     <div class="row">
       <div class="matchup round1">
       {% for  top in bot1 %}
-        <img src="{% static 'hanger.png' %}" class="versus mr-3 border border-dark rounded img_ootd" data-id="{{top.id}}">
+        <img src="{{top.img_url}}" class="versus mr-3 border border-dark rounded img_ootd" data-id="{{top.id}}">
       {% endfor %}
       </div>
     <div class="matchup round2">
       {% for top in bot2 %}
-        <img src="{% static 'hanger.png' %}" class="versus mr-3 border border-dark rounded img_ootd" data-id="{{top.id}}">
+        <img src="{{top.img_url}}" class="versus mr-3 border border-dark rounded img_ootd" data-id="{{top.id}}">
     {% endfor %}
     </div>
     <div class="matchup final">
-        <img id="first" src="{% static 'hanger.png' %}" class="versus mr-3 border border-dark rounded img_ootd" data-id="{{top.id}}">
-        <img id="second" src="{% static 'hanger.png' %}" class="versus mr-3 border border-dark rounded img_ootd" data-id="{{top.id}}">
+        <img id="first" src="{{top.img_url}}" class="versus mr-3 border border-dark rounded img_ootd" data-id="{{top.id}}">
+        <img id="second" src="{{top.img_url}}" class="versus mr-3 border border-dark rounded img_ootd" data-id="{{top.id}}">
         </div>
     </div>
     </div>
@@ -115,17 +115,17 @@ display: none;
     <div class="row">
       <div class="matchup round1">
       {% for  top in out1 %}
-        <img src="{% static 'hanger.png' %}" class="versus mr-3 border border-dark rounded img_ootd" data-id="{{top.id}}">
+        <img src="{{top.img_url}}" class="versus mr-3 border border-dark rounded img_ootd" data-id="{{top.id}}">
       {% endfor %}
       </div>
     <div class="matchup round2">
       {% for top in out2 %}
-        <img src="{% static 'hanger.png' %}" class="versus mr-3 border border-dark rounded img_ootd" data-id="{{top.id}}">
+        <img src="{{top.img_url}}" class="versus mr-3 border border-dark rounded img_ootd" data-id="{{top.id}}">
     {% endfor %}
     </div>
     <div class="matchup final">
-        <img id="first" src="{% static 'hanger.png' %}" class="versus mr-3 border border-dark rounded img_ootd" data-id="{{top.id}}">
-        <img id="second" src="{% static 'hanger.png' %}" class="versus mr-3 border border-dark rounded img_ootd" data-id="{{top.id}}">
+        <img id="first" src="{{top.img_url}}" class="versus mr-3 border border-dark rounded img_ootd" data-id="{{top.id}}">
+        <img id="second" src="{{top.img_url}}" class="versus mr-3 border border-dark rounded img_ootd" data-id="{{top.id}}">
         </div>
     </div>
     </div>
@@ -139,8 +139,8 @@ display: none;
     </div>
     <div class="row">
       <div class="matchup final">
-      {% for  top in ran_one %}
-        <img src="{% static 'hanger.png' %}" class="versus mr-3 border border-dark rounded img_ootd" data-id="{{top.id}}">
+      {% for top in ran_one %}
+        <img src="{{top.img_url}}" class="versus mr-3 border border-dark rounded img_ootd" data-id="{{top.id}}">
       {% endfor %}
       </div>
     </div>
@@ -179,7 +179,7 @@ display: none;
             </div>
         </div>
         <div class="card" style="width: 18rem;">
-          <img class="pickOnepiece" src="{% static 'hanger.png' %}">
+          <img class="pickOuter" src="{% static 'hanger.png' %}">
           <div class="card-body">
           <p class="card-text">외투</p>
           </div>
@@ -324,7 +324,7 @@ display: none;
             $('.onepiece .final').hide()
             $('.outer').show()
             $('.outer .round1').show()
-            $('.pick3P .pickOnepiece').attr('src', url)
+            $('.pick2P .pickOnepiece').attr('src', url)
             {% comment %} $('.onepiece .final #second').attr('src', url) {% endcomment %}
             {% comment %} $('.onepiece .final #second').data('id', id) {% endcomment %}
         })

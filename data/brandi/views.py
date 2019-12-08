@@ -8,7 +8,8 @@ import os
 from PIL import Image
 import requests
 from .models import Cloth, Closet, Category, Month, Temp
-
+from django.db.models import Q
+import random
 # Create your views here.
 def index(request):
 
@@ -138,8 +139,19 @@ def data(request):
     img_url = request.POST["img_url"]
     img_th_url = request.POST["img_th_url"]
     clothes = []
+    cate_id = ''
+    if category == "아우터":
+        cate_id = 2
+    elif category == "상의":
+        cate_id = 1
+    elif category == "스커트":
+        cate_id = 3
+    elif category == "바지":
+        cate_id = 4
+    elif category == "원피스":
+        cate_id = 5
     for mon in months:
-        cloth = Cloth(product_id=product_id, category=Category(id=2), cloth_type=cate_type, color=color, pattern=pattern, month=Month(id=mon), temp=Temp(id=temp), label=label, img_url=img_url)
+        cloth = Cloth(product_id=product_id, category=Category(id=cate_id), cloth_type=cate_type, color=color, pattern=pattern, month=Month(id=mon), temp=Temp(id=temp), label=label, img_url=img_url)
         cloth.save()
         # temp = {
         #     "product_id": product_id,
@@ -186,16 +198,47 @@ def detail(request, product_id):
         temp = image_url["image_url"]
         images.append(temp)
     filenames = []
-    for image in images:
-        img = requests.get(image).content
-        filename = os.path.basename(image)
-        filenames.append(filename)
-        with open(filename, 'wb') as f:
-            f.write(img)
+    # for image in images:
+    #     img = requests.get(image).content
+    #     filename = os.path.basename(image)
+    #     filenames.append(filename)
+    #     with open(filename, 'wb') as f:
+    #         f.write(img)
     
     context = {
         'images': images,
         'filenames': filenames
     }
     return render(request, 'detail.html', context)
+
+def world(request):
+    month = 10
+    temp = 3
+    top = Cloth.objects.filter(category_id = 1)
+    bottom = Cloth.objects.filter(Q(category_id = 3)|Q(category_id=4))
+    outer = Cloth.objects.filter(category_id = 2)
+    onepiece = Cloth.objects.filter(category_id = 5)
+    ran_top = random.sample(list(top),4)
+    ran_bot = random.sample(list(bottom),4)
+    ran_out = random.sample(list(outer),4)
+    ran_one = random.sample(list(onepiece),2)
+
+    top1=ran_top[:2]
+    top2=ran_top[2:4]
+    bot1=ran_bot[:2]
+    bot2=ran_bot[2:4]
+    out1=ran_out[:2]
+    out2=ran_out[2:4]
+
+    
+    context ={
+        'top1':top1,
+        'top2':top2,
+        'bot1':bot1,
+        'bot2':bot2,
+        'out1':out1,
+        'out2':out2,
+        'ran_one':ran_one,
+    }
+    return render(request , 'world_cup.html',context)
 

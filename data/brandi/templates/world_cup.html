@@ -1,0 +1,243 @@
+{% extends 'base.html'%}
+{% load staticfiles %}
+
+
+{% block style %}
+
+.round1, .round2, .final, .top, .bottom, .outer, .onepiece, .pick3P, .pick2P{
+display: none;
+}
+img {
+    width: 10rem;
+    height: 10rem;
+}
+
+{% endblock style %}
+{% block content %}
+<div class="select">
+    <h2 class="3P">상의+하의+외투</h2>
+    <h2 class="2P">원피스+외투</h2>
+</div>
+<div class="top">
+    <h1>원하는 상의를 고르세요!</h1>
+    {% for  top in top1 %}
+    <div class="round1">
+        <h3>4강전 1</h3>
+        <img class="versus" style="width:10rem ; height:10rem;" src="{{top.img_url}}" alt="" data-id="{{top.id}}">
+    </div>
+    {% endfor %}
+    {% for top in top2 %}
+    <div class="round2">
+        <h3>4강전 2</h3>
+        <img class="versus" style="width:10rem ; height:10rem;" src="{{top.img_url}}" alt="" data-id="{{top.id}}">
+    </div>
+    {% endfor %}
+    <div class="final">
+        <h3>결승전</h3>
+        <img id="first" class="versus" style="width:10rem ; height:10rem;" src="" alt="" data-id="">
+        <img id="second" class="versus" style="width:10rem ; height:10rem;" src="" alt="" data-id="">
+    </div>
+</div>
+
+<div class="bottom">
+    <h1>원하는 하의를 고르세요!</h1>
+    {% for  top in bot1 %}
+    <div class="round1">
+        <h3>4강전 1</h3>
+        <img class="versus" style="width:10rem ; height:10rem;" src="{{top.img_url}}" alt="" data-id="{{top.id}}">
+    </div>
+    {% endfor %}
+    {% for top in bot2 %}
+    <div class="round2">
+        <h3>4강전 2</h3>
+        <img class="versus" style="width:10rem ; height:10rem;" src="{{top.img_url}}" alt="" data-id="{{top.id}}">
+    </div>
+    {% endfor %}
+    <div class="final">
+        <h3>결승전</h3>
+        <img id="first" class="versus" style="width:10rem ; height:10rem;" src="" alt="" data-id="">
+        <img id="second" class="versus" style="width:10rem ; height:10rem;" src="" alt="" data-id="">
+    </div>
+</div>
+
+<div class="outer">
+    <h1>원하는 외투를 고르세요!</h1>
+    {% for  top in out1 %}
+    <div class="round1">
+        <h3>4강전 1</h3>
+        <img class="versus" style="width:10rem ; height:10rem;" src="{{top.img_url}}" alt="" data-id="{{top.id}}">
+    </div>
+    {% endfor %}
+    {% for top in out2 %}
+    <div class="round2">
+        <h3>4강전 2</h3>
+        <img class="versus" style="width:10rem ; height:10rem;" src="{{top.img_url}}" alt="" data-id="{{top.id}}">
+    </div>
+    {% endfor %}
+    <div class="final">
+        <h3>결승전</h3>
+        <img id="first" class="versus" style="width:10rem ; height:10rem;" src="" alt="" data-id="">
+        <img id="second" class="versus" style="width:10rem ; height:10rem;" src="" alt="" data-id="">
+    </div>
+</div>
+
+<div class="onepiece">
+    <h1>원하는 원피스를 고르세요!</h1>
+    <div class="final">
+        <h3>결승전</h3>
+    {% for  top in ran_one %}
+        <img class="versus" style="width:10rem ; height:10rem;" src="{{top.img_url}}" alt="" data-id="{{top.id}}">
+    {% endfor %}
+    </div>
+</div>
+
+<div class="pick">
+<h2>당신이 고른 오늘의 코디픽</h2>
+    <div class="pick3P">
+        <h4>상의</h4>
+        <img class="pickTop" src="{% static 'hanger.png' %}">
+        <h4>하의</h4>
+        <img class="pickBottom" src="{% static 'hanger.png' %}">
+        <h4>외투</h4>
+        <img class="pickOuter" src="{% static 'hanger.png' %}">
+    </div>
+    <div class="pick2P">
+        <h4>원피스</h4>
+        <img class="pickOnepiece" src="{% static 'hanger.png' %}">
+        <h4>외투</h4>
+        <img class="pickOuter" src="{% static 'hanger.png' %}">
+    </div>
+</div>
+{% endblock %}
+
+{% block script %}
+<script>
+    $(function () {
+        {% comment %} 3P / 2P 선택 {% endcomment %}
+        $('.3P').on('click', function(){
+            $('.top').show()
+            $('.top .round1').show()
+            $('.select').hide()
+            $('.pick3P').show()
+            $('.pick2P').hide()
+        })
+        $('.2P').on('click', function(){
+            $('.onepiece').show()
+            $('.onepiece .final').show()
+            $('.select').hide()
+            $('.pick2P').show()
+            $('.pick3P').hide()
+        })
+
+        {% comment %} 상의 선택 {% endcomment %}
+        $('.top .round1 .versus').on('click', function () {
+            var url = $(this).attr('src')
+            var id = $(this).data('id')
+            console.log(url)
+            $('.top .round1').hide()
+            $('.top .round2').show()
+            $('.top .final #first').attr('src', url)
+            $('.top .final #first').data('id', id)
+        })
+        $('.top .round2 .versus').on('click', function () {
+            var url = $(this).attr('src')
+            var id = $(this).data('id')
+            console.log(url)
+            $('.top .round2').hide()
+            $('.top .final').show()
+            $('.top .final #second').attr('src', url)
+            $('.top .final #second').data('id', id)
+        })
+        $('.top .final .versus').on('click', function(){
+            var url = $(this).attr('src')
+            var id = $(this).data('id')
+            console.log(url)
+            $('.top .final').hide()
+            $('.top').hide()
+            $('.bottom').show()
+            $('.bottom .round1').show()
+            $('.pick3P .pickTop').attr('src', url)
+            {% comment %} $('.top .final #second').attr('src', url) {% endcomment %}
+            {% comment %} $('.top .final #second').data('id', id) {% endcomment %}
+        })
+
+        {% comment %} 하의 선택 {% endcomment %}
+        $('.bottom .round1 .versus').on('click', function () {
+            var url = $(this).attr('src')
+            var id = $(this).data('id')
+            console.log(url)
+            $('.bottom .round1').hide()
+            $('.bottom .round2').show()
+            $('.bottom .final #first').attr('src', url)
+            $('.bottom .final #first').data('id', id)
+        })
+        $('.bottom .round2 .versus').on('click', function () {
+            var url = $(this).attr('src')
+            var id = $(this).data('id')
+            console.log(url)
+            $('.bottom .round2').hide()
+            $('.bottom .final').show()
+            $('.bottom .final #second').attr('src', url)
+            $('.bottom .final #second').data('id', id)
+        })
+        $('.bottom .final .versus').on('click', function(){
+            var url = $(this).attr('src')
+            var id = $(this).data('id')
+            console.log(url)
+            $('.bottom').hide()
+            $('.bottom .final').hide()
+            $('.outer').show()
+            $('.outer .round1').show()
+            $('.pick3P .pickBottom').attr('src', url)
+            {% comment %} $('.bottom .final #second').attr('src', url) {% endcomment %}
+            {% comment %} $('.bottom .final #second').data('id', id) {% endcomment %}
+        })
+
+        {% comment %} 아우터 선택 {% endcomment %}
+        $('.outer .round1 .versus').on('click', function () {
+            var url = $(this).attr('src')
+            var id = $(this).data('id')
+            console.log(url)
+            $('.outer .round1').hide()
+            $('.outer .round2').show()
+            $('.outer .final #first').attr('src', url)
+            $('.outer .final #first').data('id', id)
+        })
+        $('.outer .round2 .versus').on('click', function () {
+            var url = $(this).attr('src')
+            var id = $(this).data('id')
+            console.log(url)
+            $('.outer .round2').hide()
+            $('.outer .final').show()
+            $('.outer .final #second').attr('src', url)
+            $('.outer .final #second').data('id', id)
+        })
+        $('.outer .final .versus').on('click', function(){
+            var url = $(this).attr('src')
+            var id = $(this).data('id')
+            console.log(url)
+            $('.outer .final').hide()
+            $('.outer').hide()
+            $('.pickOuter').attr('src', url)
+            {% comment %} 지금까지 고른 옷 보여주기! + DB에 저장하는 함수 실행 {% endcomment %}
+            {% comment %} $('.bottom .round1').show() {% endcomment %}
+            {% comment %} $('.outer .final #second').attr('src', url) {% endcomment %}
+            {% comment %} $('.outer .final #second').data('id', id) {% endcomment %}
+        })
+        
+        {% comment %} 원피스 선택 {% endcomment %}
+        $('.onepiece .final .versus').on('click', function(){
+            var url = $(this).attr('src')
+            var id = $(this).data('id')
+            console.log(url)
+            $('.onepiece').hide()
+            $('.onepiece .final').hide()
+            $('.outer').show()
+            $('.outer .round1').show()
+            $('.pick3P .pickOnepiece').attr('src', url)
+            {% comment %} $('.onepiece .final #second').attr('src', url) {% endcomment %}
+            {% comment %} $('.onepiece .final #second').data('id', id) {% endcomment %}
+        })
+    })
+</script>
+{% endblock script %}

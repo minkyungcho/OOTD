@@ -6,5 +6,6 @@ app_name = 'codi'
 urlpatterns = [
     path('', codi_views.index, name="codi"),
     path('home/', codi_views.home, name="home"),
-    path('codiWorldcup/', codi_views.codiWorldcup, name="codiWorldcup")
+    path('codiWorldcup/', codi_views.codiWorldcup, name="codiWorldcup"),
+    path('weather/',codi_views.getWeather, name="getWeather"),
  ]

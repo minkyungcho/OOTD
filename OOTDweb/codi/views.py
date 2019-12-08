@@ -1,10 +1,11 @@
 from django.shortcuts import render , HttpResponse
-import json
 from datetime import datetime
 from urllib.request import urlopen
-import math
 from .weather1 import get_tmn_data , get_tmx_data
 from .weather2 import get_forecast_data , ForecastTimeData
+from .models import Cloth
+import json
+import math
 # Create your views here.
 
 def index(request):
@@ -57,15 +58,25 @@ def mapToGrid(lat, lon, code = 0 ):
 
 def codiWorldcup(request):
     return render(request, 'codi/codiWorldcup.html')
+
+def myCloset(request):
+    top = Cloth.objects.filter(month=11, category_id=1)
+    # print("-------------")
+    # print(len(top))
+    context={
+        'tops':top
+    }
+    return render(request, 'codi/myCloset.html',context)
+
     
 def getWeather(request):
     lng = request.POST["lng"]
     lat= request.POST["lat"]
     x = (mapToGrid(float(lat),float(lng))[0])
     y = (mapToGrid(float(lat),float(lng))[1])
-    print("------------------")
-    print(x)
-    print(y)
+    # print("------------------")
+    # print(x)
+    # print(y)
     min = get_tmn_data(x,y)
     max = get_tmx_data(x,y)
     now = ForecastTimeData()

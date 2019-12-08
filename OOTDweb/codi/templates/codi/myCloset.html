@@ -1,0 +1,93 @@
+{% extends 'codi/base.html' %}
+{% load static %}
+{% block content %}
+<section class="hero-wrap hero-wrap-2 ftco-degree-bg js-fullheight" style="background-image: url('images/bg_1.jpg');"
+  data-stellar-background-ratio="0.5">
+  <div class="overlay"></div>
+  <div class="overlay-2"></div>
+  <div class="container">
+    <div class="row no-gutters slider-text js-fullheight align-items-end justify-content-center">
+      <div class="col-md-9 ftco-animate pb-5 mb-5 text-center">
+        <h1 class="mb-3 bread">내옷장</h1>
+        <p class="breadcrumbs">
+          <span class="mr-2"><a href="{% url 'codi:home' %}">Home <i class="ion-ios-arrow-forward"></i></a></span>
+          <span>MyCloset <i class="ion-ios-arrow-forward"></i></span>
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="ftco-section testimony-section bg-light">
+  <div class="container">
+    <div class="row justify-content-center mb-3">
+      <div class="col-md-7 text-center heading-section ftco-animate">
+        <span class="subheading">내옷장</span>
+        <h2 class="mb-3">상의 (Top)</h2>
+      </div>
+    </div>
+
+    <div class="row ftco-animate">
+      <div class="col-md-12">
+        <div class="carousel-testimony owl-carousel ftco-owl">
+
+          {% for top in tops %}
+          <div class="item">
+            <div class="testimony-wrap py-4">
+              <div class="text">
+                <div class="d-flex align-items-center">
+                  <img src="{{top.img_url}}" alt="asdf">
+                </div>
+              </div>
+              <div class="pl-3">
+                <p class="name">{{top.cloth_type}} ({{top.color}})</p>
+                {% comment %} <span class="position">{{top.color}}</span> {% endcomment %}
+              </div>
+            </div>
+          </div>
+          {% endfor %}
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+  {% comment %} 원피스 / 겉옷 만들기 {% endcomment %}
+
+  <div class="container mt-5">
+    <div class="row justify-content-center mb-3">
+      <div class="col-md-7 text-center heading-section ftco-animate">
+        <span class="subheading">내옷장</span>
+        <h2 class="mb-3">하의 (pants / skirt)</h2>
+      </div>
+    </div>
+
+    <div class="row ftco-animate">
+      <div class="col-md-12">
+        <div class="carousel-testimony owl-carousel ftco-owl">
+
+          {% for top in tops %}
+          <div class="item">
+            <div class="testimony-wrap py-4">
+              <div class="text">
+                <div class="d-flex align-items-center">
+                  <img src="{{top.img_url}}" alt="asdf">
+                </div>
+              </div>
+              <div class="pl-3">
+                <p class="name">{{top.cloth_type}} ({{top.color}})</p>
+                {% comment %} <span class="position">{{top.color}}</span> {% endcomment %}
+              </div>
+            </div>
+          </div>
+          {% endfor %}
+
+        </div>
+      </div>
+    </div>
+  </div>
+    
+</section>
+
+
+{% endblock content %}

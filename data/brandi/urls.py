@@ -7,6 +7,6 @@ urlpatterns = [
     path('product/<int:product_id>/', brandi_views.product, name="product"),
     path('product/detail/<int:product_id>/', brandi_views.detail, name="detail"),
     path('data/', brandi_views.data, name="data"),
-
+    path('worldcup/',brandi_views.world , name="world"),
 ]
     

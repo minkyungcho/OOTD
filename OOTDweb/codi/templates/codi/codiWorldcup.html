@@ -2,110 +2,332 @@
 
 {% load static %}
 
+{% block style %}
+.img_ootd {
+width: 300px;
+height: 300px;
+padding: 10px;
+}
+
+.card{
+  display: inline-block;
+}
+.pickTop, .pickBottom, .pickOuter, .pickOnepiece {
+  width: 200px;
+height: 200px;
+}
+.matchup, .select{
+text-align:center;
+margin: auto;
+}
+.row {
+float:center;
+}
+.round1, .round2, .final, .top, .bottom, .outer, .onepiece, .pick3P, .pick2P{
+display: none;
+}
+{% endblock style %}
+
 {% block content %}
-  
-  <section class="hero-wrap hero-wrap-2 ftco-degree-bg js-fullheight" style="background-image: url('images/bg_1.jpg');" data-stellar-background-ratio="0.5">
-    <div class="overlay"></div>
-    <div class="overlay-2"></div>
-    <div class="container">
-      <div class="row no-gutters slider-text js-fullheight align-items-end justify-content-center">
-        <div class="col-md-9 ftco-animate pb-5 mb-5 text-center">
-          <h1 class="mb-3 bread">코디 월드컵</h1>
-          <p class="breadcrumbs"><span class="mr-2"><a href="{% url 'codi:home' %}">Home <i class="ion-ios-arrow-forward"></i></a></span> <span>About us <i class="ion-ios-arrow-forward"></i></span></p>
-        </div>
+
+<section class="hero-wrap hero-wrap-2 ftco-degree-bg js-fullheight" style="background-image: url('images/bg_1.jpg');"
+  data-stellar-background-ratio="0.5">
+  <div class="overlay"></div>
+  <div class="overlay-2"></div>
+  <div class="container">
+    <div class="row no-gutters slider-text js-fullheight align-items-end justify-content-center">
+      <div class="col-md-9 ftco-animate pb-5 mb-5 text-center">
+        <h1 class="mb-3 bread">코디 월드컵</h1>
+        <p class="breadcrumbs"><span class="mr-2"><a href="{% url 'codi:home' %}">Home <i
+                class="ion-ios-arrow-forward"></i></a></span> <span>About us <i
+              class="ion-ios-arrow-forward"></i></span></p>
       </div>
     </div>
-  </section>
+  </div>
+</section>
 
+<section class="ftco-section testimony-section bg-light">
+  <div class="container">
 
+    <div class="select">
+    <h1>원하는 스타일을 선택하세요</h1>
+      <h2 class="3P">상의+하의+외투</h2>
+      <h2 class="2P">원피스+외투</h2>
+    </div>
 
-
-  <section class="ftco-section testimony-section bg-light">
-    <div class="container">
-      <div class="row justify-content-center mb-5">
-        <div class="col-md-7 text-center heading-section ftco-animate">
-          <span class="subheading">Testimonial</span>
-          <h2 class="mb-3">Happy Clients</h2>
-        </div>
+    <div class="top">
+    <div class="row justify-content-center mb-5">
+      <div class="col-md-7 text-center heading-section ftco-animate">
+        <span class="subheading">상의</span>
+        <h2 class="mb-3">4강전(1/2)</h2>
       </div>
-      <div class="row ftco-animate">
-        <div class="col-md-12">
-          <div class="carousel-testimony owl-carousel ftco-owl">
-            <div class="item">
-              <div class="testimony-wrap py-4">
-                <div class="text">
-                  <p class="mb-4">Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
-                  <div class="d-flex align-items-center">
-                    <div class="user-img" style="background-image: url(images/person_1.jpg)"></div>
-                    <div class="pl-3">
-                      <p class="name">Roger Scott</p>
-                      <span class="position">Marketing Manager</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
+    </div>
+    <div class="row">
+      <div class="matchup round1">
+      {% for  top in top1 %}
+        <img src="{% static 'hanger.png' %}" class="versus mr-3 border border-dark rounded img_ootd" data-id="{{top.id}}">
+      {% endfor %}
+      </div>
+    <div class="matchup round2">
+      {% for top in top2 %}
+        <img src="{% static 'hanger.png' %}" class="versus mr-3 border border-dark rounded img_ootd" data-id="{{top.id}}">
+    {% endfor %}
+    </div>
+    <div class="matchup final">
+        <img id="first" src="{% static 'hanger.png' %}" class="versus mr-3 border border-dark rounded img_ootd" data-id="{{top.id}}">
+        <img id="second" src="{% static 'hanger.png' %}" class="versus mr-3 border border-dark rounded img_ootd" data-id="{{top.id}}">
+        </div>
+    </div>
+    </div>
+
+    <div class="bottom">
+    <div class="row justify-content-center mb-5">
+      <div class="col-md-7 text-center heading-section ftco-animate">
+        <span class="subheading">하의</span>
+        <h2 class="mb-3">4강전(1/2)</h2>
+      </div>
+    </div>
+    <div class="row">
+      <div class="matchup round1">
+      {% for  top in bot1 %}
+        <img src="{% static 'hanger.png' %}" class="versus mr-3 border border-dark rounded img_ootd" data-id="{{top.id}}">
+      {% endfor %}
+      </div>
+    <div class="matchup round2">
+      {% for top in bot2 %}
+        <img src="{% static 'hanger.png' %}" class="versus mr-3 border border-dark rounded img_ootd" data-id="{{top.id}}">
+    {% endfor %}
+    </div>
+    <div class="matchup final">
+        <img id="first" src="{% static 'hanger.png' %}" class="versus mr-3 border border-dark rounded img_ootd" data-id="{{top.id}}">
+        <img id="second" src="{% static 'hanger.png' %}" class="versus mr-3 border border-dark rounded img_ootd" data-id="{{top.id}}">
+        </div>
+    </div>
+    </div>
+
+    <div class="outer">
+    <div class="row justify-content-center mb-5">
+      <div class="col-md-7 text-center heading-section ftco-animate">
+        <span class="subheading">외투</span>
+        <h2 class="mb-3">4강전(1/2)</h2>
+      </div>
+    </div>
+    <div class="row">
+      <div class="matchup round1">
+      {% for  top in out1 %}
+        <img src="{% static 'hanger.png' %}" class="versus mr-3 border border-dark rounded img_ootd" data-id="{{top.id}}">
+      {% endfor %}
+      </div>
+    <div class="matchup round2">
+      {% for top in out2 %}
+        <img src="{% static 'hanger.png' %}" class="versus mr-3 border border-dark rounded img_ootd" data-id="{{top.id}}">
+    {% endfor %}
+    </div>
+    <div class="matchup final">
+        <img id="first" src="{% static 'hanger.png' %}" class="versus mr-3 border border-dark rounded img_ootd" data-id="{{top.id}}">
+        <img id="second" src="{% static 'hanger.png' %}" class="versus mr-3 border border-dark rounded img_ootd" data-id="{{top.id}}">
+        </div>
+    </div>
+    </div>
+
+    <div class="onepiece">
+    <div class="row justify-content-center mb-5">
+      <div class="col-md-7 text-center heading-section ftco-animate">
+        <span class="subheading">원피스</span>
+        <h2 class="mb-3">결승전</h2>
+      </div>
+    </div>
+    <div class="row">
+      <div class="matchup final">
+      {% for  top in ran_one %}
+        <img src="{% static 'hanger.png' %}" class="versus mr-3 border border-dark rounded img_ootd" data-id="{{top.id}}">
+      {% endfor %}
+      </div>
+    </div>
+    </div>
+
+<br>
+<br>
+    <div class="pick text-center">
+<h2>당신이 고른 오늘의 코디픽</h2>
+    <div class="pick3P text-center">
+      <div class="card" style="width: 18rem;">
+            <img class="pickTop" src="{% static 'hanger.png' %}">
+            <div class="card-body">
+            <p class="card-text">상의</p>
             </div>
-            <div class="item">
-              <div class="testimony-wrap py-4">
-                <div class="text">
-                  <p class="mb-4">Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
-                  <div class="d-flex align-items-center">
-                    <div class="user-img" style="background-image: url(images/person_2.jpg)"></div>
-                    <div class="pl-3">
-                      <p class="name">Roger Scott</p>
-                      <span class="position">Marketing Manager</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
+      </div>
+      <div class="card" style="width: 18rem;">
+            <img class="pickBottom" src="{% static 'hanger.png' %}">
+            <div class="card-body">
+            <p class="card-text">하의</p>
             </div>
-            <div class="item">
-              <div class="testimony-wrap py-4">
-                <div class="text">
-                  <p class="mb-4">Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
-                  <div class="d-flex align-items-center">
-                    <div class="user-img" style="background-image: url(images/person_3.jpg)"></div>
-                    <div class="pl-3">
-                      <p class="name">Roger Scott</p>
-                      <span class="position">Marketing Manager</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
+      </div>
+      <div class="card" style="width: 18rem;">
+            <img class="pickOuter" src="{% static 'hanger.png' %}">
+            <div class="card-body">
+            <p class="card-text">외투</p>
             </div>
-            <div class="item">
-              <div class="testimony-wrap py-4">
-                <div class="text">
-                  <p class="mb-4">Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
-                  <div class="d-flex align-items-center">
-                    <div class="user-img" style="background-image: url(images/person_1.jpg)"></div>
-                    <div class="pl-3">
-                      <p class="name">Roger Scott</p>
-                      <span class="position">Marketing Manager</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
+      </div>
+    </div>
+
+    <div class="pick2P text-center">
+        <div class="card" style="width: 18rem;">
+            <img class="pickOnepiece" src="{% static 'hanger.png' %}">
+            <div class="card-body">
+            <p class="card-text">원피스</p>
             </div>
-            <div class="item">
-              <div class="testimony-wrap py-4">
-                <div class="text">
-                  <p class="mb-4">Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
-                  <div class="d-flex align-items-center">
-                    <div class="user-img" style="background-image: url(images/person_2.jpg)"></div>
-                    <div class="pl-3">
-                      <p class="name">Roger Scott</p>
-                      <span class="position">Marketing Manager</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
+        </div>
+        <div class="card" style="width: 18rem;">
+          <img class="pickOnepiece" src="{% static 'hanger.png' %}">
+          <div class="card-body">
+          <p class="card-text">외투</p>
           </div>
         </div>
-      </div>
     </div>
-  </section>
-  
+</div>
+
+
+  </div>
+</section>
+
 
 {% endblock content %}
+
+{% block script %}
+<script>
+    $(function () {
+        {% comment %} 3P / 2P 선택 {% endcomment %}
+        $('.3P').on('click', function(){
+            $('.top').show()
+            $('.top .round1').show()
+            $('.select').hide()
+            $('.pick3P').show()
+            $('.pick2P').hide()
+        })
+        $('.2P').on('click', function(){
+            $('.onepiece').show()
+            $('.onepiece .final').show()
+            $('.select').hide()
+            $('.pick2P').show()
+            $('.pick3P').hide()
+        })
+
+        {% comment %} 상의 선택 {% endcomment %}
+        $('.top .round1 .versus').on('click', function () {
+            var url = $(this).attr('src')
+            var id = $(this).data('id')
+            console.log(url)
+            $('.top .round1').hide()
+            $('.top .round2').show()
+            $('.top .mb-3').text("4강전(2/2)")
+            $('.top .final #first').attr('src', url)
+            $('.top .final #first').data('id', id)
+        })
+        $('.top .round2 .versus').on('click', function () {
+            var url = $(this).attr('src')
+            var id = $(this).data('id')
+            console.log(url)
+            $('.top .round2').hide()
+            $('.top .final').show()
+            $('.top .mb-3').text("결승전")
+            $('.top .final #second').attr('src', url)
+            $('.top .final #second').data('id', id)
+        })
+        $('.top .final .versus').on('click', function(){
+            var url = $(this).attr('src')
+            var id = $(this).data('id')
+            console.log(url)
+            $('.top .final').hide()
+            $('.top').hide()
+            $('.bottom').show()
+            $('.bottom .round1').show()
+            $('.pick3P .pickTop').attr('src', url)
+            {% comment %} $('.top .final #second').attr('src', url) {% endcomment %}
+            {% comment %} $('.top .final #second').data('id', id) {% endcomment %}
+        })
+
+        {% comment %} 하의 선택 {% endcomment %}
+        $('.bottom .round1 .versus').on('click', function () {
+            var url = $(this).attr('src')
+            var id = $(this).data('id')
+            console.log(url)
+            $('.bottom .round1').hide()
+            $('.bottom .round2').show()
+            $('.bottom .mb-3').text("4강전(2/2)")
+            $('.bottom .final #first').attr('src', url)
+            $('.bottom .final #first').data('id', id)
+        })
+        $('.bottom .round2 .versus').on('click', function () {
+            var url = $(this).attr('src')
+            var id = $(this).data('id')
+            console.log(url)
+            $('.bottom .round2').hide()
+            $('.bottom .final').show()
+            $('.bottom .mb-3').text("결승전")
+            $('.bottom .final #second').attr('src', url)
+            $('.bottom .final #second').data('id', id)
+        })
+        $('.bottom .final .versus').on('click', function(){
+            var url = $(this).attr('src')
+            var id = $(this).data('id')
+            console.log(url)
+            $('.bottom').hide()
+            $('.bottom .final').hide()
+            $('.outer').show()
+            $('.outer .round1').show()
+            $('.pick3P .pickBottom').attr('src', url)
+            {% comment %} $('.bottom .final #second').attr('src', url) {% endcomment %}
+            {% comment %} $('.bottom .final #second').data('id', id) {% endcomment %}
+        })
+
+        {% comment %} 아우터 선택 {% endcomment %}
+        $('.outer .round1 .versus').on('click', function () {
+            var url = $(this).attr('src')
+            var id = $(this).data('id')
+            console.log(url)
+            $('.outer .round1').hide()
+            $('.outer .round2').show()
+            $('.outer .mb-3').text("4강전(2/2)")
+            $('.outer .final #first').attr('src', url)
+            $('.outer .final #first').data('id', id)
+        })
+        $('.outer .round2 .versus').on('click', function () {
+            var url = $(this).attr('src')
+            var id = $(this).data('id')
+            console.log(url)
+            $('.outer .round2').hide()
+            $('.outer .final').show()
+            $('.outer .mb-3').text("결승전")
+            $('.outer .final #second').attr('src', url)
+            $('.outer .final #second').data('id', id)
+        })
+        $('.outer .final .versus').on('click', function(){
+            var url = $(this).attr('src')
+            var id = $(this).data('id')
+            console.log(url)
+            $('.outer .final').hide()
+            $('.outer').hide()
+            $('.pickOuter').attr('src', url)
+            {% comment %} 지금까지 고른 옷 보여주기! + DB에 저장하는 함수 실행 {% endcomment %}
+            {% comment %} $('.bottom .round1').show() {% endcomment %}
+            {% comment %} $('.outer .final #second').attr('src', url) {% endcomment %}
+            {% comment %} $('.outer .final #second').data('id', id) {% endcomment %}
+        })
+        
+        {% comment %} 원피스 선택 {% endcomment %}
+        $('.onepiece .final .versus').on('click', function(){
+            var url = $(this).attr('src')
+            var id = $(this).data('id')
+            console.log(url)
+            $('.onepiece').hide()
+            $('.onepiece .final').hide()
+            $('.outer').show()
+            $('.outer .round1').show()
+            $('.pick3P .pickOnepiece').attr('src', url)
+            {% comment %} $('.onepiece .final #second').attr('src', url) {% endcomment %}
+            {% comment %} $('.onepiece .final #second').data('id', id) {% endcomment %}
+        })
+    })
+</script>
+{% endblock script %}

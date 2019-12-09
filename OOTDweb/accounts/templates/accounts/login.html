@@ -83,7 +83,7 @@
 
 <body class="text-center">
     <form class="form-signin">
-        <img class="mb-4" src="{% static "images/icon.png" %}" alt="" width="300" height="auto">
+        <img class="mb-4" src="{% static "images/icon.png" %}" href="{% url 'codi:home' %}" alt="" width="300" height="auto">
         <label for="inputID" class="sr-only">ID</label>
         <input type="text" id="inputID" class="form-control font" style="margin-bottom:10px;" placeholder="ID" required autofocus>
         <label for="inputPassword" class="sr-only">Password</label>

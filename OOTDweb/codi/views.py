@@ -13,9 +13,6 @@ from django.db.models import Q
 from .models import Cloth, Closet, Category, Month, Temp
 from django.contrib.auth.decorators import login_required # 로그인권한부여
 
-def index(request):
-    return render(request, 'index.html')
-
 def home(request):
     return render(request, 'index.html')
 
@@ -112,6 +109,7 @@ def myCloset(request):
     }
     return render(request, 'codi/myCloset.html',context)
 
+@login_required
 def addCloth(request):
     top = Cloth.objects.filter(month=11, category_id=1)
     # print("-------------")
@@ -120,7 +118,15 @@ def addCloth(request):
         'tops':top
     }
     return render(request, 'codi/addCloth1.html', context)
-    
+
+@login_required
+def mypage(request):
+    return render(request, 'codi/mypage.html')
+
+@login_required
+def codiBook(request):
+    return render(request, 'codi/codiBook.html')
+
 def getWeather(request):
     lng = request.POST["lng"]
     lat= request.POST["lat"]

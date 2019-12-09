@@ -74,6 +74,7 @@ cloth.closets
 
 # delete cloth
 Cloth.objects.filter(product_id=11579356).delete()
+Cloth.objects.filter(product_id=11633324, color="핑크").delete()
 
 # update cloth
 # 한개만 수정
@@ -84,6 +85,10 @@ c.save()
 c = Cloth.objects.filter(label="1C2CFF6").update(category_id=1)
 c = Cloth.objects.filter(label="1T00FF5", product_id=12331893).update(color="화이트")
 c = Cloth.objects.filter(month=5, temp=6, cate_id=2)
+c = Cloth.objects.filter(product_id=118224372, color="회색").update(label="1H0DFF2")
+c = Cloth.objects.filter(product_id=11824372, color="회색").update(label="1H1DFF2")
+c = Cloth.objects.filter(product_id=11824372).update(cloth_type="후드")
+c = Cloth.objects.filter(temp_id=2, product_id=11827336).update(label="1K18FF2")
 
 c = Cloth.objects.filter(cloth_type="바지").update(category_id=4)
 

@@ -8,5 +8,6 @@ urlpatterns = [
     path('home/', codi_views.home, name="home"),
     path('codiWorldcup/', codi_views.codiWorldcup, name="codiWorldcup"),
     path('myCloset/', codi_views.myCloset, name="myCloset"),
+    path('mwCloset/addCloth', codi_views.addCloth, name="addCloth"),
     path('weather/',codi_views.getWeather, name="getWeather"),
  ]

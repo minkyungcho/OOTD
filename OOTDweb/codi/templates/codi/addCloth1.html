@@ -1,0 +1,207 @@
+{% extends 'codi/base.html' %}
+{% load static %}
+
+{% block style %}
+.frame {
+position: relative;
+z-index: 2;
+width: 100%;
+max-width: 1300px;
+margin: 0px auto;
+clear: both;
+padding: 0px 30px;
+overflow: hidden;
+display: flex;
+}
+.cate_left {
+width: 20%;
+overflow: hidden;
+margin-top: 20px;
+}
+.content_right {
+width: 80%;
+margin-top: 20px;
+overflow: hidden;
+}
+.cate_title {
+padding: 0;
+height: 60px;
+line-height: 60px;
+border-bottom: 1px solid #e7e7e7;
+margin: 0px;
+width: 90%;
+font-size: 22px;
+font-weight: 600;
+color: #000000;
+}
+a#cate_all {
+color: #000000;
+}
+.content_right .row {
+display: flex;
+flex-wrap: wrap;
+margin-left: 15px;
+}
+.cate_option, .cate_default {
+border-bottom: 1px solid #e7e7e7;
+width: 90%;
+}
+.cate_default div {
+background: url(../images/arr_down.png) no-repeat right 20px center;
+background-size: 10px;
+cursor: pointer;
+padding: 0;
+height: 60px;
+line-height: 60px;
+font-size: 20px;
+color: #333;
+}
+.cate_default ul {
+display: none;
+}
+.cate_default a {
+color: #000000;
+}
+section.ftco-section.testimony-section.bg-light {
+padding-top: 10px;
+}
+.card {
+display: block;
+width: 18rem;
+}
+.card .clothes{
+width: 260px;
+}
+img.clothes {
+margin-top: 13px;
+
+}
+{% endblock style %}
+
+{% block content %}
+<section class="hero-wrap hero-wrap-2 ftco-degree-bg js-fullheight" style="background-image: url('images/bg_1.jpg');"
+    data-stellar-background-ratio="0.5">
+    <div class="overlay"></div>
+    <div class="overlay-2"></div>
+    <div class="container">
+        <div class="row no-gutters slider-text js-fullheight align-items-end justify-content-center">
+            <div class="col-md-9 ftco-animate pb-5 mb-5 text-center">
+                <h1 class="mb-3 bread">옷 추가하기</h1>
+                <p class="breadcrumbs">
+                    <span class="mr-2"><a href="{% url 'codi:home' %}">Home <i
+                                class="ion-ios-arrow-forward"></i></a></span>
+                    <span>MyCloset <i class="ion-ios-arrow-forward"></i></span>
+                    <span><a href="{% url 'codi:addCloth' %}">add Cloth <i class="ion-ios-arrow-forward"></i></span>
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="ftco-section testimony-section bg-light">
+    <div class="container">
+        <div class="frame">
+            <div class="cate_left">
+
+                <div>
+                    <h2 class="cate_title">CATEGORIES</h2>
+                    <h2 class="cate_title">
+                        <a id="cate_all" href="">전체</a>
+                    </h2>
+                    <div class="cate_default">
+                        <div class="cate_name">아우터</div>
+                        <ul>
+                            <li id="cate_id_" class="cate2_list">
+                                <a href="">전체</a>
+                            </li>
+                            <li id="cate_id_" class="cate2_list">
+                                <a href="">코트</a>
+                            </li>
+                            <li id="cate_id_" class="cate2_list">
+                                <a href="">점퍼</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="cate_default">
+                        <div class="cate_name">상의</div>
+                        <ul>
+                            <li id="cate_id_" class="cate2_list">
+                                <a href="">전체</a>
+                            </li>
+                            <li id="cate_id_" class="cate2_list">
+                                <a href="">니트</a>
+                            </li>
+                            <li id="cate_id_" class="cate2_list">
+                                <a href="">가디건</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="cate_default">
+                        <div class="cate_name">바지</div>
+                        <ul>
+                            <li id="cate_id_" class="cate2_list">
+                                <a href="">전체</a>
+                            </li>
+                            <li id="cate_id_" class="cate2_list">
+                                <a href="">청바지</a>
+                            </li>
+                            <li id="cate_id_" class="cate2_list">
+                                <a href="">면바</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="cate_default">
+                        <div class="cate_name">스커트</div>
+                        <ul>
+                            <li id="cate_id_" class="cate2_list">
+                                <a href="">전체</a>
+                            </li>
+                            <li id="cate_id_" class="cate2_list">
+                                <a href="">미니스커트</a>
+                            </li>
+                            <li id="cate_id_" class="cate2_list">
+                                <a href="">롱스커트</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="cate_default">
+                        <div class="cate_name">원피스</div>
+                        <ul>
+                            <li id="cate_id_" class="cate2_list">
+                                <a href="">전체</a>
+                            </li>
+                            <li id="cate_id_" class="cate2_list">
+                                <a href="">원피스</a>
+                            </li>
+                            <li id="cate_id_" class="cate2_list">
+                                <a href="">투피스</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+            </div>
+            <div class="content_right">
+                <div class="row">
+                
+                    {% for top in tops %}
+                    <div class="card text-center">
+                        <img class="clothes rounded" src="{{top.img_url}}">
+                        <div class="card-body">
+                            <p class="card-text">{{top.cloth_type}}</p>
+                        </div>
+                    </div>
+                    {% endfor %}
+                    
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+</section>
+
+{% endblock content %}
+
+{% block script %}
+{% endblock script %}

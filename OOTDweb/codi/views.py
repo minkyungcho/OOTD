@@ -109,6 +109,14 @@ def myCloset(request):
     }
     return render(request, 'codi/myCloset.html',context)
 
+def addCloth(request):
+    top = Cloth.objects.filter(month=11, category_id=1)
+    # print("-------------")
+    # print(len(top))
+    context={
+        'tops':top
+    }
+    return render(request, 'codi/addCloth1.html', context)
     
 def getWeather(request):
     lng = request.POST["lng"]

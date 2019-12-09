@@ -50,7 +50,7 @@
         <ul class="navbar-nav ml-auto" style="margin-left: auto; margin-right: auto;">
             <li class="nav-item"><a href="{% url 'codi:codiWorldcup' %}" class="nav-link"
             style = "border-right: 2px dashed #A4AFC3; border-left: 2px dashed #A4AFC3;">코디 월드컵</a></li>
-            <li class="nav-item"><a class="nav-link" style = "border-right : 2px dashed #A4AFC3;">코디북</a></li>
+            <li class="nav-item"><a href="{% url 'codi:codiBook' %}" class="nav-link" style = "border-right : 2px dashed #A4AFC3;">코디북</a></li>
             <li class="nav-item"><a href="{% url 'codi:myCloset' %}" class="nav-link" style = "border-right : 2px dashed #A4AFC3;">내옷장</a></li>
             <li class="nav-item"><a href="{% url 'accounts:login' %}" class="nav-link" style = "border-right : 2px dashed #A4AFC3;">로그인</a></li>
         </ul>
@@ -74,8 +74,8 @@
         <div class="ftco-footer-widget mb-4 ml-md-4">
             <h2 class="ftco-heading-2">코디 월드컵</h2>
             <ul class="list-unstyled">
-                <li><a href="#"><i class="fas fa-play"></i> 시작하기</a></li>
-                <li><a href="#"><i class="fas fa-trophy"></i> 결과보기</a></li>
+                <li><a href="{% url 'codi:codiWorldcup' %}"><i class="fas fa-play"></i> 시작하기</a></li>
+                <li><a href="{% url 'codi:codiWorldcup' %}"><i class="fas fa-trophy"></i> 결과보기</a></li>
             </ul>
         </div>
         </div>
@@ -84,9 +84,9 @@
         <div class="ftco-footer-widget mb-4 ml-md-4">
             <h2 class="ftco-heading-2">코디북</h2>
             <ul class="list-unstyled">
-                <li><a href="#"><i class="fas fa-edit"></i> 글쓰기</a></li>
-                <li><a href="#"><i class="fas fa-book"></i> 나의 코디북</a></li>
-                <li><a href="#"><i class="fas fa-clipboard-list"></i> 코디북 구경</a></li>
+                <li><a href="{% url 'codi:codiBook' %}"><i class="fas fa-edit"></i> 글쓰기</a></li>
+                <li><a href="{% url 'codi:codiBook' %}"><i class="fas fa-book"></i> 나의 코디북</a></li>
+                <li><a href="{% url 'codi:codiBook' %}"><i class="fas fa-clipboard-list"></i> 코디북 구경</a></li>
             </ul>
         </div>
         </div>
@@ -95,8 +95,8 @@
             <div class="ftco-footer-widget mb-4">
             <h2 class="ftco-heading-2">마이페이지</h2>
             <ul class="list-unstyled">
-                <li><a href="#"><i class="fas fa-heart"></i> 내옷장</a></li>
-                <li><a href="#"><i class="fas fa-cog"></i> 정보수정</a></li>
+                <li><a href="{% url 'codi:myCloset' %}"><i class="fas fa-heart"></i> 내옷장</a></li>
+                <li><a href="{% url 'codi:myCloset' %}"><i class="fas fa-cog"></i> 정보수정</a></li>
             </ul>
         </div>
         </div>

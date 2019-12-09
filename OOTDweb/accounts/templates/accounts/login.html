@@ -82,14 +82,15 @@
 </head>
 
 <body class="text-center">
-    <form class="form-signin">
-        <img class="mb-4" src="{% static "images/icon.png" %}" href="{% url 'codi:home' %}" alt="" width="300" height="auto">
+    <form action="{% url 'accounts:login' %}" class="form-signin" method="POST">
+        <a href="{% url 'codi:home' %}"><img class="mb-4" src="{% static "images/icon.png" %}" alt="" width="300" height="auto"></a>
         <label for="inputID" class="sr-only">ID</label>
-        <input type="text" id="inputID" class="form-control font" style="margin-bottom:10px;" placeholder="ID" required autofocus>
+        <input type="text" id="inputID" name="username" class="form-control font" style="margin-bottom:10px;" placeholder="ID" required autofocus>
         <label for="inputPassword" class="sr-only">Password</label>
-        <input type="password" id="inputPassword" class="form-control font" placeholder="Password" required>
+        <input type="password" id="inputPassword" name="password" class="form-control font" placeholder="Password" required>
         {% csrf_token %}
         <button class=" btn-lg btn-block font btn-style" type="submit" style= "margin-bottom : 10px; margin-top : 10px;">로그인</button>
+        
         <a class = "font2" href="{% url 'accounts:signup' %}">회원가입을 하시겠습니까?</a>
         <p class="mt-5 mb-3 text-muted font">&copy; OOTD</p>
     </form>

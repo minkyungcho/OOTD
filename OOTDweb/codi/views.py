@@ -11,7 +11,7 @@ from PIL import Image
 import requests
 from django.db.models import Q
 from .models import Cloth, Closet, Category, Month, Temp
-# Create your views here.
+from django.contrib.auth.decorators import login_required # 로그인권한부여
 
 def index(request):
     return render(request, 'index.html')
@@ -61,6 +61,7 @@ def mapToGrid(lat, lon, code = 0 ):
     y = int(y + 1.5)
     return x, y
 
+@login_required
 def codiWorldcup(request):
     top = Cloth.objects.filter(category_id = 1)
     bottom = Cloth.objects.filter(Q(category_id = 3)|Q(category_id=4))
@@ -100,6 +101,8 @@ def codiWorldcup(request):
     }
     return render(request, 'codi/codiWorldcup.html', context1)
 
+
+@login_required
 def myCloset(request):
     top = Cloth.objects.filter(month=11, category_id=1)
     # print("-------------")

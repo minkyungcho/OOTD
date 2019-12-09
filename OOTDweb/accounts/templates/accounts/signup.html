@@ -69,7 +69,7 @@
 
 <body class="text-center">
     <form action="{% url 'accounts:signup' %}" class="form-signin" method="POST">
-        <a href="{% url 'codi:home' %}"><img class="mb-4" src="{% static "images/icon.png" %}" alt="" width="300" height="auto"></a>
+        <a href="{% url 'codi:codi' %}"><img class="mb-4" src="{% static "images/icon.png" %}" alt="" width="300" height="auto"></a>
         <label for="inputID" class="sr-only">ID</label>
         <input type="text" id="inputID" name="username" class="form-control font" style="margin-bottom:10px;" placeholder="ID" required autofocus>
         <label for="inputPassword" class="sr-only">Password</label>

@@ -18,8 +18,11 @@ def index(request):
 def link(request, category_id):
 
     # url = 'https://cf-api-c.brandi.me/v1/web/categories/3/products?offset=0&limit=100&order=popular&type=all&order=popular'
-    url = f'https://cf-api-c.brandi.me/v1/web/categories/{category_id}/products?offset=0&limit=100&order=popular&type=all&order=popular'
+    # 판매량순
+    # url = f'https://cf-api-c.brandi.me/v1/web/categories/{category_id}/products?offset=0&limit=100&order=popular&type=all&order=popular'
 
+    # 리뷰많은순
+    url = f'https://cf-api-c.brandi.me/v1/web/categories/{category_id}/products?offset=0&limit=100&order=many-reviews&type=all'
     headers = {
         # 'authority': 'cf-api-c.brandi.me',
         # 'method': 'GET',

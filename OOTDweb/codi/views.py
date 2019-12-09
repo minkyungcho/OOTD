@@ -1,17 +1,18 @@
-from django.shortcuts import render , HttpResponse
+import json
+import math
+import random
+import requests
+from django.shortcuts import render , HttpResponse, redirect
 from datetime import datetime
 from urllib.request import urlopen
 from .weather1 import get_tmn_data , get_tmx_data
 from .weather2 import get_forecast_data , ForecastTimeData
 from .models import Cloth
-import json
-import math
-import random
 from PIL import Image
-import requests
 from django.db.models import Q
 from .models import Cloth, Closet, Category, Month, Temp
 from django.contrib.auth.decorators import login_required # 로그인권한부여
+from .models import Article, Board
 
 def home(request):
     return render(request, 'index.html')
@@ -98,6 +99,23 @@ def codiWorldcup(request):
     }
     return render(request, 'codi/codiWorldcup.html', context1)
 
+@login_required
+def codiBook(request):
+    if request.method == "POST":
+        if request.user.is_authenticated:
+            article = Article()
+            article.contents = request.POST['contents']
+            article.user_id = request.user.id  
+            article.save() 
+            return redirect('codi:codiBook')
+        else:
+            return redirect('codi:codiBook')
+    else:
+        articles = Article.objects.all().order_by("created_at").reverse()
+        context = {
+            'articles': articles
+        }
+        return render(request, 'codi/codiBook.html', context)
 
 @login_required
 def myCloset(request):
@@ -132,17 +150,12 @@ def getWeather(request):
     lat= request.POST["lat"]
     x = (mapToGrid(float(lat),float(lng))[0])
     y = (mapToGrid(float(lat),float(lng))[1])
-    # print("------------------")
-    # print(x)
-    # print(y)
     min = get_tmn_data(x,y)
     max = get_tmx_data(x,y)
     now = ForecastTimeData()
-    # 세 값들을 이쁘게만들어서 html한테 뿌려주자.
     context = {
         'min':min,
         'max':max,
         'now':now
     }
     return HttpResponse(json.dumps(context), content_type="application/json")
-

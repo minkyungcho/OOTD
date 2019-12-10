@@ -10,33 +10,36 @@ import json
 from datetime import datetime
 from urllib.request import urlopen
 
-def get_forecast_data(data):
-    now = datetime.now()
-    now_date = now.strftime('%Y%m%d')
-    base_date = now_date
-    # print(base_date)
-    now_hour = int(now.strftime('%H'))
-    base_time = now_hour
-    # print(base_time)
-    now_min = int(now.strftime('%M'))
-    if now_min <= 20:
-        temp_time = now_hour - 1
-    else:
-        temp_time = now_hour
+def get_forecast_data(data, fcst):
+    # now = datetime.now()
+    # now_date = now.strftime('%Y%m%d')
+    # base_date = now_date
+    # # print(base_date)
+    # now_hour = int(now.strftime('%H'))
+    # base_time = now_hour
+    # # print(base_time)
+    # now_min = int(now.strftime('%M'))
+    # if now_min <= 20:
+    #     temp_time = now_hour - 1
+    # else:
+    #     temp_time = now_hour
     # print(temp_time)
-    base_time = str(temp_time) + '30'
-    # print(base_time) 
-    fcstTime = int(str(temp_time+1) + '00')
-    # print(fcstTime)
-    service_key = 'lgkNpxB8TTbXXj4%2BEK9KumE72Q78STsTzIR9MEgjrEARC7OGjiX4cS8UTFTxT55PqDvk1ARfSgMATErdYQKb9A%3D%3D'
-    # x,y 좌표 받아오기
-    nx = str(61)
-    ny = str(125)
-    _type = 'json'
+    # base_time = str(temp_time) + '30'
+    # # print(base_time) 
+    # fcstTime = int(str(temp_time+1) + '00')
+    # # print(fcstTime)
+    # service_key = 'lgkNpxB8TTbXXj4%2BEK9KumE72Q78STsTzIR9MEgjrEARC7OGjiX4cS8UTFTxT55PqDvk1ARfSgMATErdYQKb9A%3D%3D'
+    # # x,y 좌표 받아오기
+    # nx = str(61)
+    # ny = str(125)
+    # _type = 'json'
+    fcstTime = int(fcst)
+    print(fcstTime)
     try:
         num = int(len(data))
         target_data = []
         for i in range(num):
+            # print (data[i]['fcstTime'])
             if data[i]['fcstTime'] == fcstTime:
                 target_data.append(data[i])
         # print(target_data)
@@ -72,11 +75,20 @@ def ForecastTimeData():
         temp_time = now_hour - 1
     else:
         temp_time = now_hour
-    # print(temp_time)
-    base_time = str(temp_time) + '30'
-    # print(base_time) 
-    fcstTime = int(str(temp_time+1) + '00')
-    # print(fcstTime)
+    print(temp_time)
+    if temp_time<10:
+        base_time = '0' + str(temp_time) + '30'
+        fcstTime = '0' + str(temp_time+1) + '00'
+    elif temp_time == 9:
+        base_time = '0' + str(temp_time) + '30'
+        fcstTime = str(temp_time+1) + '00'
+    else :
+        base_time = str(temp_time) + '30'
+        fcstTime = int(str(temp_time+1) + '00')
+    print('basetime')
+    print(base_time) 
+    print('fcstTime')
+    print(fcstTime)
     service_key = 'lgkNpxB8TTbXXj4%2BEK9KumE72Q78STsTzIR9MEgjrEARC7OGjiX4cS8UTFTxT55PqDvk1ARfSgMATErdYQKb9A%3D%3D'
     # x,y 좌표 받아오기
     nx = str(61)
@@ -88,7 +100,7 @@ def ForecastTimeData():
     # print(json_data)
     weather_info = json_data['response']['body']['items']['item']
     # print(weather_info)
-    t1h = get_forecast_data(weather_info) # 낮 최고기온
+    t1h = get_forecast_data(weather_info, fcstTime) # 낮 최고기온
     return t1h
 ForecastData = ForecastTimeData()
 # print(ForecastData)

@@ -28,7 +28,7 @@ def get_tmn_data(x , y):
         base_date = now_date
     base_date = base_date
     base_time = '0200'
-    # service_key = 'lgkNpxB8TTbXXj4%2BEK9KumE72Q78STsTzIR9MEgjrEARC7OGjiX4cS8UTFTxT55PqDvk1ARfSgMATErdYQKb9A%3D%3D'
+    service_key = 'lgkNpxB8TTbXXj4%2BEK9KumE72Q78STsTzIR9MEgjrEARC7OGjiX4cS8UTFTxT55PqDvk1ARfSgMATErdYQKb9A%3D%3D'
     # x,y 좌표 받아오기
     # nx = str(61)
     # ny = str(125)

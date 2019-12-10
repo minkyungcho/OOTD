@@ -12,53 +12,11 @@ from PIL import Image
 from django.db.models import Q
 from .models import Cloth, Closet, Category, Month, Temp
 from django.contrib.auth.decorators import login_required # 로그인권한부여
-from .models import Article, Board
-from django.http.response import HttpResponse
+from .models import Article
+
 
 def home(request):
     return render(request, 'index.html')
-
-def mapToGrid(lat, lon, code = 0 ):
-    NX = 149            ## X축 격자점 수
-    NY = 253            ## Y축 격자점 수
-    Re = 6371.00877     ##  지도반경
-    grid = 5.0          ##  격자간격 (km)
-    slat1 = 30.0        ##  표준위도 1
-    slat2 = 60.0        ##  표준위도 2
-    olon = 126.0        ##  기준점 경도
-    olat = 38.0         ##  기준점 위도
-    xo = 210 / grid     ##  기준점 X좌표
-    yo = 675 / grid     ##  기준점 Y좌표
-    first = 0
-    if first == 0 :
-        PI = math.asin(1.0) * 2.0
-        DEGRAD = PI/ 180.0
-        RADDEG = 180.0 / PI
-        re = Re / grid
-        slat1 = slat1 * DEGRAD
-        slat2 = slat2 * DEGRAD
-        olon = olon * DEGRAD
-        olat = olat * DEGRAD
-        sn = math.tan(PI * 0.25 + slat2 * 0.5) / math.tan(PI * 0.25 + slat1 * 0.5)
-        sn = math.log(math.cos(slat1) / math.cos(slat2)) / math.log(sn)
-        sf = math.tan(PI * 0.25 + slat1 * 0.5)
-        sf = math.pow(sf, sn) * math.cos(slat1) / sn
-        ro = math.tan(PI * 0.25 + olat * 0.5)
-        ro = re * sf / math.pow(ro, sn)
-        first = 1
-    ra = math.tan(PI * 0.25 + lat * DEGRAD * 0.5)
-    ra = re * sf / pow(ra, sn)
-    theta = lon * DEGRAD - olon
-    if theta > PI :
-        theta -= 2.0 * PI
-    if theta < -PI :
-        theta += 2.0 * PI
-    theta *= sn
-    x = (ra * math.sin(theta)) + xo
-    y = (ro - ra * math.cos(theta)) + yo
-    x = int(x + 1.5)
-    y = int(y + 1.5)
-    return x, y
 
 @login_required
 def codiWorldcup(request):
@@ -107,12 +65,22 @@ def codiBook(request):
             article = Article()
             article.contents = request.POST['contents']
             article.user_id = request.user.id  
-            article.save() 
+            article.save()
+
+            # 원본 이미지 저장
+            article.image = request.FILES['image'] 
+            # 원본 이미지를 프로세싱 한 이미지 저장
+            # article.image_resized = request.FILES["image"]
+            article.save(0)
+            # for image in request.FILES.getlist("image"):
+            #     ArticleImages.objects.create(article_id=article.id, image=image)
             return redirect('codi:codiBook')
         else:
-            return redirect('codi:codiBook')
+            return redirect('codi:codi')
     else:
-        articles = Article.objects.all().order_by("created_at").reverse()
+        id = request.user.id
+        articles = Article.objects.filter(user_id=id).order_by("created_at").reverse()
+        # articles = Article.objects.all().order_by("created_at").reverse()
         context = {
             'articles': articles
         }
@@ -210,6 +178,7 @@ def getClothList(request):
     }
     return render(request, 'codi/cloth_card.html', context)
 
+
 @login_required
 def add(request):
     # product_id = request.POST["product_id"]
@@ -240,7 +209,44 @@ def add(request):
     }
     return HttpResponse(json.dumps(context), status=200, content_type='application/json')
 
-
+def mapToGrid(lat, lon, code = 0 ):
+    Re = 6371.00877     ##  지도반경
+    grid = 5.0          ##  격자간격 (km)
+    slat1 = 30.0        ##  표준위도 1
+    slat2 = 60.0        ##  표준위도 2
+    olon = 126.0        ##  기준점 경도
+    olat = 38.0         ##  기준점 위도
+    xo = 210 / grid     ##  기준점 X좌표
+    yo = 675 / grid     ##  기준점 Y좌표
+    first = 0
+    if first == 0 :
+        PI = math.asin(1.0) * 2.0
+        DEGRAD = PI/ 180.0
+        re = Re / grid
+        slat1 = slat1 * DEGRAD
+        slat2 = slat2 * DEGRAD
+        olon = olon * DEGRAD
+        olat = olat * DEGRAD
+        sn = math.tan(PI * 0.25 + slat2 * 0.5) / math.tan(PI * 0.25 + slat1 * 0.5)
+        sn = math.log(math.cos(slat1) / math.cos(slat2)) / math.log(sn)
+        sf = math.tan(PI * 0.25 + slat1 * 0.5)
+        sf = math.pow(sf, sn) * math.cos(slat1) / sn
+        ro = math.tan(PI * 0.25 + olat * 0.5)
+        ro = re * sf / math.pow(ro, sn)
+        first = 1
+    ra = math.tan(PI * 0.25 + lat * DEGRAD * 0.5)
+    ra = re * sf / pow(ra, sn)
+    theta = lon * DEGRAD - olon
+    if theta > PI :
+        theta -= 2.0 * PI
+    if theta < -PI :
+        theta += 2.0 * PI
+    theta *= sn
+    x = (ra * math.sin(theta)) + xo
+    y = (ro - ra * math.cos(theta)) + yo
+    x = int(x + 1.5)
+    y = int(y + 1.5)
+    return x, y
 def getWeather(request):
     lng = request.POST["lng"]
     lat= request.POST["lat"]

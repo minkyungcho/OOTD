@@ -14,12 +14,8 @@ def get_tmn_data(x , y):
     now_min = int(now.strftime('%M'))
     service_key = 'lgkNpxB8TTbXXj4%2BEK9KumE72Q78STsTzIR9MEgjrEARC7OGjiX4cS8UTFTxT55PqDvk1ARfSgMATErdYQKb9A%3D%3D'
     _type = 'json'
-    # now = datetime.now()
-    # now_date = now.strftime('%Y%m%d')
     nx = x
     ny = y
-    # now_hour = int(now.strftime('%H'))
-    # now_min = int(now.strftime('%M'))
     if now_hour < 2:
         base_date = str(int(now_date) - 1)
     elif now_hour==2 & now_min<10:
@@ -28,10 +24,6 @@ def get_tmn_data(x , y):
         base_date = now_date
     base_date = base_date
     base_time = '0200'
-    service_key = 'lgkNpxB8TTbXXj4%2BEK9KumE72Q78STsTzIR9MEgjrEARC7OGjiX4cS8UTFTxT55PqDvk1ARfSgMATErdYQKb9A%3D%3D'
-    # x,y 좌표 받아오기
-    # nx = str(61)
-    # ny = str(125)
     api_url = f'http://newsky2.kma.go.kr/service/SecndSrtpdFrcstInfoService2/ForecastSpaceData?serviceKey={service_key}&base_date={base_date}&base_time={base_time}&nx={nx}&ny={ny}&_type={_type}'
     data = urlopen(api_url).read()
     json_data = json.loads(data)

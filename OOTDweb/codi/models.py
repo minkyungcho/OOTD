@@ -2,7 +2,8 @@ from django.db import models
 from django.conf import settings
 from django.contrib.auth.models import User
 from imagekit.models import ImageSpecField, ProcessedImageField
-from imagekit.processors import ResizeToFill, Thumbnail
+from imagekit.processors import ResizeToFit, ResizeToFill, Thumbnail
+
 # Create your models here.
 
 class Category(models.Model):
@@ -34,22 +35,38 @@ class Closet(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
     clothes = models.ManyToManyField(Cloth, related_name="closets")
 
-
 class Article(models.Model):
     contents = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     
+    image = models.ImageField(blank=True)
+    image_thumbnail = ImageSpecField(
+        source='image',
+        # processors=[ResizeToFit(1000,1000)],
+        processors = [ResizeToFill(1000,1000)], 
+        format='JPEG',
+        options={'quality':100}
+    )
+
     # def comments(self):
     #     # article_id가 self.id인 것을 return해라
     #     return Comment.objects.filter(article_id=self.id)
     # def article_images(self):
     #     return ArticleImages.objects.filter(article_id=self.id)
 
-class Board(models.Model):
-    contents = models.CharField(max_length=16)
-    created_at = models.DateTimeField(auto_now_add=True)
+# class ArticleImages(models.Model):
+#     article = models.ForeignKey(Article, on_delete=models.CASCADE)
+#     image = models.ImageField(blank=True)
+#     image_thumbnail = ImageSpecField(
+#         source='image',
+#         processors=[Thumbnail(300,300)],
+#         format='JPEG',
+#         options={
+#             'quality':90
+#         }
+#     )
 
 # class Comment(models.Model):
 #     # Article 하나가 여러개의 Comment를 갖는다(1:N)

@@ -26,6 +26,7 @@ class Cloth(models.Model):
     # label = models.ImageField(blank=True)
     label = models.CharField(max_length=16)
     img_url = models.CharField(max_length=300)
+    user_clothes = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name="my_clothes")
 
 class Closet(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)

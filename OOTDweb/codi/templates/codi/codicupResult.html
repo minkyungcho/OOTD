@@ -1,0 +1,95 @@
+{% extends 'codi/base.html' %}
+{% load static %}
+
+{% block style %}
+{% comment %} 이미지카드 {% endcomment %}
+.card{
+display: inline-block;
+}
+
+{% comment %} 선택한 옷 이미지 크기 {% endcomment %}
+.pickTop, .pickBottom, .pickOuter, .pickOnepiece {
+width: 260px;
+height: 260px;
+margin-top: 10px;
+}
+
+p.card-text.codipick{
+font-size: x-large;
+}
+.card-body {
+padding: 0 !important;
+}
+{% comment %} 중간 대문?? 위아래 폭 줄이기 {% endcomment %}
+.hero-wrap.hero-wrap-2 .slider-text {
+    height: 380px !important;
+}
+.hero-wrap.hero-wrap-2 {
+    height: 400px !important;
+    position: relative;
+}
+{% endblock style %}
+
+{% block content %}
+<section class="hero-wrap hero-wrap-2 ftco-degree-bg js-fullheight" style="" data-stellar-background-ratio="0.5">
+  <div class="container">
+    <div class="row no-gutters slider-text js-fullheight align-items-end justify-content-center">
+      <div class="col-md-9 ftco-animate text-center">
+        <h1 class="mb-3 bread">코디 월드컵</h1>
+        <p class="breadcrumbs">
+        <span class="mr-2"><a href="{% url 'codi:codi' %}">Home <i class="ion-ios-arrow-forward"></i></a></span> 
+        <span class="mr-2"><a href="{% url 'codi:codiWorldcup' %}">codicup <i class="ion-ios-arrow-forward"></i></a></span>
+        <span><a href="{% url 'codi:codicupResult' %}">result <i class="ion-ios-arrow-forward"></i></a></span>
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="ftco-section testimony-section bg-light">
+    <div class="container">
+        result
+        <div class="pick3P text-center">
+            <div class="card" style="width: 18rem;">
+                <img class="pickTop" src="{% static 'hanger.png' %}">
+                <div class="card-body">
+                    <p class="card-text codipick">상의</p>
+                </div>
+            </div>
+            <div class="card" style="width: 18rem;">
+                <img class="pickBottom" src="{% static 'hanger.png' %}">
+                <div class="card-body">
+                    <p class="card-text codipick">하의</p>
+                </div>
+            </div>
+            <div class="card" style="width: 18rem;">
+                <img class="pickOuter" src="{% static 'hanger.png' %}">
+                <div class="card-body">
+                    <p class="card-text codipick">외투</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="pick2P text-center">
+            <div class="card" style="width: 18rem;">
+                <img class="pickOnepiece" src="{% static 'hanger.png' %}">
+                <div class="card-body">
+                    <p class="card-text codipick">원피스</p>
+                </div>
+            </div>
+            <div class="card" style="width: 18rem;">
+                <img class="pickOuter" src="{% static 'hanger.png' %}">
+                <div class="card-body">
+                    <p class="card-text codipick">외투</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock content %}
+
+{% block script %}
+<script>
+
+</script>
+{% endblock script %}

@@ -34,6 +34,10 @@ font-size: 22px;
 font-weight: 600;
 color: #000000;
 }
+.cate_all.cate_title{
+cursor: pointer;
+font-size: 20px;
+}
 div#cate_all {
 color: #000000;
 }
@@ -77,16 +81,22 @@ margin-top: 13px;
 #addBtn{
 float: right;
 }
+{% comment %} 중간 대문?? 위아래 폭 줄이기 {% endcomment %}
+.hero-wrap.hero-wrap-2 .slider-text {
+    height: 380px !important;
+}
+.hero-wrap.hero-wrap-2 {
+    height: 400px !important;
+    position: relative;
+}
 {% endblock style %}
 
 {% block content %}
 <section class="hero-wrap hero-wrap-2 ftco-degree-bg js-fullheight" style=""
     data-stellar-background-ratio="0.5">
-    <div class="overlay"></div>
-    <div class="overlay-2"></div>
     <div class="container">
         <div class="row no-gutters slider-text js-fullheight align-items-end justify-content-center">
-            <div class="col-md-9 ftco-animate pb-5 mb-5 text-center">
+            <div class="col-md-9 ftco-animate text-center">
                 <h1 class="mb-3 bread">옷 추가하기</h1>
                 <p class="breadcrumbs">
                 <span class="mr-2"><a href="{% url 'codi:codi' %}">Home <i class="ion-ios-arrow-forward"></i></a></span>
@@ -105,10 +115,10 @@ float: right;
             <div class="cate_left">
 
                 <div>
-                    <h2 class="cate_title">CATEGORIES</h2>
-                    <h2 class="cate_title">
+                    <h2 class="cate_title text-center">CATEGORIES</h2>
+                    <div class="cate_title cate_all">
                         <div class="cate_name" id="cate_all" data-id="99">전체</div>
-                    </h2>
+                    </div>
                     <div class="cate_default">
                         <div class="cate_name" data-id="2">아우터</div>
                     </div>
@@ -143,11 +153,11 @@ float: right;
 {% block script %}
 <script>
 $(function(){
-    $('.cate_name').on('click', function(){
+    $(document).on('click', '.cate_name', function(){
         var id = $(this).data('id');
         console.log(id);
         $.ajax({
-            url:'{% url 'codi:getClothList' %}',
+            url:'{% url "codi:getClothList" %}',
             method:'POST',
             data:{
                 "csrfmiddlewaretoken": '{{csrf_token}}',
@@ -171,12 +181,10 @@ $(function(){
         console.log(img)
         var button = $(this);
         $.ajax({
-            url:'{% url 'codi:add' %}',
+            url:'{% url "codi:add" %}',
             method:'POST',
             data:{
                 "csrfmiddlewaretoken": '{{csrf_token}}',
-                {% comment %} "product_id":id, {% endcomment %}
-                {% comment %} "label": lab {% endcomment %}
                 "img_url": img
                 },
             success: function(data){

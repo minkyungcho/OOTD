@@ -24,6 +24,9 @@ margin-top: 10px;
 text-align:center;
 margin: auto;
 }
+.matchup{
+  cursor: pointer;
+}
 .row {
 float:center;
 }
@@ -37,6 +40,7 @@ position: relative;
 #select3P, #select2P {
 border-bottom: solid !important;
 font-size: xx-large !important;
+cursor: pointer;
 }
 #vs {
 color: red;
@@ -53,20 +57,34 @@ font-size: x-large;
 .card-body {
 padding: 0 !important;
 }
+h2.mb-3 {
+  margin-bottom: 0 !important;
+}
+.row.justify-content-center.mb-5 {
+  margin-bottom: 0.5rem !important;
+}
+{% comment %} 중간 대문?? 위아래 폭 줄이기 {% endcomment %}
+.hero-wrap.hero-wrap-2 .slider-text {
+    height: 380px !important;
+}
+.hero-wrap.hero-wrap-2 {
+    height: 400px !important;
+    position: relative;
+}
 {% endblock style %}
 
 {% block content %}
 
 <section class="hero-wrap hero-wrap-2 ftco-degree-bg js-fullheight" style="" data-stellar-background-ratio="0.5">
-  <div class="overlay"></div>
-  <div class="overlay-2"></div>
   <div class="container">
     <div class="row no-gutters slider-text js-fullheight align-items-end justify-content-center">
-      <div class="col-md-9 ftco-animate pb-5 mb-5 text-center">
+      <div class="col-md-9 ftco-animate text-center">
         <h1 class="mb-3 bread">코디 월드컵</h1>
-        <p class="breadcrumbs"><span class="mr-2"><a href="{% url 'codi:codi' %}">Home <i
-                class="ion-ios-arrow-forward"></i></a></span> <span>About us <i
-              class="ion-ios-arrow-forward"></i></span></p>
+        <p class="breadcrumbs">
+        <span class="mr-2"><a href="{% url 'codi:codi' %}">Home <i class="ion-ios-arrow-forward"></i></a></span> 
+        <span class="mr-2"><a href="{% url 'codi:codiWorldcup' %}">codicup <i class="ion-ios-arrow-forward"></i></a></span>
+        <span><a href="{% url 'codi:codicupResult' %}">result <i class="ion-ios-arrow-forward"></i></a></span>
+        </p>
       </div>
     </div>
   </div>

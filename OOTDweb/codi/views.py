@@ -138,12 +138,12 @@ def addCloth(request):
     return render(request, 'codi/addCloth1.html', context)
 
 @login_required
-def mypage(request):
-    return render(request, 'codi/mypage.html')
-
-@login_required
 def codiBook(request):
     return render(request, 'codi/codiBook.html')
+
+@login_required
+def mypage(request):
+    return render(request, 'codi/mypage.html')
 
 def getWeather(request):
     lng = request.POST["lng"]

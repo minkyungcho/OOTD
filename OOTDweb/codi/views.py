@@ -58,6 +58,13 @@ def codiWorldcup(request):
     }
     return render(request, 'codi/codiWorldcup.html', context1)
 
+def codicupResult(request):
+
+    context = {
+
+    }
+    return render(request, 'codi/codicupResult.html', context)
+
 @login_required
 def codiBook(request):
     if request.method == "POST":
@@ -102,6 +109,7 @@ def myCloset(request):
     onepieces = Cloth.objects.filter(Q(category_id=5) & Q(user_clothes__id=id)).values('img_url', 'cloth_type').distinct()
     # print("-------------")
     # print(len(top))
+    print(len(tops))
     context={
         'tops':tops,
         'outers':outers,
@@ -116,9 +124,12 @@ def addCloth(request):
     # top = Cloth.objects.filter(month=11, category_id=1)
     # print("-------------")
     # print(len(top))
+    id = request.user.id
+    topN = Cloth.objects.filter(~Q(user_clothes__id=id)).values('img_url', 'cloth_type').distinct()
     context={
-        # 'tops':top
+        'tops':topN
     }
+    # return render(request, 'codi/addCloth1.html', context)
     return render(request, 'codi/addCloth1.html', context)
 
 @login_required    
@@ -149,9 +160,9 @@ def getClothList(request):
         # print(len(top))
         # print(len(topN))
         # print(type(topN))
-        for tmp in top:
+        # for tmp in top:
             # print(tmp.user_clothes.all().id)
-            if len(tmp.user_clothes.all()) >= 1:
+            # if len(tmp.user_clothes.all()) >= 1:
             #     # print(len(tmp.user_clothes.all()))
             #     for t in tmp.user_clothes.all():
             #         # print(type(tmp))
@@ -161,7 +172,7 @@ def getClothList(request):
                 # if t.id == id:
                     # t.id는 옷 가진 user의 id
                     # id는 로그인한 user의 고유 id 번호
-                noUserTop = Cloth.objects.filter(Q(category_id=category_id) & Q(id=tmp.id))
+                # noUserTop = Cloth.objects.filter(Q(category_id=category_id) & Q(id=tmp.id))
                 # print(type(noUserTop))
                 # print(len(noUserTop)) # 쿼리셋
                 # print(tmp.id) # cloth id

@@ -65,6 +65,8 @@ def codiWorldcup(request):
 
 @login_required
 def codiBook(request):
+    # user_id = request.user.id 
+    # print(user_id)
     if request.method == "POST":
         if request.user.is_authenticated:
             article = Article()
@@ -75,7 +77,7 @@ def codiBook(request):
             # 원본 이미지 저장
             article.image = request.FILES['image'] 
             # 원본 이미지를 프로세싱 한 이미지 저장
-            # article.image_resized = request.FILES["image"]
+            article.image_resized = request.FILES["image"]
             article.save(0)
             # for image in request.FILES.getlist("image"):
             #     ArticleImages.objects.create(article_id=article.id, image=image)
@@ -103,6 +105,15 @@ def allCodiBook(request):
         'articles': articles
     }
     return render(request, 'codi/allCodiBook.html', context)
+
+@login_required
+def codiBooks(request, user_id):
+    articles = Article.objects.filter(user_id=user_id).order_by("-created_at")
+    # articles = Article.objects.all().order_by("-created_at")
+    context = {
+        'articles': articles
+    }
+    return render(request, 'codi/codiBooks.html', context)
 
 @login_required
 def myCloset(request):

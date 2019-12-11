@@ -39,11 +39,10 @@ class Article(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
-    
+
     image = models.ImageField(blank=True)
     image_thumbnail = ImageSpecField(
         source='image',
-        # processors=[ResizeToFit(width=800, upscale=False)],
         processors=[ResizeToFit(1000,1000)],
         # processors = [ResizeToFill(1000,1000)], 
         format='JPEG',

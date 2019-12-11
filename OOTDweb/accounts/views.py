@@ -1,6 +1,10 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import login as auth_login, logout as auth_logout
 from .forms import AuthenticationForm, UserCreationForm
+# from django.contrib.auth.forms import PasswordChangeForm
+from .forms import CustomPasswordChangeForm
+from django.contrib.auth import update_session_auth_hash
+from django.contrib.auth.decorators import login_required
 
 def signup(request):
     # 요청을 보낸 사용자가 인증이 되어 있지 않으면 -> 회원가입
@@ -41,3 +45,22 @@ def login(request):
 def logout(request):
     auth_logout(request)
     return redirect('codi:codi')
+
+@login_required
+def password(request):
+    if request.method == 'POST':
+        password_change_form = CustomPasswordChangeForm(request.user, request.POST)
+        
+        if password_change_form.is_valid():
+            user = password_change_form.save()
+            update_session_auth_hash(request, user)
+
+            return redirect('codi:codi')
+    else:
+        password_change_form = CustomPasswordChangeForm(request.user)
+    
+    context = {
+        'password_change_form' : password_change_form
+    }
+
+    return render(request, 'accounts/password.html',context)

@@ -36,7 +36,7 @@
 </head>
 <body>
 
-<nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark ftco-navbar-light" id="ftco-navbar">
     <div class="container" style="display:inline-block;">
         <!-- 'OOTD' logo -->
         <a class="navbar-brand" href="{% url 'codi:codi' %}" style="display:table; margin-left:auto; margin-right:auto; margin-bottom:10px;"><img src = "{% static "images/icon.png" %}" style="width: 300px; height: auto;"></a>
@@ -53,15 +53,14 @@
             <li class="nav-item"><a href="{% url 'codi:codiBook' %}" class="nav-link" style = "border-right : 2px dashed #A4AFC3;">코디북</a></li>
             <li class="nav-item"><a href="{% url 'codi:myCloset' %}" class="nav-link" style = "border-right : 2px dashed #A4AFC3;">내옷장</a></li>
             {% if user.is_authenticated %}
-                <li class="nav-item"><a href="{% url 'codi:mypage' %}" class="nav-link" style = "border-right : 2px dashed #A4AFC3;">마이페이지</a></li>
-                <li class="nav-item"><a href="{% url 'accounts:logout' %}" class="nav-link" style = "border-right : 2px dashed #A4AFC3;">로그아웃</a></li>
+                <li class="nav-item"><a href="{% url 'accounts:password' %}" class="nav-link" style = "border-right : 2px dashed #A4AFC3;">마이페이지</a></li>
+                <li class="nav-item"><a href="{% url 'accounts:logout' %}" class="nav-link" style = "border-right : 2px dashed #A4AFC3;"><i class="fas fa-sign-out-alt"></i> 로그아웃</a></li>
             {% else %}
                 <li class="nav-item"><a href="{% url 'accounts:login' %}" class="nav-link" style = "border-right : 2px dashed #A4AFC3;">로그인</a></li>
             {% endif %}
         </ul>
         </div> 
         <!-- END nav bar's menu -->
-        {% comment %} <img src = "{% static "images/nav.png" %}"> {% endcomment %}
     </div>
 </nav>
 <!-- END nav -->
@@ -72,63 +71,12 @@
 
 
 <footer class="ftco-footer ftco-section">
-    <div class="container">
-    <div class="row mb-5" style="text-align:center;">
-
-        <div class="col-md" style="display:inline-block;">
-        <div class="ftco-footer-widget mb-4 ml-md-4">
-            <h2 class="ftco-heading-2">코디 월드컵</h2>
-            <ul class="list-unstyled">
-                <li><a href="{% url 'codi:codiWorldcup' %}"><i class="fas fa-play"></i> 시작하기</a></li>
-                <li><a href="{% url 'codi:codicupResult' %}"><i class="fas fa-trophy"></i> 결과보기</a></li>
-            </ul>
-        </div>
-        </div>
-
-        <div class="col-md" style="display:inline-block;">
-        <div class="ftco-footer-widget mb-4 ml-md-4">
-            <h2 class="ftco-heading-2">코디북</h2>
-            <ul class="list-unstyled">
-                <li><a href="{% url 'codi:codiBook' %}"><i class="fas fa-edit"></i> 글쓰기</a></li>
-                <li><a href="{% url 'codi:codiBook' %}"><i class="fas fa-book"></i> 나의 코디북</a></li>
-                <li><a href="{% url 'codi:allCodiBook' %}"><i class="fas fa-clipboard-list"></i> 코디북 구경</a></li>
-            </ul>
-        </div>
-        </div>
-
-        <div class="col-md" style="display:inline-block;">
-            <div class="ftco-footer-widget mb-4">
-            <h2 class="ftco-heading-2">마이페이지</h2>
-            <ul class="list-unstyled">
-                <li><a href="{% url 'codi:myCloset' %}"><i class="fas fa-heart"></i> 내옷장</a></li>
-                <li><a href="{% url 'codi:mypage' %}"><i class="fas fa-cog"></i> 정보수정</a></li>
-            </ul>
-        </div>
-        </div>
-
-        <div class="col-md" style="display:inline-block;">
-        <div class="ftco-footer-widget mb-4">
-            <h2 class="ftco-heading-2">옷입혀조</h2>
-            <div class="block-23 mb-3">
-                <ul>
-                    <li><i class="fas fa-map-marker-alt" style="color:black;"></i><span class="text">&nbsp;&nbsp;MultiCampus, Seoul, Korea</span></li>
-                    <li><a href="#"><span class="icon icon-phone"></span><span class="text">+82 000-0000-0000</span></a></li>
-                    <li><a href="#"><span class="icon icon-envelope pr-4"></span><span class="text">ootd@mulcam.com</span></a></li>
-                </ul>
-            </div>
-        </div>
-        </div>
-
-    </div>
-    <div class="row">
-        <div class="col-md-12 text-center">
+        <div class=" text-center">
 
         <p><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
 Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="icon-heart color-danger" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
 <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --></p>
         </div>
-    </div>
-    </div>
 </footer>
 
 <!-- loader -->

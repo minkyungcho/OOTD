@@ -11,17 +11,21 @@ padding: 10px;
 
 {% comment %} 이미지카드 {% endcomment %}
 .card{
-  display: inline-block;
+display: inline-block;
 }
 
 {% comment %} 선택한 옷 이미지 크기 {% endcomment %}
 .pickTop, .pickBottom, .pickOuter, .pickOnepiece {
-  width: 200px;
-height: 200px;
+width: 260px;
+height: 260px;
+margin-top: 10px;
 }
 .matchup, .select{
 text-align:center;
 margin: auto;
+}
+.matchup{
+  cursor: pointer;
 }
 .row {
 float:center;
@@ -29,16 +33,65 @@ float:center;
 .round1, .round2, .final, .top, .bottom, .outer, .onepiece, .pick3P, .pick2P{
 display: none;
 }
+.ftco-section {
+padding: 2em 0;
+position: relative;
+}
+#select3P, #select2P {
+border-bottom: solid !important;
+font-size: xx-large !important;
+cursor: pointer;
+}
+#vs {
+color: red;
+margin: 0 20px 0 20px;
+font-size: x-large;
+}
+.heading-section .subheading {
+color: lightskyblue;
+font-size: 24px;
+}
+p.card-text.codipick{
+font-size: x-large;
+}
+.card-body {
+padding: 0 !important;
+}
+h2.mb-3 {
+  margin-bottom: 0 !important;
+}
+.row.justify-content-center.mb-5 {
+  margin-bottom: 0.5rem !important;
+}
+{% comment %} 중간 대문?? 위아래 폭 줄이기 {% endcomment %}
+.hero-wrap.hero-wrap-2 .slider-text {
+    height: 380px !important;
+}
+.hero-wrap.hero-wrap-2 {
+    height: 400px !important;
+    position: relative;
+}
+#save3P, #save2P {
+  margin-top: 10px;
+  font-size: larger !important;
+}
+.save3Pbtn, .save2Pbtn {
+  display: flow-root;
+}
 {% endblock style %}
 
 {% block content %}
 
-<section>
+<section class="hero-wrap hero-wrap-2 ftco-degree-bg js-fullheight" style="" data-stellar-background-ratio="0.5">
   <div class="container">
-    {% comment %} <div class="row no-gutters slider-text js-fullheight align-items-end justify-content-center"> {% endcomment %}
-      <div class="row no-gutters slider-text js-fullheight align-items-end justify-content-center">
-      <div class="col-md-9 ftco-animate pb-5 mb-5 text-center">
+    <div class="row no-gutters slider-text js-fullheight align-items-end justify-content-center">
+      <div class="col-md-9 ftco-animate text-center">
         <h1 class="mb-3 bread">코디 월드컵</h1>
+        <p class="breadcrumbs">
+        <span class="mr-2"><a href="{% url 'codi:codi' %}">Home <i class="ion-ios-arrow-forward"></i></a></span> 
+        <span class="mr-2"><a href="{% url 'codi:codiWorldcup' %}">codicup <i class="ion-ios-arrow-forward"></i></a></span>
+        <span><a href="{% url 'codi:codicupResult' %}">result <i class="ion-ios-arrow-forward"></i></a></span>
+        </p>
       </div>
     </div>
   </div>
@@ -48,284 +101,417 @@ display: none;
   <div class="container">
 
     <div class="select">
-    <h1>원하는 스타일을 선택하세요</h1>
-      <h2 class="3P">상의+하의+외투</h2>
-      <h2 class="2P">원피스+외투</h2>
+      <h1>원하는 스타일을 선택하세요</h1>
+      <span id="select3P" class="3P">상의+하의+외투</span><span id="vs">VS</span><span id="select2P" class="2P">원피스+외투</span>
     </div>
 
     <div class="top">
-    <div class="row justify-content-center mb-5">
-      <div class="col-md-7 text-center heading-section ftco-animate">
-        <span class="subheading">상의</span>
-        <h2 class="mb-3">4강전(1/2)</h2>
-      </div>
-    </div>
-    <div class="row">
-      <div class="matchup round1">
-      {% for  top in top1 %}
-        <img src="{{top.img_url}}" class="versus mr-3 border border-dark rounded img_ootd" data-id="{{top.id}}">
-      {% endfor %}
-      </div>
-    <div class="matchup round2">
-      {% for top in top2 %}
-        <img src="{{top.img_url}}" class="versus mr-3 border border-dark rounded img_ootd" data-id="{{top.id}}">
-    {% endfor %}
-    </div>
-    <div class="matchup final">
-        <img id="first" src="{{top.img_url}}" class="versus mr-3 border border-dark rounded img_ootd" data-id="{{top.id}}">
-        <img id="second" src="{{top.img_url}}" class="versus mr-3 border border-dark rounded img_ootd" data-id="{{top.id}}">
+      <div class="row justify-content-center mb-5">
+        <div class="col-md-7 text-center heading-section ftco-animate">
+          <span class="subheading">상의</span>
+          <h2 class="mb-3">4강전(1/2)</h2>
         </div>
-    </div>
+      </div>
+      <div class="row">
+        <div class="matchup round1">
+          {% for  top in top1 %}
+          <img src="{{top.img_url}}" class="versus mr-3 border border-dark rounded img_ootd" data-id="{{top.id}}">
+          {% endfor %}
+        </div>
+        <div class="matchup round2">
+          {% for top in top2 %}
+          <img src="{{top.img_url}}" class="versus mr-3 border border-dark rounded img_ootd" data-id="{{top.id}}">
+          {% endfor %}
+        </div>
+        <div class="matchup final">
+          <img id="first" src="{{top.img_url}}" class="versus mr-3 border border-dark rounded img_ootd"
+            data-id="{{top.id}}">
+          <img id="second" src="{{top.img_url}}" class="versus mr-3 border border-dark rounded img_ootd"
+            data-id="{{top.id}}">
+        </div>
+      </div>
     </div>
 
     <div class="bottom">
-    <div class="row justify-content-center mb-5">
-      <div class="col-md-7 text-center heading-section ftco-animate">
-        <span class="subheading">하의</span>
-        <h2 class="mb-3">4강전(1/2)</h2>
-      </div>
-    </div>
-    <div class="row">
-      <div class="matchup round1">
-      {% for  top in bot1 %}
-        <img src="{{top.img_url}}" class="versus mr-3 border border-dark rounded img_ootd" data-id="{{top.id}}">
-      {% endfor %}
-      </div>
-    <div class="matchup round2">
-      {% for top in bot2 %}
-        <img src="{{top.img_url}}" class="versus mr-3 border border-dark rounded img_ootd" data-id="{{top.id}}">
-    {% endfor %}
-    </div>
-    <div class="matchup final">
-        <img id="first" src="{{top.img_url}}" class="versus mr-3 border border-dark rounded img_ootd" data-id="{{top.id}}">
-        <img id="second" src="{{top.img_url}}" class="versus mr-3 border border-dark rounded img_ootd" data-id="{{top.id}}">
+      <div class="row justify-content-center mb-5">
+        <div class="col-md-7 text-center heading-section ftco-animate">
+          <span class="subheading">하의</span>
+          <h2 class="mb-3">4강전(1/2)</h2>
         </div>
-    </div>
+      </div>
+      <div class="row">
+        <div class="matchup round1">
+          {% for  top in bot1 %}
+          <img src="{{top.img_url}}" class="versus mr-3 border border-dark rounded img_ootd" data-id="{{top.id}}">
+          {% endfor %}
+        </div>
+        <div class="matchup round2">
+          {% for top in bot2 %}
+          <img src="{{top.img_url}}" class="versus mr-3 border border-dark rounded img_ootd" data-id="{{top.id}}">
+          {% endfor %}
+        </div>
+        <div class="matchup final">
+          <img id="first" src="{{top.img_url}}" class="versus mr-3 border border-dark rounded img_ootd"
+            data-id="{{top.id}}">
+          <img id="second" src="{{top.img_url}}" class="versus mr-3 border border-dark rounded img_ootd"
+            data-id="{{top.id}}">
+        </div>
+      </div>
     </div>
 
     <div class="outer">
-    <div class="row justify-content-center mb-5">
-      <div class="col-md-7 text-center heading-section ftco-animate">
-        <span class="subheading">외투</span>
-        <h2 class="mb-3">4강전(1/2)</h2>
-      </div>
-    </div>
-    <div class="row">
-      <div class="matchup round1">
-      {% for  top in out1 %}
-        <img src="{{top.img_url}}" class="versus mr-3 border border-dark rounded img_ootd" data-id="{{top.id}}">
-      {% endfor %}
-      </div>
-    <div class="matchup round2">
-      {% for top in out2 %}
-        <img src="{{top.img_url}}" class="versus mr-3 border border-dark rounded img_ootd" data-id="{{top.id}}">
-    {% endfor %}
-    </div>
-    <div class="matchup final">
-        <img id="first" src="{{top.img_url}}" class="versus mr-3 border border-dark rounded img_ootd" data-id="{{top.id}}">
-        <img id="second" src="{{top.img_url}}" class="versus mr-3 border border-dark rounded img_ootd" data-id="{{top.id}}">
+      <div class="row justify-content-center mb-5">
+        <div class="col-md-7 text-center heading-section ftco-animate">
+          <span class="subheading">외투</span>
+          <h2 class="mb-3">4강전(1/2)</h2>
         </div>
-    </div>
+      </div>
+      <div class="row">
+        <div class="matchup round1">
+          {% for  top in out1 %}
+          <img src="{{top.img_url}}" class="versus mr-3 border border-dark rounded img_ootd" data-id="{{top.id}}">
+          {% endfor %}
+        </div>
+        <div class="matchup round2">
+          {% for top in out2 %}
+          <img src="{{top.img_url}}" class="versus mr-3 border border-dark rounded img_ootd" data-id="{{top.id}}">
+          {% endfor %}
+        </div>
+        <div class="matchup final">
+          <img id="first" src="{{top.img_url}}" class="versus mr-3 border border-dark rounded img_ootd"
+            data-id="{{top.id}}">
+          <img id="second" src="{{top.img_url}}" class="versus mr-3 border border-dark rounded img_ootd"
+            data-id="{{top.id}}">
+        </div>
+      </div>
     </div>
 
     <div class="onepiece">
-    <div class="row justify-content-center mb-5">
-      <div class="col-md-7 text-center heading-section ftco-animate">
-        <span class="subheading">원피스</span>
-        <h2 class="mb-3">결승전</h2>
+      <div class="row justify-content-center mb-5">
+        <div class="col-md-7 text-center heading-section ftco-animate">
+          <span class="subheading">원피스</span>
+          <h2 class="mb-3">결승전</h2>
+        </div>
       </div>
-    </div>
-    <div class="row">
-      <div class="matchup final">
-      {% for top in ran_one %}
-        <img src="{{top.img_url}}" class="versus mr-3 border border-dark rounded img_ootd" data-id="{{top.id}}">
-      {% endfor %}
+      <div class="row">
+        <div class="matchup final">
+          {% for top in ran_one %}
+          <img src="{{top.img_url}}" class="versus mr-3 border border-dark rounded img_ootd" data-id="{{top.id}}">
+          {% endfor %}
+        </div>
       </div>
-    </div>
     </div>
 
-<br>
-<br>
+    <h1 class="pb-4 mb-4 border-bottom"></h1>
     <div class="pick text-center">
-<h2>당신이 고른 오늘의 코디픽</h2>
-    <div class="pick3P text-center">
-      <div class="card" style="width: 18rem;">
-            <img class="pickTop" src="{% static 'hanger.png' %}">
-            <div class="card-body">
-            <p class="card-text">상의</p>
-            </div>
-      </div>
-      <div class="card" style="width: 18rem;">
-            <img class="pickBottom" src="{% static 'hanger.png' %}">
-            <div class="card-body">
-            <p class="card-text">하의</p>
-            </div>
-      </div>
-      <div class="card" style="width: 18rem;">
-            <img class="pickOuter" src="{% static 'hanger.png' %}">
-            <div class="card-body">
-            <p class="card-text">외투</p>
-            </div>
-      </div>
-    </div>
-
-    <div class="pick2P text-center">
+      <h2>당신이 고른 오늘의 코디픽</h2>
+      <div class="pick3P text-center">
         <div class="card" style="width: 18rem;">
-            <img class="pickOnepiece" src="{% static 'hanger.png' %}">
-            <div class="card-body">
-            <p class="card-text">원피스</p>
-            </div>
+          <img class="pickTop" src="{% static 'hanger.png' %}">
+          <div class="card-body">
+            <p class="card-text codipick">상의</p>
+          </div>
+        </div>
+        <div class="card" style="width: 18rem;">
+          <img class="pickBottom" src="{% static 'hanger.png' %}">
+          <div class="card-body">
+            <p class="card-text codipick">하의</p>
+          </div>
         </div>
         <div class="card" style="width: 18rem;">
           <img class="pickOuter" src="{% static 'hanger.png' %}">
           <div class="card-body">
-          <p class="card-text">외투</p>
+            <p class="card-text codipick">외투</p>
           </div>
         </div>
+        <div class="save3Pbtn">
+          <button class="saveResultBtn 3Presult btn btn-secondary" id="save3P" disabled="true" data-top="" data-bot="" data-outer="">코디컵 결과 저장하기</button>
+        </div>
+      </div>
+
+      <div class="pick2P text-center">
+        <div class="card" style="width: 18rem;">
+          <img class="pickOnepiece" src="{% static 'hanger.png' %}">
+          <div class="card-body">
+            <p class="card-text codipick">원피스</p>
+          </div>
+        </div>
+        <div class="card" style="width: 18rem;">
+          <img class="pickOuter" src="{% static 'hanger.png' %}">
+          <div class="card-body">
+            <p class="card-text codipick">외투</p>
+          </div>
+        </div>
+        <div class="save2Pbtn">
+          <button class="saveResultBtn 2Presult btn btn-secondary" id="save2P" disabled="true" data-onepiece="" data-outer="">코디컵 결과 저장하기</button>
+        </div>
+      </div>
+
     </div>
-</div>
 
 
   </div>
 </section>
-
-
 {% endblock content %}
 
 {% block script %}
 <script>
-    $(function () {
-        {% comment %} 3P / 2P 선택 {% endcomment %}
-        $('.3P').on('click', function(){
-            $('.top').show()
-            $('.top .round1').show()
-            $('.select').hide()
-            $('.pick3P').show()
-            $('.pick2P').hide()
-        })
-        $('.2P').on('click', function(){
-            $('.onepiece').show()
-            $('.onepiece .final').show()
-            $('.select').hide()
-            $('.pick2P').show()
-            $('.pick3P').hide()
-        })
+  var latitude;
+	var longitude;
+  var min;
+  var max;
+  var now;
 
-        {% comment %} 상의 선택 {% endcomment %}
-        $('.top .round1 .versus').on('click', function () {
-            var url = $(this).attr('src')
-            var id = $(this).data('id')
-            console.log(url)
-            $('.top .round1').hide()
-            $('.top .round2').show()
-            $('.top .mb-3').text("4강전(2/2)")
-            $('.top .final #first').attr('src', url)
-            $('.top .final #first').data('id', id)
-        })
-        $('.top .round2 .versus').on('click', function () {
-            var url = $(this).attr('src')
-            var id = $(this).data('id')
-            console.log(url)
-            $('.top .round2').hide()
-            $('.top .final').show()
-            $('.top .mb-3').text("결승전")
-            $('.top .final #second').attr('src', url)
-            $('.top .final #second').data('id', id)
-        })
-        $('.top .final .versus').on('click', function(){
-            var url = $(this).attr('src')
-            var id = $(this).data('id')
-            console.log(url)
-            $('.top .final').hide()
-            $('.top').hide()
-            $('.bottom').show()
-            $('.bottom .round1').show()
-            $('.pick3P .pickTop').attr('src', url)
-            {% comment %} $('.top .final #second').attr('src', url) {% endcomment %}
-            {% comment %} $('.top .final #second').data('id', id) {% endcomment %}
-        })
+	function getLocation() {
+		if (navigator.geolocation) {
+			navigator.geolocation.getCurrentPosition(function (position) {
+				latitude = position.coords.latitude
+				longitude = position.coords.longitude
+				$.ajax({
+					url: '{% url "codi:getWeather" %}',
+					method: 'POST',
+					data: {
+						lng: longitude,
+						lat: latitude,
+						csrfmiddlewaretoken: '{{csrf_token}}'
+					},
+					success: function (data) {
+            console.log(data)
+            min = data.min
+            now = data.now
+            max = data.max
+					},
+					error: function (data) {
+						'요청이 정상적으로 완료되지 않았을 때'
+					}
 
-        {% comment %} 하의 선택 {% endcomment %}
-        $('.bottom .round1 .versus').on('click', function () {
-            var url = $(this).attr('src')
-            var id = $(this).data('id')
-            console.log(url)
-            $('.bottom .round1').hide()
-            $('.bottom .round2').show()
-            $('.bottom .mb-3').text("4강전(2/2)")
-            $('.bottom .final #first').attr('src', url)
-            $('.bottom .final #first').data('id', id)
-        })
-        $('.bottom .round2 .versus').on('click', function () {
-            var url = $(this).attr('src')
-            var id = $(this).data('id')
-            console.log(url)
-            $('.bottom .round2').hide()
-            $('.bottom .final').show()
-            $('.bottom .mb-3').text("결승전")
-            $('.bottom .final #second').attr('src', url)
-            $('.bottom .final #second').data('id', id)
-        })
-        $('.bottom .final .versus').on('click', function(){
-            var url = $(this).attr('src')
-            var id = $(this).data('id')
-            console.log(url)
-            $('.bottom').hide()
-            $('.bottom .final').hide()
-            $('.outer').show()
-            $('.outer .round1').show()
-            $('.pick3P .pickBottom').attr('src', url)
-            {% comment %} $('.bottom .final #second').attr('src', url) {% endcomment %}
-            {% comment %} $('.bottom .final #second').data('id', id) {% endcomment %}
-        })
-
-        {% comment %} 아우터 선택 {% endcomment %}
-        $('.outer .round1 .versus').on('click', function () {
-            var url = $(this).attr('src')
-            var id = $(this).data('id')
-            console.log(url)
-            $('.outer .round1').hide()
-            $('.outer .round2').show()
-            $('.outer .mb-3').text("4강전(2/2)")
-            $('.outer .final #first').attr('src', url)
-            $('.outer .final #first').data('id', id)
-        })
-        $('.outer .round2 .versus').on('click', function () {
-            var url = $(this).attr('src')
-            var id = $(this).data('id')
-            console.log(url)
-            $('.outer .round2').hide()
-            $('.outer .final').show()
-            $('.outer .mb-3').text("결승전")
-            $('.outer .final #second').attr('src', url)
-            $('.outer .final #second').data('id', id)
-        })
-        $('.outer .final .versus').on('click', function(){
-            var url = $(this).attr('src')
-            var id = $(this).data('id')
-            console.log(url)
-            $('.outer .final').hide()
-            $('.outer').hide()
-            $('.pickOuter').attr('src', url)
-            {% comment %} 지금까지 고른 옷 보여주기! + DB에 저장하는 함수 실행 {% endcomment %}
-            {% comment %} $('.bottom .round1').show() {% endcomment %}
-            {% comment %} $('.outer .final #second').attr('src', url) {% endcomment %}
-            {% comment %} $('.outer .final #second').data('id', id) {% endcomment %}
-        })
-        
-        {% comment %} 원피스 선택 {% endcomment %}
-        $('.onepiece .final .versus').on('click', function(){
-            var url = $(this).attr('src')
-            var id = $(this).data('id')
-            console.log(url)
-            $('.onepiece').hide()
-            $('.onepiece .final').hide()
-            $('.outer').show()
-            $('.outer .round1').show()
-            $('.pick2P .pickOnepiece').attr('src', url)
-            {% comment %} $('.onepiece .final #second').attr('src', url) {% endcomment %}
-            {% comment %} $('.onepiece .final #second').data('id', id) {% endcomment %}
+				})
+			})
+		} else {
+			alert('GPS를 지원하지 않습니다.')
+		}
+  }
+  $(function () {
+		getLocation()
+	})
+  $(function () {
+    $(document).on('click', '.3P', function () {
+      console.log(min)
+      console.log(max)
+      var result = 3
+      $.ajax({
+            url:'{% url "codi:checkMyCloset" %}',
+            method:'POST',
+            data:{
+                "csrfmiddlewaretoken": '{{csrf_token}}',
+                "result": result,
+                "min": min,
+                "max": max
+                },
+            success: function(data){
+                console.log("나 옷 많아");
+                $('.top').show()
+                $('.top .round1').show()
+                $('.select').hide()
+                $('.pick3P').show()
+                $('.pick2P').hide()
+            },
+            error: function(data){
+                console.log("ㅈㅅ");
+                alert("옷장에 옷을 추가하세요!\n--코디컵 진행시 필요한 옷 개수--\n상의,바지,치마,외투 : 4개이상\n원피스 : 2개이상")
+                location.href="{% url 'codi:addCloth' %}";
+            }
         })
     })
+    $(document).on('click', '.2P', function () {
+      var result = 2
+      $.ajax({
+            url:'{% url "codi:checkMyCloset" %}',
+            method:'POST',
+            data:{
+                "csrfmiddlewaretoken": '{{csrf_token}}',
+                "result": result,
+                "min": min,
+                "max": max
+                },
+            success: function(data){
+                console.log("나 옷 많아");
+                $('.onepiece').show()
+                $('.onepiece .final').show()
+                $('.select').hide()
+                $('.pick2P').show()
+                $('.pick3P').hide()
+            },
+            error: function(data){
+                console.log("ㅈㅅ");
+                alert("옷장에 옷을 추가하세요!\n--코디컵 진행시 필요한 옷 개수--\n상의,바지,치마,외투 : 4개이상\n원피스 : 2개이상")
+                location.href="{% url 'codi:addCloth' %}";
+            }
+        })
+    })
+
+    $(document).on('click', '.top .round1 .versus', function () {
+      var url = $(this).attr('src')
+      var id = $(this).data('id')
+      
+      $('.top .round1').hide()
+      $('.top .round2').show()
+      $('.top .mb-3').text("4강전(2/2)")
+      $('.top .final #first').attr('src', url)
+      $('.top .final #first').data('id', id)
+    })
+    $(document).on('click', '.top .round2 .versus', function () {
+      var url = $(this).attr('src')
+      var id = $(this).data('id')
+      
+      $('.top .round2').hide()
+      $('.top .final').show()
+      $('.top .mb-3').text("결승전")
+      $('.top .final #second').attr('src', url)
+      $('.top .final #second').data('id', id)
+    })
+    $(document).on('click', '.top .final .versus', function () {
+      var url = $(this).attr('src')
+      var id = $(this).data('id')
+      
+      $('.top .final').hide()
+      $('.top').hide()
+      $('.bottom').show()
+      $('.bottom .round1').show()
+      $('.pick3P .pickTop').attr('src', url)
+      $('#save3P').data('top', url)
+    })
+
+    $(document).on('click', '.bottom .round1 .versus', function () {
+      var url = $(this).attr('src')
+      var id = $(this).data('id')
+      
+      $('.bottom .round1').hide()
+      $('.bottom .round2').show()
+      $('.bottom .mb-3').text("4강전(2/2)")
+      $('.bottom .final #first').attr('src', url)
+      $('.bottom .final #first').data('id', id)
+    })
+    $(document).on('click', '.bottom .round2 .versus', function () {
+      var url = $(this).attr('src')
+      var id = $(this).data('id')
+      
+      $('.bottom .round2').hide()
+      $('.bottom .final').show()
+      $('.bottom .mb-3').text("결승전")
+      $('.bottom .final #second').attr('src', url)
+      $('.bottom .final #second').data('id', id)
+    })
+    $(document).on('click','.bottom .final .versus',  function () {
+      var url = $(this).attr('src')
+      var id = $(this).data('id')
+      
+      $('.bottom').hide()
+      $('.bottom .final').hide()
+      $('.outer').show()
+      $('.outer .round1').show()
+      $('.pick3P .pickBottom').attr('src', url)
+      $('#save3P').data('bot', url)
+    })
+
+    $(document).on('click', '.outer .round1 .versus', function () {
+      var url = $(this).attr('src')
+      var id = $(this).data('id')
+      
+      $('.outer .round1').hide()
+      $('.outer .round2').show()
+      $('.outer .mb-3').text("4강전(2/2)")
+      $('.outer .final #first').attr('src', url)
+      $('.outer .final #first').data('id', id)
+    })
+    $(document).on('click', '.outer .round2 .versus', function () {
+      var url = $(this).attr('src')
+      var id = $(this).data('id')
+      
+      $('.outer .round2').hide()
+      $('.outer .final').show()
+      $('.outer .mb-3').text("결승전")
+      $('.outer .final #second').attr('src', url)
+      $('.outer .final #second').data('id', id)
+    })
+    $(document).on('click', '.outer .final .versus', function () {
+      var url = $(this).attr('src')
+      var id = $(this).data('id')
+      var button3P = $('#save3P');
+      var button2P = $('#save2P');
+      $('.outer .final').hide()
+      $('.outer').hide()
+      $('.pickOuter').attr('src', url)
+      $('#save3P').data('outer', url)
+      $('#save2P').data('outer', url)
+      button3P.toggleClass('btn-secondary btn-info');
+      button2P.toggleClass('btn-secondary btn-info');
+      button3P.attr('disabled', false);
+      button2P.attr('disabled', false);
+    })
+
+    $(document).on('click', '.onepiece .final .versus', function () {
+      var url = $(this).attr('src')
+      var id = $(this).data('id')
+      
+      $('.onepiece').hide()
+      $('.onepiece .final').hide()
+      $('.outer').show()
+      $('.outer .round1').show()
+      $('.pick2P .pickOnepiece').attr('src', url)
+      $('#save2P').data('onepiece', url)
+    })
+    $(document).on('click', '#save3P', function(){
+        var top_url = $(this).data('top')
+        var bot_url = $(this).data('bot')
+        var out_url = $(this).data('outer')
+        var result = 3
+        console.log(top_url)
+        console.log(bot_url)
+        console.log(out_url)
+        $.ajax({
+            url:'{% url "codi:addCodicupResult" %}',
+            method:'POST',
+            data:{
+                "csrfmiddlewaretoken": '{{csrf_token}}',
+                "top_url": top_url,
+                "bot_url": bot_url,
+                "out_url": out_url,
+                "result": result
+                },
+            success: function(data){
+                console.log("ㅅㄱ");
+                location.href="{% url 'codi:codicupResult' %}";
+            },
+            error: function(data){
+                console.log("ㅈㅅ");
+            }
+        })
+    })
+    $(document).on('click', '#save2P', function(){
+        var one_url = $(this).data('onepiece')
+        var out_url = $(this).data('outer')
+        var result = 2
+        console.log(one_url)
+        console.log(out_url)
+        $.ajax({
+            url:'{% url "codi:addCodicupResult" %}',
+            method:'POST',
+            data:{
+                "csrfmiddlewaretoken": '{{csrf_token}}',
+                "one_url": one_url,
+                "out_url": out_url,
+                "result": result
+                },
+            success: function(data){
+                console.log("ㅅㄱ");
+                location.href="{% url 'codi:codicupResult' %}";
+            },
+            error: function(data){
+                console.log("ㅈㅅ");
+            }
+        })
+    })
+  })
 </script>
 {% endblock script %}

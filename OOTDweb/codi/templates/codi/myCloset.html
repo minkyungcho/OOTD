@@ -1,18 +1,47 @@
 {% extends 'codi/base.html' %}
 {% load static %}
+
+{% block style %}
+#addBtn{
+float: right;
+}
+span.subheading.mycloset{
+color: lightskyblue;
+font-size: 20px;
+}
+.testimony-section .owl-carousel .owl-stage-outer {
+padding: 0 0 0 0 !important;
+}
+.ftco-section {
+padding: 2em 0;
+}
+.cate_h2{
+  margin-bottom: 0;
+}
+.owl-dots {
+  margin-bottom: 20px !important;
+}
+{% comment %} 중간 대문?? 위아래 폭 줄이기 {% endcomment %}
+.hero-wrap.hero-wrap-2 .slider-text {
+    height: 380px !important;
+}
+.hero-wrap.hero-wrap-2 {
+    height: 400px !important;
+    position: relative;
+}
+{% endblock style %}
+
 {% block content %}
-<section class="hero-wrap hero-wrap-2 ftco-degree-bg js-fullheight" style="background-image: url('images/bg_1.jpg');"
-  data-stellar-background-ratio="0.5">
-  <div class="overlay"></div>
-  <div class="overlay-2"></div>
+<section class="hero-wrap hero-wrap-2 ftco-degree-bg js-fullheight" style="" data-stellar-background-ratio="0.5">
   <div class="container">
     <div class="row no-gutters slider-text js-fullheight align-items-end justify-content-center">
-      <div class="col-md-9 ftco-animate pb-5 mb-5 text-center">
+      <div class="col-md-9 ftco-animate text-center">
         <h1 class="mb-3 bread">내옷장</h1>
         <p class="breadcrumbs">
           <span class="mr-2"><a href="{% url 'codi:codi' %}">Home <i class="ion-ios-arrow-forward"></i></a></span>
-          <span>MyCloset <i class="ion-ios-arrow-forward"></i></span>
-          <span><a href="{% url 'codi:addCloth' %}">add Cloth <i class="ion-ios-arrow-forward"></i></span>
+          <span class="mr-2"><a href="{% url 'codi:myCloset' %}">MyCloset <i
+                class="ion-ios-arrow-forward"></i></a></span>
+          <span><a href="{% url 'codi:addCloth' %}">add Cloth <i class="ion-ios-arrow-forward"></i></a></span>
         </p>
       </div>
     </div>
@@ -20,18 +49,23 @@
 </section>
 
 <section class="ftco-section testimony-section bg-light">
+
   <div class="container">
     <div class="row justify-content-center mb-3">
       <div class="col-md-7 text-center heading-section ftco-animate">
-        <span class="subheading">내옷장</span>
-        <h2 class="mb-3">상의 (Top)</h2>
+        <span class="subheading mycloset">내옷장</span>
+        <h2 class="cate_h2">상의 (Top)</h2>
       </div>
     </div>
-
+    {% if tops.0 == null %}
+    <div class="zeroCloth text-center mb-5">
+      <h3 style="color: lightslategray;">! 상의를 추가하세요 !</h3>
+      <a href="{% url 'codi:addCloth' %}" class="btn btn-success">add cloth</a>
+    </div>
+    {% else %}
     <div class="row ftco-animate">
       <div class="col-md-12">
-        <div class="carousel-testimony owl-carousel ftco-owl">
-
+        <div id="carousel" class="carousel-testimony owl-carousel ftco-owl">
           {% for top in tops %}
           <div class="item">
             <div class="testimony-wrap py-4">
@@ -40,34 +74,37 @@
                   <img src="{{top.img_url}}" alt="asdf">
                 </div>
               </div>
-              <div class="pl-3">
-                <p class="name">{{top.cloth_type}} ({{top.color}})</p>
-                {% comment %} <span class="position">{{top.color}}</span> {% endcomment %}
+              <div class="pl-3 text-center mt-2">
+                <span class="name">{{top.cloth_type}}</span>
+                <button type="button" data-img="{{top.img_url}}" id="addBtn"
+                  class="btn btn-danger addBtn">remove</button>
               </div>
             </div>
           </div>
           {% endfor %}
-
         </div>
       </div>
     </div>
+    {% endif %}
   </div>
 
-  {% comment %} 원피스 / 겉옷 만들기 {% endcomment %}
-
-  <div class="container mt-5">
+  <div class="container">
     <div class="row justify-content-center mb-3">
       <div class="col-md-7 text-center heading-section ftco-animate">
-        <span class="subheading">내옷장</span>
-        <h2 class="mb-3">하의 (pants / skirt)</h2>
+        <span class="subheading mycloset">내옷장</span>
+        <h2 class="cate_h2">아우터 (Outer)</h2>
       </div>
     </div>
-
+    {% if outers.0 == null %}
+    <div class="zeroCloth text-center mb-5">
+      <h3 style="color: lightslategray;">! 외투를 추가하세요 !</h3>
+      <a href="{% url 'codi:addCloth' %}" class="btn btn-success">add clothes</a>
+    </div>
+    {% else %}
     <div class="row ftco-animate">
       <div class="col-md-12">
         <div class="carousel-testimony owl-carousel ftco-owl">
-
-          {% for top in tops %}
+          {% for top in outers %}
           <div class="item">
             <div class="testimony-wrap py-4">
               <div class="text">
@@ -75,20 +112,166 @@
                   <img src="{{top.img_url}}" alt="asdf">
                 </div>
               </div>
-              <div class="pl-3">
-                <p class="name">{{top.cloth_type}} ({{top.color}})</p>
-                {% comment %} <span class="position">{{top.color}}</span> {% endcomment %}
+              <div class="pl-3 text-center mt-2">
+                <span class="name">{{top.cloth_type}}</span>
+                <button type="button" data-img="{{top.img_url}}" id="addBtn"
+                  class="btn btn-danger addBtn">remove</button>
               </div>
             </div>
           </div>
           {% endfor %}
-
         </div>
       </div>
     </div>
+    {% endif %}
   </div>
-    
+
+  <div class="container">
+    <div class="row justify-content-center mb-3">
+      <div class="col-md-7 text-center heading-section ftco-animate">
+        <span class="subheading mycloset">내옷장</span>
+        <h2 class="cate_h2">바지 (Pants)</h2>
+      </div>
+    </div>
+    {% if bottoms.0 == null %}
+    <div class="zeroCloth text-center mb-5">
+      <h3 style="color: lightslategray;">! 바지를 추가하세요 !</h3>
+      <a href="{% url 'codi:addCloth' %}" class="btn btn-success">add cloth</a>
+    </div>
+    {% else %}
+    <div class="row ftco-animate">
+      <div class="col-md-12">
+        <div class="carousel-testimony owl-carousel ftco-owl">
+          {% for top in bottoms %}
+          <div class="item">
+            <div class="testimony-wrap py-4">
+              <div class="text">
+                <div class="d-flex align-items-center">
+                  <img src="{{top.img_url}}" alt="asdf">
+                </div>
+              </div>
+              <div class="pl-3 text-center mt-2">
+                <span class="name">{{top.cloth_type}}</span>
+                <button type="button" data-img="{{top.img_url}}" id="addBtn"
+                  class="btn btn-danger addBtn">remove</button>
+              </div>
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+    {% endif %}
+  </div>
+
+  <div class="container">
+    <div class="row justify-content-center mb-3">
+      <div class="col-md-7 text-center heading-section ftco-animate">
+        <span class="subheading mycloset">내옷장</span>
+        <h2 class="cate_h2">스커트 (Skirt)</h2>
+      </div>
+    </div>
+    {% if skirts.0 == null %}
+    <div class="zeroCloth text-center mb-5">
+      <h3 style="color: lightslategray;">! 스커트를 추가하세요 !</h3>
+      <a href="{% url 'codi:addCloth' %}" class="btn btn-success">add cloth</a>
+    </div>
+    {% else %}
+    <div class="row ftco-animate">
+      <div class="col-md-12">
+        <div class="carousel-testimony owl-carousel ftco-owl">
+          {% for top in skirts %}
+          <div class="item">
+            <div class="testimony-wrap py-4">
+              <div class="text">
+                <div class="d-flex align-items-center">
+                  <img src="{{top.img_url}}" alt="asdf">
+                </div>
+              </div>
+              <div class="pl-3 text-center mt-2">
+                <span class="name">{{top.cloth_type}}</span>
+                <button type="button" data-img="{{top.img_url}}" id="addBtn"
+                  class="btn btn-danger addBtn">remove</button>
+              </div>
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+    {% endif %}
+  </div>
+  <div class="container">
+    <div class="row justify-content-center mb-3">
+      <div class="col-md-7 text-center heading-section ftco-animate">
+        <span class="subheading mycloset">내옷장</span>
+        <h2 class="cate_h2">원피스 (Onepiece)</h2>
+      </div>
+    </div>
+    {% if onepieces.0 == null %}
+    <div class="zeroCloth text-center mb-5">
+      <h3 style="color: lightslategray;">! 원피스를 추가하세요 !</h3>
+      <a href="{% url 'codi:addCloth' %}" class="btn btn-success">add cloth</a>
+    </div>
+    {% else %}
+    <div class="row ftco-animate">
+      <div class="col-md-12">
+        <div class="carousel-testimony owl-carousel ftco-owl">
+          {% for top in onepieces %}
+          <div class="item">
+            <div class="testimony-wrap py-4">
+              <div class="text">
+                <div class="d-flex align-items-center">
+                  <img src="{{top.img_url}}" alt="asdf">
+                </div>
+              </div>
+              <div class="pl-3 text-center mt-2">
+                <span class="name">{{top.cloth_type}}</span>
+                <button type="button" data-img="{{top.img_url}}" id="addBtn"
+                  class="btn btn-danger addBtn">remove</button>
+              </div>
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+    {% endif %}
+  </div>
+
 </section>
 
 
 {% endblock content %}
+
+{% block script %}
+<script>
+  $(function () {
+    $('#carousel').carousel({
+      wrap: false
+    });
+    $(document).on('click', '.addBtn', function (e) {
+      var img = $(this).data('img');
+      console.log(img)
+      var button = $(this);
+      $.ajax({
+        url: '{% url "codi:add" %}',
+        method: 'POST',
+        data: {
+          "csrfmiddlewaretoken": '{{csrf_token}}',
+          "img_url": img
+        },
+        success: function (data) {
+          console.log("ㅅㄱ");
+          $(e.target).toggleClass('btn-secondary btn-danger');
+
+        },
+        error: function (data) {
+          console.log("ㅈㅅ");
+        }
+      })
+    })
+  })
+
+</script>
+{% endblock script %}

@@ -10,7 +10,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link href="https://fonts.googleapis.com/css?family=Jua&display=swap&subset=korean" rel="stylesheet">
-    {% comment %} <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" rel="stylesheet"> {% endcomment %}
+
     <link rel="stylesheet" href="//use.fontawesome.com/releases/v5.0.7/css/all.css">
 
     <link rel="stylesheet" href= "{% static 'css/open-iconic-bootstrap.min.css' %}">
@@ -37,7 +37,7 @@
 <body>
 
 <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
-    <div class="container" style='background-image: url("{% static "images/nav-back-2.png" %}"); display:inline-block;'>
+    <div class="container" style="display:inline-block;">
         <!-- 'OOTD' logo -->
         <a class="navbar-brand" href="{% url 'codi:codi' %}" style="display:table; margin-left:auto; margin-right:auto; margin-bottom:10px;"><img src = "{% static "images/icon.png" %}" style="width: 300px; height: auto;"></a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
@@ -80,7 +80,7 @@
             <h2 class="ftco-heading-2">코디 월드컵</h2>
             <ul class="list-unstyled">
                 <li><a href="{% url 'codi:codiWorldcup' %}"><i class="fas fa-play"></i> 시작하기</a></li>
-                <li><a href="{% url 'codi:codiWorldcup' %}"><i class="fas fa-trophy"></i> 결과보기</a></li>
+                <li><a href="{% url 'codi:codicupResult' %}"><i class="fas fa-trophy"></i> 결과보기</a></li>
             </ul>
         </div>
         </div>

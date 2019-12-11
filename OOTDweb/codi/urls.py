@@ -10,6 +10,7 @@ urlpatterns = [
     path('codicupResult/', codi_views.codicupResult, name="codicupResult"),
     path('codiBook/', codi_views.codiBook, name="codiBook"),
     path('myCloset/', codi_views.myCloset, name="myCloset"),
+    path('checkMyCloset/', codi_views.checkMyCloset, name="checkMyCloset"),
     path('mwCloset/addCloth', codi_views.addCloth, name="addCloth"),
     path('mwCloset/getClothList', codi_views.getClothList, name="getClothList"),
     path('mwCloset/add', codi_views.add, name="add"),

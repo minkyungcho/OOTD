@@ -24,10 +24,22 @@ def home(request):
 
 @login_required
 def codiWorldcup(request):
-    top = Cloth.objects.filter(category_id = 1)
-    bottom = Cloth.objects.filter(Q(category_id = 3)|Q(category_id=4))
-    outer = Cloth.objects.filter(category_id = 2)
-    onepiece = Cloth.objects.filter(category_id = 5)
+    # top = Cloth.objects.filter(category_id = 1)
+    # bottom = Cloth.objects.filter(Q(category_id = 3)|Q(category_id=4) & Q(user_clothes__id=id))
+    # outer = Cloth.objects.filter(category_id = 2)
+    # onepiece = Cloth.objects.filter(category_id = 5)
+    id = request.user.id
+    
+    top = Cloth.objects.filter(Q(category_id=1) & Q(month=12) & Q(user_clothes__id=id)).values('img_url').distinct()
+    outer = Cloth.objects.filter(Q(category_id=2) & Q(month=12) & Q(user_clothes__id=id)).values('img_url').distinct()
+    bottom = Cloth.objects.filter((Q(category_id=4)|Q(category_id=3)) & Q(month=12) & Q(user_clothes__id=id)).values('img_url').distinct()
+    onepiece = Cloth.objects.filter(Q(category_id=5) & Q(month=12) & Q(user_clothes__id=id)).values('img_url').distinct()
+    
+    # print(len(top))
+    # print(len(outer))
+    # print(len(bottom))
+    # print(len(onepiece))
+
     ran_top = random.sample(list(top),4)
     ran_bot = random.sample(list(bottom),4)
     ran_out = random.sample(list(outer),4)
@@ -60,6 +72,32 @@ def codiWorldcup(request):
         'ran_one':a 
     }
     return render(request, 'codi/codiWorldcup.html', context1)
+
+@login_required
+def checkMyCloset(request):
+    id = request.user.id
+    min = int(request.POST["min"])
+    max = int(request.POST["max"])
+    print("###########")
+    print(min)
+    print(max)
+    temps = list(range(min, max+1))
+    print(temps)
+    if int(request.POST["result"]) == 3:
+        tops = Cloth.objects.filter(Q(category_id=1) & Q(month=12) & Q(user_clothes__id=id)).values('img_url').distinct()
+        outers = Cloth.objects.filter(Q(category_id=2) & Q(month=12) & Q(user_clothes__id=id)).values('img_url').distinct()
+        bottoms = Cloth.objects.filter((Q(category_id=4)|Q(category_id=3)) & Q(month=12) & Q(user_clothes__id=id)).values('img_url').distinct()
+        if len(tops) >=4 and len(outers) >=4 and len(bottoms) >=4:
+            print("3hi")
+            return HttpResponse(json.dumps(''), status=200, content_type='application/json')
+    
+    else:
+        onepieces = Cloth.objects.filter(Q(category_id=5) & Q(month=12) & Q(user_clothes__id=id)).values('img_url').distinct()
+        outers = Cloth.objects.filter(Q(category_id=2) & Q(month=12) & Q(user_clothes__id=id)).values('img_url').distinct()
+        if len(onepieces) >=2 and len(outers) >=4:
+            print("2hi")
+            return HttpResponse(json.dumps(''), status=200, content_type='application/json')
+
 
 @login_required
 def addCodicupResult(request):
@@ -145,14 +183,14 @@ def myCloset(request):
 
     tops = Cloth.objects.filter(Q(category_id=1) & Q(user_clothes__id=id)).values('img_url', 'cloth_type').distinct()
     outers = Cloth.objects.filter(Q(category_id=2) & Q(user_clothes__id=id)).values('img_url', 'cloth_type').distinct()
-    bottoms = Cloth.objects.filter(Q(category_id=4) & Q(user_clothes__id=id)).values('img_url', 'cloth_type').distinct()
+    pants = Cloth.objects.filter(Q(category_id=4) & Q(user_clothes__id=id)).values('img_url', 'cloth_type').distinct()
     skirts = Cloth.objects.filter(Q(category_id=3) & Q(user_clothes__id=id)).values('img_url', 'cloth_type').distinct()
     onepieces = Cloth.objects.filter(Q(category_id=5) & Q(user_clothes__id=id)).values('img_url', 'cloth_type').distinct()
 
     context={
         'tops':tops,
         'outers':outers,
-        'bottoms':bottoms,
+        'bottoms':pants,
         'skirts':skirts,
         'onepieces':onepieces
     }

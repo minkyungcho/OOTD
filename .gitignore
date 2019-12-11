@@ -1,5 +1,5 @@
 .vscode/
-
+requirements.txt
 # Created by https://www.gitignore.io/api/venv,macos,python,django
 # Edit at https://www.gitignore.io/?templates=venv,macos,python,django
 

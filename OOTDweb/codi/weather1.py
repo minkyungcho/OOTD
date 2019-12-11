@@ -6,8 +6,7 @@ import json
 from datetime import datetime
 from urllib.request import urlopen
 
-# x,y 좌표 받아오기
-def get_tmn_data(x , y):
+def get_tmn_data(x, y):
     now = datetime.now()
     now_date = now.strftime('%Y%m%d')
     now_hour = int(now.strftime('%H'))
@@ -34,7 +33,7 @@ def get_tmn_data(x , y):
         if weather_info[i]['category'] == 'TMN':
             tmn = weather_info[i]['fcstValue']
     return tmn
-def get_tmx_data(x , y):
+def get_tmx_data(x, y):
     now = datetime.now()
     now_date = now.strftime('%Y%m%d')
     now_hour = int(now.strftime('%H'))

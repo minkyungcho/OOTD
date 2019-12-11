@@ -153,6 +153,22 @@ float: right;
 {% block script %}
 <script>
 $(function(){
+    $.ajax({
+            url:'{% url "codi:getClothList" %}',
+            method:'POST',
+            data:{
+                "csrfmiddlewaretoken": '{{csrf_token}}',
+                "category_id":99
+                },
+            success: function(data){
+                console.log("ㅅㄱ");
+                $('#clothCardList').text('');
+                $('#clothCardList').append(data);
+            },
+            error: function(data){
+                console.log("ㅈㅅ");
+            }
+    })
     $(document).on('click', '.cate_name', function(){
         var id = $(this).data('id');
         console.log(id);

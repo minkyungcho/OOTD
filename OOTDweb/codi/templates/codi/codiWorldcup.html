@@ -81,7 +81,7 @@ h2.mb-3 {
 {% endblock style %}
 
 {% block content %}
-
+    <input id="nowMonth" type="hidden" value="">
 <section class="hero-wrap hero-wrap-2 ftco-degree-bg js-fullheight" style="" data-stellar-background-ratio="0.5">
   <div class="container">
     <div class="row no-gutters slider-text js-fullheight align-items-end justify-content-center">
@@ -99,7 +99,6 @@ h2.mb-3 {
 
 <section class="ftco-section testimony-section bg-light">
   <div class="container">
-
     <div class="select">
       <h1>원하는 스타일을 선택하세요</h1>
       <span id="select3P" class="3P">상의+하의+외투</span><span id="vs">VS</span><span id="select2P" class="2P">원피스+외투</span>
@@ -261,7 +260,8 @@ h2.mb-3 {
   var min;
   var max;
   var now;
-
+  var nowDate;
+  var nowMonth;
 	function getLocation() {
 		if (navigator.geolocation) {
 			navigator.geolocation.getCurrentPosition(function (position) {
@@ -280,6 +280,10 @@ h2.mb-3 {
             min = data.min
             now = data.now
             max = data.max
+            nowDate = data.nowDate
+            nowMonth = data.nowMonth
+            // console.log(nowDate)
+            $('#nowMonth').attr('value', nowMonth)
 					},
 					error: function (data) {
 						'요청이 정상적으로 완료되지 않았을 때'
@@ -298,6 +302,7 @@ h2.mb-3 {
     $(document).on('click', '.3P', function () {
       console.log(min)
       console.log(max)
+      console.log(nowDate)
       var result = 3
       $.ajax({
             url:'{% url "codi:checkMyCloset" %}',
@@ -306,7 +311,9 @@ h2.mb-3 {
                 "csrfmiddlewaretoken": '{{csrf_token}}',
                 "result": result,
                 "min": min,
-                "max": max
+                "max": max,
+                "nowDate": nowDate,
+                "nowMonth": nowMonth
                 },
             success: function(data){
                 console.log("나 옷 많아");
@@ -332,7 +339,9 @@ h2.mb-3 {
                 "csrfmiddlewaretoken": '{{csrf_token}}',
                 "result": result,
                 "min": min,
-                "max": max
+                "max": max,
+                "nowDate": nowDate,
+                "nowMonth": nowMonth
                 },
             success: function(data){
                 console.log("나 옷 많아");

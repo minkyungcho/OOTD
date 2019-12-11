@@ -71,6 +71,13 @@ h2.mb-3 {
     height: 400px !important;
     position: relative;
 }
+#save3P, #save2P {
+  margin-top: 10px;
+  font-size: larger !important;
+}
+.save3Pbtn, .save2Pbtn {
+  display: flow-root;
+}
 {% endblock style %}
 
 {% block content %}
@@ -217,6 +224,9 @@ h2.mb-3 {
             <p class="card-text codipick">외투</p>
           </div>
         </div>
+        <div class="save3Pbtn">
+          <button class="saveResultBtn 3Presult btn btn-secondary" id="save3P" disabled="true" data-top="" data-bot="" data-outer="">코디컵 결과 저장하기</button>
+        </div>
       </div>
 
       <div class="pick2P text-center">
@@ -232,7 +242,11 @@ h2.mb-3 {
             <p class="card-text codipick">외투</p>
           </div>
         </div>
+        <div class="save2Pbtn">
+          <button class="saveResultBtn 2Presult btn btn-secondary" id="save2P" disabled="true" data-onepiece="" data-outer="">코디컵 결과 저장하기</button>
+        </div>
       </div>
+
     </div>
 
 
@@ -243,14 +257,14 @@ h2.mb-3 {
 {% block script %}
 <script>
   $(function () {
-    $('.3P').on('click', function () {
+    $(document).on('click', '.3P', function () {
       $('.top').show()
       $('.top .round1').show()
       $('.select').hide()
       $('.pick3P').show()
       $('.pick2P').hide()
     })
-    $('.2P').on('click', function () {
+    $(document).on('click', '.2P', function () {
       $('.onepiece').show()
       $('.onepiece .final').show()
       $('.select').hide()
@@ -258,106 +272,165 @@ h2.mb-3 {
       $('.pick3P').hide()
     })
 
-    $('.top .round1 .versus').on('click', function () {
+    $(document).on('click', '.top .round1 .versus', function () {
       var url = $(this).attr('src')
       var id = $(this).data('id')
-      console.log(url)
+      
       $('.top .round1').hide()
       $('.top .round2').show()
       $('.top .mb-3').text("4강전(2/2)")
       $('.top .final #first').attr('src', url)
       $('.top .final #first').data('id', id)
     })
-    $('.top .round2 .versus').on('click', function () {
+    $(document).on('click', '.top .round2 .versus', function () {
       var url = $(this).attr('src')
       var id = $(this).data('id')
-      console.log(url)
+      
       $('.top .round2').hide()
       $('.top .final').show()
       $('.top .mb-3').text("결승전")
       $('.top .final #second').attr('src', url)
       $('.top .final #second').data('id', id)
     })
-    $('.top .final .versus').on('click', function () {
+    $(document).on('click', '.top .final .versus', function () {
       var url = $(this).attr('src')
       var id = $(this).data('id')
-      console.log(url)
+      
       $('.top .final').hide()
       $('.top').hide()
       $('.bottom').show()
       $('.bottom .round1').show()
       $('.pick3P .pickTop').attr('src', url)
+      $('#save3P').data('top', url)
     })
 
-    $('.bottom .round1 .versus').on('click', function () {
+    $(document).on('click', '.bottom .round1 .versus', function () {
       var url = $(this).attr('src')
       var id = $(this).data('id')
-      console.log(url)
+      
       $('.bottom .round1').hide()
       $('.bottom .round2').show()
       $('.bottom .mb-3').text("4강전(2/2)")
       $('.bottom .final #first').attr('src', url)
       $('.bottom .final #first').data('id', id)
     })
-    $('.bottom .round2 .versus').on('click', function () {
+    $(document).on('click', '.bottom .round2 .versus', function () {
       var url = $(this).attr('src')
       var id = $(this).data('id')
-      console.log(url)
+      
       $('.bottom .round2').hide()
       $('.bottom .final').show()
       $('.bottom .mb-3').text("결승전")
       $('.bottom .final #second').attr('src', url)
       $('.bottom .final #second').data('id', id)
     })
-    $('.bottom .final .versus').on('click', function () {
+    $(document).on('click','.bottom .final .versus',  function () {
       var url = $(this).attr('src')
       var id = $(this).data('id')
-      console.log(url)
+      
       $('.bottom').hide()
       $('.bottom .final').hide()
       $('.outer').show()
       $('.outer .round1').show()
       $('.pick3P .pickBottom').attr('src', url)
+      $('#save3P').data('bot', url)
     })
 
-    $('.outer .round1 .versus').on('click', function () {
+    $(document).on('click', '.outer .round1 .versus', function () {
       var url = $(this).attr('src')
       var id = $(this).data('id')
-      console.log(url)
+      
       $('.outer .round1').hide()
       $('.outer .round2').show()
       $('.outer .mb-3').text("4강전(2/2)")
       $('.outer .final #first').attr('src', url)
       $('.outer .final #first').data('id', id)
     })
-    $('.outer .round2 .versus').on('click', function () {
+    $(document).on('click', '.outer .round2 .versus', function () {
       var url = $(this).attr('src')
       var id = $(this).data('id')
-      console.log(url)
+      
       $('.outer .round2').hide()
       $('.outer .final').show()
       $('.outer .mb-3').text("결승전")
       $('.outer .final #second').attr('src', url)
       $('.outer .final #second').data('id', id)
     })
-    $('.outer .final .versus').on('click', function () {
+    $(document).on('click', '.outer .final .versus', function () {
       var url = $(this).attr('src')
       var id = $(this).data('id')
-      console.log(url)
+      var button3P = $('#save3P');
+      var button2P = $('#save2P');
       $('.outer .final').hide()
       $('.outer').hide()
       $('.pickOuter').attr('src', url)
+      $('#save3P').data('outer', url)
+      $('#save2P').data('outer', url)
+      button3P.toggleClass('btn-secondary btn-info');
+      button2P.toggleClass('btn-secondary btn-info');
+      button3P.attr('disabled', false);
+      button2P.attr('disabled', false);
     })
 
-    $('.onepiece .final .versus').on('click', function () {
+    $(document).on('click', '.onepiece .final .versus', function () {
       var url = $(this).attr('src')
       var id = $(this).data('id')
-      console.log(url)
+      
       $('.onepiece').hide()
       $('.onepiece .final').hide()
       $('.outer').show()
       $('.outer .round1').show()
       $('.pick2P .pickOnepiece').attr('src', url)
+      $('#save2P').data('onepiece', url)
+    })
+    $(document).on('click', '#save3P', function(){
+        var top_url = $(this).data('top')
+        var bot_url = $(this).data('bot')
+        var out_url = $(this).data('outer')
+        var result = 3
+        console.log(top_url)
+        console.log(bot_url)
+        console.log(out_url)
+        $.ajax({
+            url:'{% url "codi:addCodicupResult" %}',
+            method:'POST',
+            data:{
+                "csrfmiddlewaretoken": '{{csrf_token}}',
+                "top_url": top_url,
+                "bot_url": bot_url,
+                "out_url": out_url,
+                "result": result
+                },
+            success: function(data){
+                console.log("ㅅㄱ");
+            },
+            error: function(data){
+                console.log("ㅈㅅ");
+            }
+        })
+    })
+    $(document).on('click', '#save2P', function(){
+        var one_url = $(this).data('onepiece')
+        var out_url = $(this).data('outer')
+        var result = 2
+        console.log(one_url)
+        console.log(out_url)
+        $.ajax({
+            url:'{% url "codi:addCodicupResult" %}',
+            method:'POST',
+            data:{
+                "csrfmiddlewaretoken": '{{csrf_token}}',
+                "one_url": one_url,
+                "out_url": out_url,
+                "result": result
+                },
+            success: function(data){
+                console.log("ㅅㄱ");
+            },
+            error: function(data){
+                console.log("ㅈㅅ");
+            }
+        })
     })
   })
 </script>

@@ -34,6 +34,7 @@ def get_tmn_data(x , y):
         if weather_info[i]['category'] == 'TMN':
             tmn = weather_info[i]['fcstValue']
     return tmn
+    
 def get_tmx_data(x , y):
     now = datetime.now()
     now_date = now.strftime('%Y%m%d')

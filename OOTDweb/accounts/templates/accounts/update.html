@@ -1,0 +1,22 @@
+{% extends 'codi/base.html' %}
+{% load bootstrap4 %}
+{% load static %}
+
+{% block style %}
+{% endblock style %}
+
+{% block content %}
+<section class="ftco-section">
+	<div class="container">
+		<div class="row" style="margin-top: 150px;">
+			<form method="POST">
+				{% csrf_token %}
+				{% bootstrap_form user_change_form %}
+				<input type="submit" value="submit"/>
+			</form>
+
+			<a href="{% url 'accounts:password' %}">비밀밀호 변경</a>
+		</div>
+	</div>
+</section>
+{% endblock content %}

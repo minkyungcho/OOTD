@@ -92,28 +92,14 @@ float: right;
 {% endblock style %}
 
 {% block content %}
-<section class="hero-wrap hero-wrap-2 ftco-degree-bg js-fullheight" style=""
-    data-stellar-background-ratio="0.5">
-    <div class="container">
-        <div class="row no-gutters slider-text js-fullheight align-items-end justify-content-center">
-            <div class="col-md-9 ftco-animate text-center">
-                <h1 class="mb-3 bread">옷 추가하기</h1>
-                <p class="breadcrumbs">
-                <span class="mr-2"><a href="{% url 'codi:codi' %}">Home <i class="ion-ios-arrow-forward"></i></a></span>
-                <span class="mr-2"><a href="{% url 'codi:myCloset' %}">MyCloset <i class="ion-ios-arrow-forward"></i></a></span>
-                <span><a href="{% url 'codi:addCloth' %}">add Cloth <i class="ion-ios-arrow-forward"></i></a></span>
-        
-                </p>
-            </div>
-        </div>
-    </div>
-</section>
 
 <section class="ftco-section testimony-section bg-light">
-    <div class="container">
+    <div class="container" style="margin-top: 230px;">
+    <h2 style="text-align: center;">옷 추가하기</h2>
+    <hr style="width:auto; border: 1px dashed #ABCEEA;">
         <div class="frame">
+            <!-- 좌측에 배열되는 카테고리 -->
             <div class="cate_left">
-
                 <div>
                     <h2 class="cate_title text-center">CATEGORIES</h2>
                     <div class="cate_title cate_all">
@@ -135,13 +121,16 @@ float: right;
                         <div class="cate_name" data-id="5">원피스</div>
                     </div>
                 </div>
-
             </div>
+
+            <!-- 선택된 옷은 오른쪽 리스트에 나타남 -->
             <div class="content_right">
                 <div id="clothCardList" class="row">
             
                 </div>
             </div>
+
+
         </div>
 
 

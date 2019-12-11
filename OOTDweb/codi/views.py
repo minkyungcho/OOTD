@@ -94,11 +94,6 @@ def codiBook(request):
         return render(request, 'codi/codiBook.html', context)
 
 @login_required
-def mypage(request):
-    return render(request, 'codi/mypage.html')
-
-
-@login_required
 def myCloset(request):
     id = request.user.id
     # top = Cloth.objects.filter(month=11, category_id=1)

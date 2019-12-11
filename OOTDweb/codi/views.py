@@ -15,7 +15,11 @@ from django.contrib.auth.decorators import login_required # 로그인권한부�
 from .models import Article
 
 def home(request):
-    return render(request, 'index.html')
+    articles = Article.objects.all().order_by("created_at").reverse()
+    recent_codibook = {
+        'articles': articles
+    }
+    return render(request, 'index.html', recent_codibook)
 
 @login_required
 def codiWorldcup(request):
@@ -153,12 +157,12 @@ def getWeather(request):
     lat= request.POST["lat"]
     x = (mapToGrid(float(lat),float(lng))[0])
     y = (mapToGrid(float(lat),float(lng))[1])
-    min = get_tmn_data(x,y)
-    max = get_tmx_data(x,y)
-    now = ForecastTimeData()
+    min_tmp = get_tmn_data(x,y)
+    max_tmp = get_tmx_data(x,y)
+    now_tmp = ForecastTimeData(x,y)
     context = {
-        'min':min,
-        'max':max,
-        'now':now
+        'min': min_tmp,
+        'max': max_tmp,
+        'now': now_tmp
     }
     return HttpResponse(json.dumps(context), content_type="application/json")

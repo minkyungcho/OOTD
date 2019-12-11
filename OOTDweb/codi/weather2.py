@@ -56,8 +56,8 @@ def ForecastTimeData(x,y):
             temp_time = now_hour - 1
     else:
         temp_time = now_hour
-    print(base_date)
-    print(temp_time)
+    # print(base_date)
+    # print(temp_time)
     if temp_time<9:
         base_time = '0' + str(temp_time) + '30'
         fcstTime = '0' + str(temp_time+1) + '00'
@@ -70,8 +70,8 @@ def ForecastTimeData(x,y):
     else :
         base_time = str(temp_time) + '30'
         fcstTime = int(str(temp_time+1) + '00')
-    print(base_time) 
-    print(fcstTime)
+    # print(base_time) 
+    # print(fcstTime)
     service_key = 'lgkNpxB8TTbXXj4%2BEK9KumE72Q78STsTzIR9MEgjrEARC7OGjiX4cS8UTFTxT55PqDvk1ARfSgMATErdYQKb9A%3D%3D'
     _type = 'json'
     api_url = f'http://newsky2.kma.go.kr/service/SecndSrtpdFrcstInfoService2/ForecastTimeData?serviceKey={service_key}&base_date={base_date}&base_time={base_time}&nx={nx}&ny={ny}&numOfRows=40&_type={_type}'
@@ -81,6 +81,6 @@ def ForecastTimeData(x,y):
     weather_info = json_data['response']['body']['items']['item']
     # print(weather_info)
     t1h = get_forecast_data(weather_info, fcstTime)
-    return t1h
+    return (t1h, now_date)
 # ForecastData = ForecastTimeData()
 # print(ForecastData)

@@ -27,12 +27,21 @@ class Cloth(models.Model):
     # label = models.ImageField(blank=True)
     label = models.CharField(max_length=16)
     img_url = models.CharField(max_length=300)
+    user_clothes = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name="my_clothes")
 
 class Closet(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     clothes = models.ManyToManyField(Cloth, related_name="closets")
+
+class Codicup(models.Model):
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    created_at = models.DateTimeField(auto_now_add=True)
+    top_url = models.CharField(max_length=300, blank=True)
+    bot_url = models.CharField(max_length=300, blank=True)
+    out_url = models.CharField(max_length=300, blank=True)
+    one_url = models.CharField(max_length=300, blank=True)
 
 class Article(models.Model):
     contents = models.TextField()

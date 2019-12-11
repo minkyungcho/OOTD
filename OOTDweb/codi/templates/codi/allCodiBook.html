@@ -40,7 +40,7 @@ data-stellar-background-ratio="0.5">
         </div>
         <div class="desc">
           <h3><a href="#">컬러넣기</a></h3>
-          <div><a href="#">{{article.user.username}}</a></div>
+          <div><a href="{% url 'codi:codiBooks' article.user.id %}">{{article.user.username}}</a></div>
           <p class="h-info"><span class="details">{{article.updated_at}}</span></p>
         </div>
       </div>

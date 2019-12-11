@@ -256,20 +256,98 @@ h2.mb-3 {
 
 {% block script %}
 <script>
+  var latitude;
+	var longitude;
+  var min;
+  var max;
+  var now;
+
+	function getLocation() {
+		if (navigator.geolocation) {
+			navigator.geolocation.getCurrentPosition(function (position) {
+				latitude = position.coords.latitude
+				longitude = position.coords.longitude
+				$.ajax({
+					url: '{% url "codi:getWeather" %}',
+					method: 'POST',
+					data: {
+						lng: longitude,
+						lat: latitude,
+						csrfmiddlewaretoken: '{{csrf_token}}'
+					},
+					success: function (data) {
+            console.log(data)
+            min = data.min
+            now = data.now
+            max = data.max
+					},
+					error: function (data) {
+						'요청이 정상적으로 완료되지 않았을 때'
+					}
+
+				})
+			})
+		} else {
+			alert('GPS를 지원하지 않습니다.')
+		}
+  }
+  $(function () {
+		getLocation()
+	})
   $(function () {
     $(document).on('click', '.3P', function () {
-      $('.top').show()
-      $('.top .round1').show()
-      $('.select').hide()
-      $('.pick3P').show()
-      $('.pick2P').hide()
+      console.log(min)
+      console.log(max)
+      var result = 3
+      $.ajax({
+            url:'{% url "codi:checkMyCloset" %}',
+            method:'POST',
+            data:{
+                "csrfmiddlewaretoken": '{{csrf_token}}',
+                "result": result,
+                "min": min,
+                "max": max
+                },
+            success: function(data){
+                console.log("나 옷 많아");
+                $('.top').show()
+                $('.top .round1').show()
+                $('.select').hide()
+                $('.pick3P').show()
+                $('.pick2P').hide()
+            },
+            error: function(data){
+                console.log("ㅈㅅ");
+                alert("옷장에 옷을 추가하세요!\n--코디컵 진행시 필요한 옷 개수--\n상의,바지,치마,외투 : 4개이상\n원피스 : 2개이상")
+                location.href="{% url 'codi:addCloth' %}";
+            }
+        })
     })
     $(document).on('click', '.2P', function () {
-      $('.onepiece').show()
-      $('.onepiece .final').show()
-      $('.select').hide()
-      $('.pick2P').show()
-      $('.pick3P').hide()
+      var result = 2
+      $.ajax({
+            url:'{% url "codi:checkMyCloset" %}',
+            method:'POST',
+            data:{
+                "csrfmiddlewaretoken": '{{csrf_token}}',
+                "result": result,
+                "min": min,
+                "max": max
+                },
+            success: function(data){
+                console.log("나 옷 많아");
+                $('.onepiece').show()
+                $('.onepiece .final').show()
+                $('.select').hide()
+                $('.pick2P').show()
+                $('.pick3P').hide()
+            },
+            error: function(data){
+                console.log("ㅈㅅ");
+                alert("옷장에 옷을 추가하세요!\n--코디컵 진행시 필요한 옷 개수--\n상의,바지,치마,외투 : 4개이상\n원피스 : 2개이상")
+                location.href="{% url 'codi:addCloth' %}";
+            }
+        })
     })
 
     $(document).on('click', '.top .round1 .versus', function () {
@@ -403,6 +481,7 @@ h2.mb-3 {
                 },
             success: function(data){
                 console.log("ㅅㄱ");
+                location.href="{% url 'codi:codicupResult' %}";
             },
             error: function(data){
                 console.log("ㅈㅅ");
@@ -426,6 +505,7 @@ h2.mb-3 {
                 },
             success: function(data){
                 console.log("ㅅㄱ");
+                location.href="{% url 'codi:codicupResult' %}";
             },
             error: function(data){
                 console.log("ㅈㅅ");

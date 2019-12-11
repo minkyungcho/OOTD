@@ -33,7 +33,7 @@
             <input type="hidden" name="csrfmiddlewaretoken" value={{csrf_token}}>
             <div class="card text-center">
                 <div class="card-body">
-                    <textarea name="contents" class="form-control" rows="5"> </textarea>
+                    <textarea name="contents" class="form-control" rows="5"></textarea>
 
                     <!-- img input tag -->
                     <div class="input-group mt-2">
@@ -59,19 +59,27 @@
     <div class="container">
         {% for article in articles %}
         <div class="row mt-4">
-            {% comment %} <div class="card col-10" style="margin:0 auto;"> {% endcomment %}
-            <div class="card col-6 float-left">
-            {% if article.image %}
-                <img src="{{article.image_thumbnail.url}}" style="width:30rem" class="d-block w-80" alt="{{article.image_thumbnail.url}}">
-            {% endif %}
+            <div class="card col-8" style="max-height: 50rem;">
+                {% if article.image %}
+                    <img src="{{article.image_thumbnail.url}}" style="max-height: 100%; width: auto;" class="d-block w-80" alt="{{article.image_thumbnail.url}}">
+                {% endif %}
             </div>
             {% comment %} <div class="card-body" style="min-height: 10rem;"> {% endcomment %}
-            <div class="card col-6 float-right" style="min-height: 10rem;">
-                <p class="card-text">{{article.contents}}</p>
-                <div class="text-center">
-                    <div class="row float-right">
-                        <span class="muted">created by {{article.user.username}}</span>
+            <div class="card col-4" style="max-height: 50rem;">
+                <div class="text-center mt-2">
+                    <div class="row float-left ml-2">
+                        <span class="muted" style="font-size: 2.5rem">{{article.user.username}}</span>
                     </div>
+                    <div class="row float-left ml-2">
+                        <span class="muted" style="font-size: 1.3rem">{{article.updated_at}}</span>
+                    </div>
+                </div>
+                <div class="mt-2 ml-2" style="font-size: 1.3em">컬러</div>
+                <textarea name="contents" class="form-control mb-2" style="font-size: 1.7em"  rows="5" disabled>{{article.contents}}</textarea>
+
+                {% comment %} <p class="card-text mt-2 ml-2" style="overflow: auto; font-size: 2.3em"></p> {% endcomment %}
+                <div style="text-align: right;">
+                    <a href="{% url 'codi:delete' article.id %}" class="btn btn-danger "><i class="fas fa-trash-alt"></i></a>
                 </div>
             </div>
         </div>

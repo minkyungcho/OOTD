@@ -52,8 +52,9 @@ class Article(models.Model):
     image = models.ImageField(blank=True)
     image_thumbnail = ImageSpecField(
         source='image',
-        # processors=[ResizeToFit(1000,1000)],
-        processors = [ResizeToFill(1000,1000)], 
+        # processors=[ResizeToFit(width=800, upscale=False)],
+        processors=[ResizeToFit(1000,1000)],
+        # processors = [ResizeToFill(1000,1000)], 
         format='JPEG',
         options={'quality':100}
     )

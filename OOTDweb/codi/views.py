@@ -16,11 +16,13 @@ from .models import Article
 
 
 def home(request):
-    articles = Article.objects.all().order_by("created_at").reverse()
-    recent_codibook = {
+    articles = Article.objects.all().order_by("-created_at")[:4]
+    # articles = Article.objects.all().order_by("created_at")
+
+    context = {
         'articles': articles
     }
-    return render(request, 'index.html', recent_codibook)
+    return render(request, 'index.html', context)
 
 @login_required
 def codiWorldcup(request):
@@ -166,12 +168,25 @@ def codiBook(request):
             return redirect('codi:codi')
     else:
         id = request.user.id
-        articles = Article.objects.filter(user_id=id).order_by("created_at").reverse()
-        # articles = Article.objects.all().order_by("created_at").reverse()
+        articles = Article.objects.filter(user_id=id).order_by("-created_at")
         context = {
             'articles': articles
         }
         return render(request, 'codi/codiBook.html', context)
+
+@login_required
+def delete(request, article_id):
+    article = Article.objects.get(id=article_id)
+    article.delete()
+    return redirect('codi:codiBook')
+
+@login_required
+def allCodiBook(request):
+    articles = Article.objects.all().order_by("-created_at")
+    context = {
+        'articles': articles
+    }
+    return render(request, 'codi/allCodiBook.html', context)
 
 @login_required
 def mypage(request):

@@ -2,6 +2,7 @@ import json
 import math
 import random
 import requests
+from datetime import datetime
 from django.shortcuts import render , HttpResponse, redirect
 from datetime import datetime
 from urllib.request import urlopen
@@ -14,7 +15,6 @@ from .models import Cloth, Closet, Category, Month, Temp, Codicup
 from django.contrib.auth.decorators import login_required # 로그인권한부여
 from .models import Article
 
-
 def home(request):
     articles = Article.objects.all().order_by("-created_at")[:4]
     # articles = Article.objects.all().order_by("created_at")
@@ -26,76 +26,77 @@ def home(request):
 
 @login_required
 def codiWorldcup(request):
-    # top = Cloth.objects.filter(category_id = 1)
-    # bottom = Cloth.objects.filter(Q(category_id = 3)|Q(category_id=4) & Q(user_clothes__id=id))
-    # outer = Cloth.objects.filter(category_id = 2)
-    # onepiece = Cloth.objects.filter(category_id = 5)
+    now = datetime.now()
+    nowMonth = now.month
+    # print("##############")
+    # print(type(now.month))
+
     id = request.user.id
     
-    top = Cloth.objects.filter(Q(category_id=1) & Q(month=12) & Q(user_clothes__id=id)).values('img_url').distinct()
-    outer = Cloth.objects.filter(Q(category_id=2) & Q(month=12) & Q(user_clothes__id=id)).values('img_url').distinct()
-    bottom = Cloth.objects.filter((Q(category_id=4)|Q(category_id=3)) & Q(month=12) & Q(user_clothes__id=id)).values('img_url').distinct()
-    onepiece = Cloth.objects.filter(Q(category_id=5) & Q(month=12) & Q(user_clothes__id=id)).values('img_url').distinct()
-    
-    # print(len(top))
-    # print(len(outer))
-    # print(len(bottom))
-    # print(len(onepiece))
+    top = Cloth.objects.filter(Q(category_id=1) & Q(month=nowMonth) & Q(user_clothes__id=id)).values('img_url').distinct()
+    outer = Cloth.objects.filter(Q(category_id=2) & Q(month=nowMonth) & Q(user_clothes__id=id)).values('img_url').distinct()
+    bottom = Cloth.objects.filter((Q(category_id=4)|Q(category_id=3)) & Q(month=nowMonth) & Q(user_clothes__id=id)).values('img_url').distinct()
+    onepiece = Cloth.objects.filter(Q(category_id=5) & Q(month=nowMonth) & Q(user_clothes__id=id)).values('img_url').distinct()
 
-    ran_top = random.sample(list(top),4)
-    ran_bot = random.sample(list(bottom),4)
-    ran_out = random.sample(list(outer),4)
-    ran_one = random.sample(list(onepiece),2)
+    if len(top)>=4 and len(outer)>= 4 and len(bottom)>=4 and len(onepiece)>=2:
+        ran_top = random.sample(list(top),4)
+        ran_bot = random.sample(list(bottom),4)
+        ran_out = random.sample(list(outer),4)
+        ran_one = random.sample(list(onepiece),2)
 
-    top1=ran_top[:2]
-    top2=ran_top[2:4]
-    bot1=ran_bot[:2]
-    bot2=ran_bot[2:4]
-    out1=ran_out[:2]
-    out2=ran_out[2:4]
-    
-    context1 ={
-        'top1':top1,
-        'top2':top2,
-        'bot1':bot1,
-        'bot2':bot2,
-        'out1':out1,
-        'out2':out2,
-        'ran_one':ran_one,
-    }
-    a = [1,2]
-    context = {
-        'top1':a, 
-        'top2':a ,
-        'bot1':a ,
-        'bot2':a ,
-        'out1':a ,
-        'out2':a ,
-        'ran_one':a 
-    }
-    return render(request, 'codi/codiWorldcup.html', context1)
+        top1=ran_top[:2]
+        top2=ran_top[2:4]
+        bot1=ran_bot[:2]
+        bot2=ran_bot[2:4]
+        out1=ran_out[:2]
+        out2=ran_out[2:4]
+        
+        context1 ={
+            'top1':top1,
+            'top2':top2,
+            'bot1':bot1,
+            'bot2':bot2,
+            'out1':out1,
+            'out2':out2,
+            'ran_one':ran_one
+        }
+        return HttpResponse(json.dumps(context1), status=200, content_type='application/json')
+    context={}
+    return HttpResponse(json.dumps(context), status=404, content_type='application/json')
 
 @login_required
 def checkMyCloset(request):
     id = request.user.id
     min = int(request.POST["min"])
     max = int(request.POST["max"])
+    nowMonth = request.POST["nowMonth"]
+    # nowMonth = int(nowDate[4:6])
     print("###########")
-    print(min)
-    print(max)
+    # print(nowDate)
+    print(nowMonth)
+    # print(type(nowDate))
+    # print(min)
+    # print(max)
     temps = list(range(min, max+1))
     print(temps)
     if int(request.POST["result"]) == 3:
-        tops = Cloth.objects.filter(Q(category_id=1) & Q(month=12) & Q(user_clothes__id=id)).values('img_url').distinct()
-        outers = Cloth.objects.filter(Q(category_id=2) & Q(month=12) & Q(user_clothes__id=id)).values('img_url').distinct()
-        bottoms = Cloth.objects.filter((Q(category_id=4)|Q(category_id=3)) & Q(month=12) & Q(user_clothes__id=id)).values('img_url').distinct()
+        tops = Cloth.objects.filter(Q(category_id=1) & Q(month=nowMonth) & Q(user_clothes__id=id)).values('img_url').distinct()
+        outers = Cloth.objects.filter(Q(category_id=2) & Q(month=nowMonth) & Q(user_clothes__id=id)).values('img_url').distinct()
+        bottoms = Cloth.objects.filter((Q(category_id=4)|Q(category_id=3)) & Q(month=nowMonth) & Q(user_clothes__id=id)).values('img_url').distinct()
+        print("### 3P ###")
+        print(len(tops))
+        print(len(outers))
+        print(len(bottoms))
         if len(tops) >=4 and len(outers) >=4 and len(bottoms) >=4:
             print("3hi")
             return HttpResponse(json.dumps(''), status=200, content_type='application/json')
     
     else:
-        onepieces = Cloth.objects.filter(Q(category_id=5) & Q(month=12) & Q(user_clothes__id=id)).values('img_url').distinct()
-        outers = Cloth.objects.filter(Q(category_id=2) & Q(month=12) & Q(user_clothes__id=id)).values('img_url').distinct()
+        onepieces = Cloth.objects.filter(Q(category_id=5) & Q(month=nowMonth) & Q(user_clothes__id=id)).values('img_url').distinct()
+        outers = Cloth.objects.filter(Q(category_id=2) & Q(month=nowMonth) & Q(user_clothes__id=id)).values('img_url').distinct()
+        print("### 2P ###")
+        print(len(tops))
+        print(len(outers))
         if len(onepieces) >=2 and len(outers) >=4:
             print("2hi")
             return HttpResponse(json.dumps(''), status=200, content_type='application/json')
@@ -231,7 +232,6 @@ def getClothList(request):
     else:
         # print(category_id)
         id = request.user.id # user 저장된 고유 id 번호
-        top = Cloth.objects.filter(~Q(user_clothes__id=id))
         topN = Cloth.objects.filter(Q(category_id=category_id) & ~Q(user_clothes__id=id)).values('img_url', 'cloth_type').distinct()
 
     context = {
@@ -298,6 +298,7 @@ def mapToGrid(lat, lon, code = 0 ):
     x = int(x + 1.5)
     y = int(y + 1.5)
     return x, y
+    
 def getWeather(request):
     lng = request.POST["lng"]
     lat= request.POST["lat"]
@@ -305,10 +306,17 @@ def getWeather(request):
     y = (mapToGrid(float(lat),float(lng))[1])
     min_tmp = get_tmn_data(x,y)
     max_tmp = get_tmx_data(x,y)
-    now_tmp = ForecastTimeData(x,y)
+    # print("*******************")
+    # print(ForecastTimeData(x,y))
+    now_tmp = ForecastTimeData(x,y)[0]
+    nowDate = ForecastTimeData(x,y)[1]
+    nowMonth = nowDate[4:6]
+    # print("$$$$$$$$$$$$$$"+nowMonth)
     context = {
         'min': min_tmp,
         'max': max_tmp,
-        'now': now_tmp
+        'now': now_tmp,
+        'nowDate': nowDate,
+        'nowMonth': nowMonth
     }
     return HttpResponse(json.dumps(context), content_type="application/json")

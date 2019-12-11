@@ -48,7 +48,7 @@
         <div class="collapse navbar-collapse" id="ftco-nav" 
         style='display:inline-block; border-bottom: 2px solid #A4AFC3; border-top: 2px solid #A4AFC3;'>
         <ul class="navbar-nav ml-auto" style="margin-left: auto; margin-right: auto;">
-            <li class="nav-item"><a href="{% url 'codi:codiWorldcup' %}" class="nav-link"
+            <li class="nav-item"><a href="{% url 'codi:codiWorldcup' %}" class="nav-link goCodicup"
             style = "border-right: 2px dashed #A4AFC3; border-left: 2px dashed #A4AFC3;">코디 월드컵</a></li>
             <li class="nav-item"><a href="{% url 'codi:codiBook' %}" class="nav-link" style = "border-right : 2px dashed #A4AFC3;">코디북</a></li>
             <li class="nav-item"><a href="{% url 'codi:myCloset' %}" class="nav-link" style = "border-right : 2px dashed #A4AFC3;">내옷장</a></li>
@@ -154,6 +154,29 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 <script src='{% static "js/main.js" %}'></script>
 
 
+<script>
+$(function () {
+    $(document).on('click', '.goCodicup', function () {
+        console.log("월드컵하자")
+        $.ajax({
+            url:'{% url "codi:codiWorldcup" %}',
+            method:'POST',
+            data:{
+                "csrfmiddlewaretoken": '{{csrf_token}}',
+                },
+            success: function(data){
+                console.log("나 옷 많아");
+
+            },
+            error: function(data){
+                console.log("ㅈㅅ");
+                alert("옷장에 옷을 추가하세요!\n--코디컵 진행시 필요한 옷 개수--\n상의,바지,치마,외투 : 4개이상\n원피스 : 2개이상")
+                location.href="{% url 'codi:addCloth' %}";
+            }
+        })
+    })
+})
+</script>
 {% block script %}
 {% endblock script %}
 

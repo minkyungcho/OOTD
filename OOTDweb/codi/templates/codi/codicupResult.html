@@ -22,68 +22,88 @@ padding: 0 !important;
 }
 {% comment %} 중간 대문?? 위아래 폭 줄이기 {% endcomment %}
 .hero-wrap.hero-wrap-2 .slider-text {
-    height: 380px !important;
+height: 380px !important;
 }
 .hero-wrap.hero-wrap-2 {
-    height: 400px !important;
-    position: relative;
+height: 400px !important;
+position: relative;
+}
+section.ftco-section.testimony-section.bg-light {
+padding-top: 0;
+}
+p.card-text.text-center {
+margin-bottom: 0;
+
+}
+.pick3P.text-center, .pick2P.text-center {
+margin-bottom: 20px;
 }
 {% endblock style %}
 
 {% block content %}
 <section class="hero-wrap hero-wrap-2 ftco-degree-bg js-fullheight" style="" data-stellar-background-ratio="0.5">
-  <div class="container">
-    <div class="row no-gutters slider-text js-fullheight align-items-end justify-content-center">
-      <div class="col-md-9 ftco-animate text-center">
-        <h1 class="mb-3 bread">코디 월드컵</h1>
-        <p class="breadcrumbs">
-        <span class="mr-2"><a href="{% url 'codi:codi' %}">Home <i class="ion-ios-arrow-forward"></i></a></span> 
-        <span class="mr-2"><a href="{% url 'codi:codiWorldcup' %}">codicup <i class="ion-ios-arrow-forward"></i></a></span>
-        <span><a href="{% url 'codi:codicupResult' %}">result <i class="ion-ios-arrow-forward"></i></a></span>
-        </p>
-      </div>
+    <div class="container">
+        <div class="row no-gutters slider-text js-fullheight align-items-end justify-content-center">
+            <div class="col-md-9 ftco-animate text-center">
+                <h1 class="mb-3 bread">코디 월드컵</h1>
+                <p class="breadcrumbs">
+                    <span class="mr-2"><a href="{% url 'codi:codi' %}">Home <i
+                                class="ion-ios-arrow-forward"></i></a></span>
+                    <span class="mr-2"><a href="{% url 'codi:codiWorldcup' %}">codicup <i
+                                class="ion-ios-arrow-forward"></i></a></span>
+                    <span><a href="{% url 'codi:codicupResult' %}">result <i
+                                class="ion-ios-arrow-forward"></i></a></span>
+                </p>
+            </div>
+        </div>
     </div>
-  </div>
 </section>
 
 <section class="ftco-section testimony-section bg-light">
     <div class="container">
-        result
+        <h2 class="text-center">나의 코디월드컵 결과</h2>
+
+        {% for threePcup in threePcups %}
         <div class="pick3P text-center">
-            <div class="card" style="width: 18rem;">
-                <img class="pickTop" src="{% static 'hanger.png' %}">
+            <div class="card" style="width: 16rem;">
+                <img class="pickTop" src="{{threePcup.top_url}}">
                 <div class="card-body">
                     <p class="card-text codipick">상의</p>
                 </div>
             </div>
-            <div class="card" style="width: 18rem;">
-                <img class="pickBottom" src="{% static 'hanger.png' %}">
+            <div class="card" style="width: 16rem;">
+                <img class="pickBottom" src="{{threePcup.bot_url}}">
                 <div class="card-body">
                     <p class="card-text codipick">하의</p>
                 </div>
             </div>
-            <div class="card" style="width: 18rem;">
-                <img class="pickOuter" src="{% static 'hanger.png' %}">
+            <div class="card" style="width: 16rem;">
+                <img class="pickOuter" src="{{threePcup.out_url}}">
                 <div class="card-body">
                     <p class="card-text codipick">외투</p>
                 </div>
             </div>
+            <p class="card-text text-center">{{threePcup.created_at}}</p>
         </div>
+        {% endfor %}
 
+        {% for twoPcup in twoPcups %}
         <div class="pick2P text-center">
-            <div class="card" style="width: 18rem;">
-                <img class="pickOnepiece" src="{% static 'hanger.png' %}">
+            <div class="card" style="width: 16rem;">
+                <img class="pickOnepiece" src="{{twoPcup.one_url}}">
                 <div class="card-body">
                     <p class="card-text codipick">원피스</p>
                 </div>
             </div>
-            <div class="card" style="width: 18rem;">
-                <img class="pickOuter" src="{% static 'hanger.png' %}">
+            <div class="card" style="width: 16rem;">
+                <img class="pickOuter" src="{{twoPcup.out_url}}">
                 <div class="card-body">
                     <p class="card-text codipick">외투</p>
                 </div>
             </div>
+            <p class="card-text text-center">{{twoPcup.created_at}}</p>
         </div>
+        {% endfor %}
     </div>
 </section>
 {% endblock content %}

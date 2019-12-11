@@ -10,7 +10,7 @@ from .weather2 import get_forecast_data , ForecastTimeData
 from .models import Cloth
 from PIL import Image
 from django.db.models import Q
-from .models import Cloth, Closet, Category, Month, Temp
+from .models import Cloth, Closet, Category, Month, Temp, Codicup
 from django.contrib.auth.decorators import login_required # 로그인권한부여
 from .models import Article
 
@@ -35,7 +35,6 @@ def codiWorldcup(request):
     bot2=ran_bot[2:4]
     out1=ran_out[:2]
     out2=ran_out[2:4]
-
     
     context1 ={
         'top1':top1,
@@ -58,10 +57,49 @@ def codiWorldcup(request):
     }
     return render(request, 'codi/codiWorldcup.html', context1)
 
+@login_required
+def addCodicupResult(request):
+    codicup = Codicup()
+    c = Codicup.objects.all()
+    result = request.POST["result"]
+    id = request.user.id
+    if int(result) == 3:
+        top_url = request.POST["top_url"]
+        bot_url = request.POST["bot_url"]
+        out_url = request.POST["out_url"]
+        codicup.top_url = top_url
+        codicup.bot_url = bot_url
+        codicup.out_url = out_url
+        codicup.user_id = id
+        codicup.save()
+    elif int(result) == 2:
+        one_url = request.POST["one_url"]
+        out_url = request.POST["out_url"]
+        codicup.one_url = one_url
+        codicup.out_url = out_url
+        codicup.user_id = id
+        codicup.save()
+    
+    context={}
+    return HttpResponse(json.dumps(context), status=200, content_type='application/json')
+
+@login_required
 def codicupResult(request):
-
+    id = request.user.id
+    codicups = Codicup.objects.filter(user_id=id).order_by('-created_at')
+    threePcups = []
+    twoPcups = []
+    for cup in codicups:
+        print(cup.created_at)
+        if cup.top_url == "":
+            twoPcups.append(cup)
+            print("2P")
+        else :
+            threePcups.append(cup)
+            print("3P")
     context = {
-
+        'twoPcups': twoPcups,
+        'threePcups': threePcups
     }
     return render(request, 'codi/codicupResult.html', context)
 
@@ -97,19 +135,16 @@ def codiBook(request):
 def mypage(request):
     return render(request, 'codi/mypage.html')
 
-
 @login_required
 def myCloset(request):
     id = request.user.id
-    # top = Cloth.objects.filter(month=11, category_id=1)
+
     tops = Cloth.objects.filter(Q(category_id=1) & Q(user_clothes__id=id)).values('img_url', 'cloth_type').distinct()
     outers = Cloth.objects.filter(Q(category_id=2) & Q(user_clothes__id=id)).values('img_url', 'cloth_type').distinct()
     bottoms = Cloth.objects.filter(Q(category_id=4) & Q(user_clothes__id=id)).values('img_url', 'cloth_type').distinct()
     skirts = Cloth.objects.filter(Q(category_id=3) & Q(user_clothes__id=id)).values('img_url', 'cloth_type').distinct()
     onepieces = Cloth.objects.filter(Q(category_id=5) & Q(user_clothes__id=id)).values('img_url', 'cloth_type').distinct()
-    # print("-------------")
-    # print(len(top))
-    print(len(tops))
+
     context={
         'tops':tops,
         'outers':outers,
@@ -121,68 +156,26 @@ def myCloset(request):
 
 @login_required
 def addCloth(request):
-    # top = Cloth.objects.filter(month=11, category_id=1)
-    # print("-------------")
-    # print(len(top))
     id = request.user.id
     topN = Cloth.objects.filter(~Q(user_clothes__id=id)).values('img_url', 'cloth_type').distinct()
     context={
         'tops':topN
     }
-    # return render(request, 'codi/addCloth1.html', context)
     return render(request, 'codi/addCloth1.html', context)
 
 @login_required    
 def getClothList(request):
     category_id = request.POST["category_id"]
-    # print(type(category_id))
     if int(category_id) == 99:
         print(category_id)
         # print(category_id)
         id = request.user.id
-        # top = Cloth.objects.all()
         topN = Cloth.objects.filter(~Q(user_clothes__id=id)).values('img_url', 'cloth_type').distinct()
     else:
         # print(category_id)
         id = request.user.id # user 저장된 고유 id 번호
-        # print(type(id))
         top = Cloth.objects.filter(~Q(user_clothes__id=id))
         topN = Cloth.objects.filter(Q(category_id=category_id) & ~Q(user_clothes__id=id)).values('img_url', 'cloth_type').distinct()
-        
-        
-        # cnt = 0
-        # for n in topN:
-        #     # print(n) # {'img_url' : '~~~'} 형식의 dict
-        #     for t in top:
-        #         if t.img_url == n['img_url']:
-        #             cnt += 1
-        # print(cnt)
-        # print(len(top))
-        # print(len(topN))
-        # print(type(topN))
-        # for tmp in top:
-            # print(tmp.user_clothes.all().id)
-            # if len(tmp.user_clothes.all()) >= 1:
-            #     # print(len(tmp.user_clothes.all()))
-            #     for t in tmp.user_clothes.all():
-            #         # print(type(tmp))
-            #         print(t.id+" "+request.user.id)
-            # for t in tmp.user_clothes.all():
-                # t 는 User
-                # if t.id == id:
-                    # t.id는 옷 가진 user의 id
-                    # id는 로그인한 user의 고유 id 번호
-                # noUserTop = Cloth.objects.filter(Q(category_id=category_id) & Q(id=tmp.id))
-                # print(type(noUserTop))
-                # print(len(noUserTop)) # 쿼리셋
-                # print(tmp.id) # cloth id
-                    # noUserTop = Cloth.objects.filter(category_id=category_id, )
-                    # print(len(t.id))
-                # else:
-                    # print("1")
-        #이거 유저 아이디를 찾으다음에 없으면 어디에 붙여서 쿼리셋 만들고 .values 로 찾아와서 distinct 하자 
-        #top = Cloth.objects.filter(category_id=category_id).values('product_id','img_url','cloth_type', 'label').distinct()
-        # print(len(top))
 
     context = {
         "tops": topN
@@ -192,19 +185,9 @@ def getClothList(request):
 
 @login_required
 def add(request):
-    # product_id = request.POST["product_id"]
-    # label = request.POST["label"]
-    # pid = Cloth.objects.filter(product_id=product_id, label=label)
     img_url = request.POST["img_url"] # 선택한 옷의 url
     print(img_url)
     pid = Cloth.objects.filter(img_url=img_url) # 선택한 옷 url이랑 이미지 같은 옷들 다 가져오기.
-    # pids = []
-    # for p in pid:
-    #     # print(p.id)
-    #     print(len(p.user_clothes.all()))
-    #     pids.append(p)
-    
-    # print(len(pids))
 
     # 사용자의 옷장 DB에 옷을 추가한다!
     if request.user in pid[0].user_clothes.all():

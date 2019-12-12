@@ -90,10 +90,13 @@ margin-bottom: 1em;
                         </div>
                     </div>
                     <div class="colorButtons text-center">
+                        {% if article.domColor %}
+                        {% else %}
                         <div class="mt-2 btn btn-info getColor" style="font-size: 1.3em" id="getColor-{{article.id}}"
                             data-img="{{article.image}}" disabled="false" data-article-id="{{article.id}}">색감 추출하기</div>
                         <div class="mt-2 btn btn-secondary saveColor" style="font-size: 1.3em" id="saveColor-{{article.id}}"
                             data-img="{{article.image}}" disabled="true" data-article-id="{{article.id}}">색감 저장하기</div>
+                        {% endif %}
                     </div>
 
                     <div class="output-layout mt-2">
@@ -101,7 +104,11 @@ margin-bottom: 1em;
                             <h5 class="function-title">Dominant Color</h5>
                             <div id="domColors">
                                 <div class="swatches" id="domColor">
-                                    <div id="domC-{{article.id}}" class="rounded-circle" style=""></div>
+                                {% if article.domColor %}
+                                    <div id="domC-{{article.id}}" class="rounded-circle" style="background-color:{{article.domColor}}; color:rgb(255,255,255);" data-color=""></div>
+                                {% else %}
+                                    <div id="domC-{{article.id}}" class="rounded-circle" style="" data-color=""></div>
+                                {% endif %}
                                 </div>
                             </div>
                         </div>
@@ -110,15 +117,23 @@ margin-bottom: 1em;
                             <div class="function-output">
                                 <div id="palColors">
                                     <div class="swatches" id="palColor">
-                                        <div id="palC1-{{article.id}}" class="rounded-circle" style=""></div>
-                                        <div id="palC2-{{article.id}}" class="rounded-circle" style=""></div>
-                                        <div id="palC3-{{article.id}}" class="rounded-circle" style=""></div>
-                                        <div id="palC4-{{article.id}}" class="rounded-circle" style=""></div>
+                                    {% if article.palColor1 %}
+                                        <div id="palC1-{{article.id}}" class="rounded-circle" style="background-color:{{article.palColor1}}; color:rgb(255,255,255);" data-color=""></div>
+                                        <div id="palC2-{{article.id}}" class="rounded-circle" style="background-color:{{article.palColor2}}; color:rgb(255,255,255);" data-color=""></div>
+                                        <div id="palC3-{{article.id}}" class="rounded-circle" style="background-color:{{article.palColor3}}; color:rgb(255,255,255);" data-color=""></div>
+                                        <div id="palC4-{{article.id}}" class="rounded-circle" style="background-color:{{article.palColor4}}; color:rgb(255,255,255);" data-color=""></div>
+                                    {% else %}
+                                        <div id="palC1-{{article.id}}" class="rounded-circle" style="" data-color=""></div>
+                                        <div id="palC2-{{article.id}}" class="rounded-circle" style="" data-color=""></div>
+                                        <div id="palC3-{{article.id}}" class="rounded-circle" style="" data-color=""></div>
+                                        <div id="palC4-{{article.id}}" class="rounded-circle" style="" data-color=""></div>
+                                    {% endif %}
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
+
                     <textarea name="contents" class="form-control mb-2" style="font-size: 1.7em" rows="5"
                         disabled>{{article.contents}}</textarea>
 
@@ -217,16 +232,47 @@ margin-bottom: 1em;
                     $('#saveColor-'+id).attr('disabled', false);
                     $('#saveColor-'+id).toggleClass('btn-secondary btn-success');
                     $('#getColor-'+id).hide()
+
+                    $('#domC-'+id).data('img', rgb)
+                    $('#palC1-'+id).data('img', prgb1)
+                    $('#palC2-'+id).data('img', prgb2)
+                    $('#palC3-'+id).data('img', prgb3)
+                    $('#palC4-'+id).data('img', prgb4)
+
                     $(document).on('click', '.saveColor', function (e) {
                         e.preventDefault();
-                        console.log("저장")
+                        console.log("색감 저장하기")
+                        console.log(rgb)
+                        console.log(prgb1)
+                        console.log(prgb2)
+                        console.log(prgb3)
+                        console.log(prgb4)
 
-                        // disabled true로 만들고 
-                        // 버튼 hide
-                        
+                        $.ajax({
+                            url: '{% url "codi:addColor" %}',
+                            method: 'POST',
+                            data: {
+                                "csrfmiddlewaretoken": '{{csrf_token}}',
+                                // 'img_url': img_url,
+                                // 'id': id
+                                'rgb': rgb,
+                                'prgb1': prgb1,
+                                'prgb2': prgb2,
+                                'prgb3': prgb3,
+                                'prgb4': prgb4,
+                                'id': id
+                            },
+                            success: function (data) {
+                                // disabled true로 만들고 
+                                // 버튼 hide
+                                console.log("색감 저장 성공!!")
+                                $('#saveColor-'+id).hide()
 
-                        $('#saveColor-'+id).hide()
+                            },
+                            error: function(data) {
 
+                            }
+                        })
                     })
                 },
                 error: function (data) {

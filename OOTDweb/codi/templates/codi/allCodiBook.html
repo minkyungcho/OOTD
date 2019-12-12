@@ -1,6 +1,7 @@
 {% extends 'codi/base.html' %}
 {% load static %}
 
+
 {% block style %}
 #allcodibook_font {
   color: #666666 !important;
@@ -9,10 +10,21 @@
 #allcodibook_font2 {
   color: #b3b3b3 !important;
 }
-{% endblock style%}
+
+.rounded-circle {
+height: 30px;
+width: 30px;
+border: solid;
+}
+div#palColor {
+display: flex;
+}
+.desc {
+    padding: 10px;
+}
+{% endblock style %}
 
 {% block content %}
-
 
 <section class="ftco-section testimony-section bg-light">
 <div class="container" style="margin-top: 150px;">
@@ -35,7 +47,15 @@
 						<img src="{{article.image_thumbnail.url}}" class="block-20 img" alt="{{article.image_thumbnail.url}}">
         </div>
         <div class="desc">
-          <h3><a href="#">컬러넣기</a></h3>
+
+          <h3><a href="#"></a></h3>
+          <div class="swatches" id="palColor">
+          <div id="palC1-{{article.id}}" class="rounded-circle" style="background-color:{{article.palColor1}}; color:rgb(255,255,255);" data-color=""></div>
+          <div id="palC2-{{article.id}}" class="rounded-circle" style="background-color:{{article.palColor2}}; color:rgb(255,255,255);" data-color=""></div>
+          <div id="palC3-{{article.id}}" class="rounded-circle" style="background-color:{{article.palColor3}}; color:rgb(255,255,255);" data-color=""></div>
+          <div id="palC4-{{article.id}}" class="rounded-circle" style="background-color:{{article.palColor4}}; color:rgb(255,255,255);" data-color=""></div>
+          </div>                       
+
           <p class="h-info"><span class="details" id="allcodibook_font">{{article.updated_at}}</span></p>
           <div style="display: inline-block"><a href="{% url 'codi:codiBooks' article.user.id %}" id="allcodibook_font2">{{article.user.username}}</a></div>
           <div style="display: inline-block"><i class="fas fa-heart" style="color:#DDB8CF;"></i><span class="likes_cnt"> {{article.user_likes.all|length}}</span></div>

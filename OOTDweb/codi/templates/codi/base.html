@@ -53,7 +53,7 @@
             <li class="nav-item"><a href="{% url 'codi:allCodiBook' %}" class="nav-link" style = "border-right : 2px dashed #A4AFC3;">코디북</a></li>
             <li class="nav-item"><a href="{% url 'codi:myCloset' %}" class="nav-link" style = "border-right : 2px dashed #A4AFC3;">내옷장</a></li>
             {% if user.is_authenticated %}
-                <li class="nav-item"><a href="{% url 'accounts:password' %}" class="nav-link" style = "border-right : 2px dashed #A4AFC3;">마이페이지</a></li>
+                <li class="nav-item"><a href="{% url 'codi:mypage' %}" class="nav-link" style = "border-right : 2px dashed #A4AFC3;">마이페이지</a></li>
                 <li class="nav-item"><a href="{% url 'accounts:logout' %}" class="nav-link" style = "border-right : 2px dashed #A4AFC3;"><i class="fas fa-sign-out-alt"></i> 로그아웃</a></li>
             {% else %}
                 <li class="nav-item"><a href="{% url 'accounts:login' %}" class="nav-link" style = "border-right : 2px dashed #A4AFC3;">로그인</a></li>

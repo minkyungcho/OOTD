@@ -18,4 +18,5 @@ urlpatterns = [
     path('mwCloset/getClothList', codi_views.getClothList, name="getClothList"),
     path('mwCloset/add', codi_views.add, name="add"),
     path('weather/',codi_views.getWeather, name="getWeather"),
+    path('mypage/', codi_views.mypage, name="mypage"),
  ]

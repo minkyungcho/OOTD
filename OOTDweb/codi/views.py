@@ -41,19 +41,29 @@ def codiWorldcup(request):
     bottom = Cloth.objects.filter((Q(category_id=4)|Q(category_id=3)) & Q(month=nowMonth) & Q(user_clothes__id=id)).values('img_url').distinct()
     onepiece = Cloth.objects.filter(Q(category_id=5) & Q(month=nowMonth) & Q(user_clothes__id=id)).values('img_url').distinct()
 
-    if len(top)>=4 and len(outer)>= 4 and len(bottom)>=4 and len(onepiece)>=2:
+    top_len = len(top)
+    out_len = len(outer)
+    bot_len = len(bottom)
+    one_len = len(onepiece)
+    # print(top_len)
+    # print(out_len)
+    # print(bot_len)
+    print(one_len)
+
+    if top_len>=4 and len(outer)>= 4 and len(bottom)>=4 and len(onepiece)>=2:
         ran_top = random.sample(list(top),4)
         ran_bot = random.sample(list(bottom),4)
         ran_out = random.sample(list(outer),4)
-        ran_one = random.sample(list(onepiece),2)
-
         top1=ran_top[:2]
         top2=ran_top[2:4]
         bot1=ran_bot[:2]
         bot2=ran_bot[2:4]
         out1=ran_out[:2]
         out2=ran_out[2:4]
-        
+        ran_one = random.sample(list(onepiece),2)
+        out1=ran_out[:2]
+        out2=ran_out[2:4]
+
         context1 ={
             'top1':top1,
             'top2':top2,
@@ -63,46 +73,118 @@ def codiWorldcup(request):
             'out2':out2,
             'ran_one':ran_one
         }
-        return HttpResponse(json.dumps(context1), status=200, content_type='application/json')
-    context={}
-    return HttpResponse(json.dumps(context), status=404, content_type='application/json')
+        return render(request, 'codi/codiWorldcup.html', context1)
+    # if len(outer)>= 4 and len(onepiece)>=2 :
+    #     ran_out = random.sample(list(outer),4)
+    #     ran_one = random.sample(list(onepiece),2)
+    #     out1=ran_out[:2]
+    #     out2=ran_out[2:4]
+
+    #     context1 ={
+    #         'out1':out1,
+    #         'out2':out2,
+    #         'ran_one':ran_one
+    #     }
+    #     return render(request, 'codi/codiWorldcup.html', context1)
+
+    # print("*******")
+    # print(top_len)
+    # print(out_len)
+    # print(bot_len)
+    # print(one_len)
+    context={
+        'top_len': top_len,
+        'out_len': out_len,
+        'bot_len': bot_len,
+        'one_len': one_len
+    }
+    return HttpResponse(json.dumps(context), status=401, content_type='application/json')
 
 @login_required
 def checkMyCloset(request):
     id = request.user.id
-    min = int(request.POST["min"])
-    max = int(request.POST["max"])
+    minT = int(request.POST["min"])
+    maxT = int(request.POST["max"])
+    # print(minT)
+    # print(maxT)
     nowMonth = request.POST["nowMonth"]
     # nowMonth = int(nowDate[4:6])
-    print("###########")
+    # print("###########")
     # print(nowDate)
-    print(nowMonth)
+    # print(nowMonth)
     # print(type(nowDate))
     # print(min)
     # print(max)
-    temps = list(range(min, max+1))
-    print(temps)
+    temps = list(range(minT, maxT+1))
+    # print(temps)
     if int(request.POST["result"]) == 3:
         tops = Cloth.objects.filter(Q(category_id=1) & Q(month=nowMonth) & Q(user_clothes__id=id)).values('img_url').distinct()
         outers = Cloth.objects.filter(Q(category_id=2) & Q(month=nowMonth) & Q(user_clothes__id=id)).values('img_url').distinct()
         bottoms = Cloth.objects.filter((Q(category_id=4)|Q(category_id=3)) & Q(month=nowMonth) & Q(user_clothes__id=id)).values('img_url').distinct()
-        print("### 3P ###")
-        print(len(tops))
-        print(len(outers))
-        print(len(bottoms))
+        onepieces = Cloth.objects.filter(Q(category_id=5) & Q(month=nowMonth) & Q(user_clothes__id=id)).values('img_url').distinct()
+        # print("### 3P ###")
+        top_len = len(tops)
+        out_len = len(outers)
+        bot_len = len(bottoms)
+        one_len = len(onepieces)
+
+        # print(top_len)
+        # print(out_len)
+        # print(bot_len)
+        # print(one_len)
         if len(tops) >=4 and len(outers) >=4 and len(bottoms) >=4:
-            print("3hi")
-            return HttpResponse(json.dumps(''), status=200, content_type='application/json')
+            # print("3hi")
+            context = {
+                'top_len': top_len,
+                'out_len': out_len,
+                'bot_len': bot_len,
+                'one_len': one_len
+            }
+            return HttpResponse(json.dumps(context), status=200, content_type='application/json')
+        else :
+            context = {
+                'top_len': top_len,
+                'out_len': out_len,
+                'bot_len': bot_len,
+                'one_len': one_len
+            }
+            return render(request, 'codi/codiWorldcup.html', context)
+            # return HttpResponse(json.dumps(context), status=401, content_type='application/json')
     
-    else:
+    elif int(request.POST["result"]) == 2: 
+        tops = Cloth.objects.filter(Q(category_id=1) & Q(month=nowMonth) & Q(user_clothes__id=id)).values('img_url').distinct()
+        bottoms = Cloth.objects.filter((Q(category_id=4)|Q(category_id=3)) & Q(month=nowMonth) & Q(user_clothes__id=id)).values('img_url').distinct()
         onepieces = Cloth.objects.filter(Q(category_id=5) & Q(month=nowMonth) & Q(user_clothes__id=id)).values('img_url').distinct()
         outers = Cloth.objects.filter(Q(category_id=2) & Q(month=nowMonth) & Q(user_clothes__id=id)).values('img_url').distinct()
-        print("### 2P ###")
-        print(len(tops))
-        print(len(outers))
+        # print("### 2P ###")
+        top_len = len(tops)
+        out_len = len(outers)
+        bot_len = len(bottoms)
+        one_len = len(onepieces)
+
+        # print(top_len)
+        # print(out_len)
+        # print(bot_len)
+        # print(one_len)
+
         if len(onepieces) >=2 and len(outers) >=4:
-            print("2hi")
-            return HttpResponse(json.dumps(''), status=200, content_type='application/json')
+            # print("2hi")
+            context = {
+                'top_len': top_len,
+                'out_len': out_len,
+                'bot_len': bot_len,
+                'one_len': one_len
+            }
+            return HttpResponse(json.dumps(context), status=200, content_type='application/json')
+        else :
+            context = {
+                'top_len': top_len,
+                'out_len': out_len,
+                'bot_len': bot_len,
+                'one_len': one_len
+            }
+            return render(request, 'codi/codiWorldcup.html', context)
+            # return HttpResponse(json.dumps(''), status=200, content_type='application/json')
 
 
 @login_required
@@ -257,7 +339,7 @@ def addCloth(request):
 def getClothList(request):
     category_id = request.POST["category_id"]
     if int(category_id) == 99:
-        print(category_id)
+        # print(category_id)
         # print(category_id)
         id = request.user.id
         topN = Cloth.objects.filter(~Q(user_clothes__id=id)).values('img_url', 'cloth_type').distinct()
@@ -275,7 +357,7 @@ def getClothList(request):
 @login_required
 def add(request):
     img_url = request.POST["img_url"] # 선택한 옷의 url
-    print(img_url)
+    # print(img_url)
     pid = Cloth.objects.filter(img_url=img_url) # 선택한 옷 url이랑 이미지 같은 옷들 다 가져오기.
 
     # 사용자의 옷장 DB에 옷을 추가한다!

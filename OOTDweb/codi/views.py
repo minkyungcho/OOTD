@@ -303,8 +303,10 @@ def allCodiBook(request):
 @login_required
 def codiBooks(request, user_id):
     articles = Article.objects.filter(user_id=user_id).order_by("-created_at")
+    user_name = articles[0].user.username
     context = {
         'articles': articles,
+        'user_name': user_name,
     }
     return render(request, 'codi/codiBooks.html', context)
 

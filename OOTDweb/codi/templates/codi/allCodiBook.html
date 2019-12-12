@@ -1,5 +1,16 @@
 {% extends 'codi/base.html' %}
 {% load static %}
+
+{% block style %}
+#allcodibook_font {
+  color: #666666 !important;
+}
+
+#allcodibook_font2 {
+  color: #b3b3b3 !important;
+}
+{% endblock style%}
+
 {% block content %}
 
 
@@ -25,8 +36,10 @@
         </div>
         <div class="desc">
           <h3><a href="#">컬러넣기</a></h3>
-          <div><a href="{% url 'codi:codiBooks' article.user.id %}">{{article.user.username}}</a></div>
-          <p class="h-info"><span class="details">{{article.updated_at}}</span></p>
+          <p class="h-info"><span class="details" id="allcodibook_font">{{article.updated_at}}</span></p>
+          <div style="display: inline-block"><a href="{% url 'codi:codiBooks' article.user.id %}" id="allcodibook_font2">{{article.user.username}}</a></div>
+          <div style="display: inline-block"><i class="fas fa-heart" style="color:#DDB8CF;"></i><span class="likes_cnt"> {{article.user_likes.all|length}}</span></div>
+
         </div>
       </div>
     </div>

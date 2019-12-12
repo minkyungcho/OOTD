@@ -48,6 +48,7 @@ class Article(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    user_likes = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name="article_likes")
 
     image = models.ImageField(blank=True)
     image_thumbnail = ImageSpecField(
@@ -58,31 +59,6 @@ class Article(models.Model):
         options={'quality':100}
     )
 
-    # def comments(self):
-    #     # article_id가 self.id인 것을 return해라
-    #     return Comment.objects.filter(article_id=self.id)
-    # def article_images(self):
-    #     return ArticleImages.objects.filter(article_id=self.id)
-
-# class ArticleImages(models.Model):
-#     article = models.ForeignKey(Article, on_delete=models.CASCADE)
-#     image = models.ImageField(blank=True)
-#     image_thumbnail = ImageSpecField(
-#         source='image',
-#         processors=[Thumbnail(300,300)],
-#         format='JPEG',
-#         options={
-#             'quality':90
-#         }
-#     )
-
-# class Comment(models.Model):
-#     # Article 하나가 여러개의 Comment를 갖는다(1:N)
-#     contents = models.TextField()
-#     created_at = models.DateTimeField(auto_now_add=True)
-#     updated_at = models.DateTimeField(auto_now=True)
-#     article = models.ForeignKey(Article, on_delete=models.CASCADE)
-#     # on_delete:옵션, CASCADE -> 게시글이 삭제되면 댓글도 삭제되어야함
 
 # class HashTag(models.Model):
 #     tag = models.CharField(max_length=16, unique=True)

@@ -9,6 +9,7 @@ urlpatterns = [
     path('codiWorldcup/addCodicupResult', codi_views.addCodicupResult, name="addCodicupResult"),
     path('codicupResult/', codi_views.codicupResult, name="codicupResult"),
     path('codiBook/', codi_views.codiBook, name="codiBook"),
+    path('codiBooks/likes/', codi_views.likes, name="likes"),
     path('codiBooks/<int:user_id>/', codi_views.codiBooks, name="codiBooks"),
     path('codiBook/<int:article_id>/delete', codi_views.delete, name="delete"),
     path('allCodiBook/', codi_views.allCodiBook, name="allCodiBook"),
@@ -18,4 +19,5 @@ urlpatterns = [
     path('mwCloset/getClothList', codi_views.getClothList, name="getClothList"),
     path('mwCloset/add', codi_views.add, name="add"),
     path('weather/',codi_views.getWeather, name="getWeather"),
+    path('mypage/', codi_views.mypage, name="mypage"),
  ]

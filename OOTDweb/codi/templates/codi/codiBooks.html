@@ -52,6 +52,16 @@
                     </div>
                 </div>
                 <div class="mt-2 ml-2" style="font-size: 1.3em">컬러</div>
+
+                <div class="mb-2" style="text-align: center;">
+                    {% if user in article.user_likes.all %}
+                        <button type="button" class="btn btn-success likes" data-article-id='{{article.id}}'><i class="fas fa-thumbs-up"></i>{{count}}</button>
+                    {% else %}
+                        <button type="button" class="btn btn-secondary likes" data-article-id='{{article.id}}'><i class="fas fa-thumbs-up"></i></button>
+                    {% endif %}
+                    <span class="likes_cnt">{{article.user_likes.all|length}} </span>
+                </div>
+
                 <textarea name="contents" class="form-control mb-2" style="font-size: 1.7em"  rows="5" disabled>{{article.contents}}</textarea>
 
                 {% comment %} <p class="card-text mt-2 ml-2" style="overflow: auto; font-size: 2.3em"></p> {% endcomment %}
@@ -63,3 +73,36 @@
 </section>
 
 {% endblock content %}
+
+{% block script %}
+<script>
+    {% comment %} '#likeButton', 'submit', 'prevent Default', '$.ajax()' {% endcomment %}
+    $(function(){
+        $(document).on('click', '.likes', function(e){
+        //$('.likes').on('click', function(e){
+            //e.preventDefault();
+            var article_id = $(this).data('article-id')
+            var button = $(this);
+            $.ajax({
+                url: '{% url "codi:likes" %}',
+                method: 'POST',
+                data: {
+                    article_id: article_id,
+                    csrfmiddlewaretoken: '{{csrf_token}}'
+                },
+                success: function(data){
+                    console.log("성공");
+                    console.log(data);
+                    $(e.target).toggleClass('btn-secondary btn-success');
+                    $('.likes_cnt').text(data.count)
+                    //button.toggleClass(['btn-secondary', 'btn-success']);
+                },
+                error: function(data){
+                    if(data.status == 403) location.href = "{% url 'accounts:login' %}";
+                    console.log("실패");
+                }
+            })
+        })
+    })
+</script>
+{% endblock script %}

@@ -3,21 +3,24 @@ import math
 import random
 import requests
 from datetime import datetime
-from django.shortcuts import render , HttpResponse, redirect
+from django.shortcuts import render , HttpResponse, redirect, get_object_or_404
 from datetime import datetime
 from urllib.request import urlopen
 from .weather1 import get_tmn_data , get_tmx_data
 from .weather2 import get_forecast_data , ForecastTimeData
 from .models import Cloth
+from .models import Cloth, Closet, Category, Month, Temp, Codicup
+from .models import Article
 from PIL import Image
 from django.db.models import Q
-from .models import Cloth, Closet, Category, Month, Temp, Codicup
 from django.contrib.auth.decorators import login_required # 로그인권한부여
-from .models import Article
+from django.views.decorators.http import require_POST
+
 
 def home(request):
     articles = Article.objects.all().order_by("-created_at")[:4]
     # articles = Article.objects.all().order_by("created_at")
+    articles_like = Article.objects.all().order_by("-created_at")[:4]
 
     context = {
         'articles': articles
@@ -230,6 +233,25 @@ def codicupResult(request):
     }
     return render(request, 'codi/codicupResult.html', context)
 
+def likes(request):
+    if request.method == "POST" and request.user.is_authenticated:
+        article_id = request.POST["article_id"]
+        article = Article.objects.get(id=article_id)
+        if request.user in article.user_likes.all():
+            article.user_likes.remove(request.user) # 좋아요 취소
+        else:
+            article.user_likes.add(request.user) # 좋아요
+            
+        likes_count = len(article.user_likes.all())
+        print(likes_count)
+        context = {
+            'count': likes_count
+        }
+        return HttpResponse(json.dumps(context), content_type="application/json")
+    else: 
+        return HttpResponse('', status=403)
+
+
 @login_required
 def codiBook(request):
     # user_id = request.user.id 
@@ -281,9 +303,8 @@ def allCodiBook(request):
 @login_required
 def codiBooks(request, user_id):
     articles = Article.objects.filter(user_id=user_id).order_by("-created_at")
-    # articles = Article.objects.all().order_by("-created_at")
     context = {
-        'articles': articles
+        'articles': articles,
     }
     return render(request, 'codi/codiBooks.html', context)
 

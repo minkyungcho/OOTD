@@ -1,18 +1,21 @@
-asgiref==3.2.3
-beautifulsoup4==4.8.1
-certifi==2019.11.28
-chardet==3.0.4
-Django==3.0
-django-appconf==1.0.3
-django-bootstrap4==1.0.1
-django-extensions==2.2.5
-django-imagekit==4.0.2
-idna==2.8
-pilkit==2.0
-Pillow==6.2.1
-pytz==2019.3
-requests==2.22.0
-six==1.13.0
-soupsieve==1.9.5
-sqlparse==0.3.0
-urllib3==1.25.7
+Package           Version   
+----------------- ----------
+beautifulsoup4    4.8.1     
+certifi           2019.11.28
+chardet           3.0.4     
+colorthief        0.2.1     
+Django            2.2.7     
+django-appconf    1.0.3     
+django-bootstrap4 1.1.0     
+django-imagekit   4.0.2     
+idna              2.8       
+pilkit            2.0       
+Pillow            6.2.1     
+pip               19.3.1    
+pytz              2019.3    
+requests          2.22.0    
+setuptools        41.2.0    
+six               1.13.0    
+soupsieve         1.9.5     
+sqlparse          0.3.0     
+urllib3           1.25.7    

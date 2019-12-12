@@ -260,6 +260,11 @@ def codiBook(request):
         return render(request, 'codi/codiBook.html', context)
 
 @login_required
+def getColor(request):
+    
+    return ''
+
+@login_required
 def delete(request, article_id):
     article = Article.objects.get(id=article_id)
     article.delete()

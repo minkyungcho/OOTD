@@ -49,7 +49,11 @@ class Article(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     user_likes = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name="article_likes")
-
+    domColor = models.CharField(max_length=40, blank=True)
+    palColor1 = models.CharField(max_length=40, blank=True)
+    palColor2 = models.CharField(max_length=40, blank=True)
+    palColor3 = models.CharField(max_length=40, blank=True)
+    palColor4 = models.CharField(max_length=40, blank=True)
     image = models.ImageField(blank=True)
     image_thumbnail = ImageSpecField(
         source='image',

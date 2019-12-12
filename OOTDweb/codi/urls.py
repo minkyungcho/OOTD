@@ -9,6 +9,7 @@ urlpatterns = [
     path('codiWorldcup/addCodicupResult', codi_views.addCodicupResult, name="addCodicupResult"),
     path('codicupResult/', codi_views.codicupResult, name="codicupResult"),
     path('codiBook/', codi_views.codiBook, name="codiBook"),
+    path('addColor/', codi_views.addColor, name="addColor"),
     path('codiBooks/likes/', codi_views.likes, name="likes"),
     path('codiBooks/<int:user_id>/', codi_views.codiBooks, name="codiBooks"),
     path('codiBook/<int:article_id>/delete', codi_views.delete, name="delete"),

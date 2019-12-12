@@ -282,9 +282,29 @@ def codiBook(request):
         return render(request, 'codi/codiBook.html', context)
 
 @login_required
-def getColor(request):
-    
-    return ''
+def addColor(request):
+    id = request.POST['id']
+    rgb = request.POST['rgb']
+    prgb1 = request.POST['prgb1']
+    prgb2 = request.POST['prgb2']
+    prgb3 = request.POST['prgb3']
+    prgb4 = request.POST['prgb4']
+    # print(rgb)
+    # print(prgb1)
+    # print(prgb2)
+    # print(prgb3)
+    # print(prgb4)
+    article = Article.objects.get(id=id)
+    # print(article)
+    # print(article.domColor)
+    article.domColor = rgb
+    article.palColor1 = prgb1
+    article.palColor2 = prgb2
+    article.palColor3 = prgb3
+    article.palColor4 = prgb4
+    article.save()
+    # print(article.domColor)
+    return HttpResponse(json.dumps(''), status=200, content_type='application/json')
 
 @login_required
 def delete(request, article_id):

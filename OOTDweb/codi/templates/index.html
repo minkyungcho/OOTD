@@ -38,8 +38,9 @@
 			</div>
 
 			<!-- 코디북 : 누르면 코디북 작성 페이지 or 로그인 페이지 -->
+			<!-- 모든 사람의 코디북이 뜨도록 수정 (191212) -->
 			<div class="col-md-4">
-				<a href="{% url 'codi:codiBook' %}">
+				<a href="{% url 'codi:allCodiBook' %}">
 					<div class="listing-wrap img rounded d-flex align-items-end"
 						style='background-image: url("{% static "images/home_codibook.png" %}");'>
 					</div>

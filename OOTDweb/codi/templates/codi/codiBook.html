@@ -60,8 +60,12 @@
                     </div>
                 </div>
                 <div class="mt-2 ml-2" style="font-size: 1.3em">컬러</div>
+                {% comment %} like {% endcomment %}
+                <div class="mb-2" style="text-align: center;">
+                        <div class="likes" data-article-id='{{article.id}}'><i class="fas fa-heart" style="color:#DDB8CF;"></i>{{count}}</button>
+                    <span class="likes_cnt">{{article.user_likes.all|length}} </span>
+                </div>
                 <textarea name="contents" class="form-control mb-2" style="font-size: 1.7em"  rows="5" disabled>{{article.contents}}</textarea>
-
                 {% comment %} <p class="card-text mt-2 ml-2" style="overflow: auto; font-size: 2.3em"></p> {% endcomment %}
                 <div style="text-align: right;">
                     <a href="{% url 'codi:delete' article.id %}" class="btn btn-danger "><i class="fas fa-trash-alt"></i></a>

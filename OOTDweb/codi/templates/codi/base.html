@@ -105,7 +105,7 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 <script>
 $(function () {
     $(document).on('click', '.goCodicup', function () {
-        console.log("월드컵하자")
+        console.log("base 월드컵하자")
         $.ajax({
             url:'{% url "codi:codiWorldcup" %}',
             method:'POST',
@@ -113,12 +113,13 @@ $(function () {
                 "csrfmiddlewaretoken": '{{csrf_token}}',
                 },
             success: function(data){
-                console.log("나 옷 많아");
-
+                console.log("base 나 옷 많아");
+                console.log(data)
             },
             error: function(data){
-                console.log("ㅈㅅ");
-                alert("옷장에 옷을 추가하세요!\n--코디컵 진행시 필요한 옷 개수--\n상의,바지,치마,외투 : 4개이상\n원피스 : 2개이상")
+                console.log("base ㅈㅅ");
+                console.log(data)
+                alert("from base\n옷장에 옷을 추가하세요!\n--코디컵 진행시 필요한 옷 개수--\n상의,바지,치마,외투 : 4개이상\n원피스 : 2개이상")
                 location.href="{% url 'codi:addCloth' %}";
             }
         })

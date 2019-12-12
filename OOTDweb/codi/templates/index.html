@@ -3,6 +3,7 @@
 {% load static %}
 
 {% block content %}
+<input id="nowMonth" type="hidden" value="">
 
 <!-- 메인(HOME)에서 서비스 선택하는 곳 -->
 <section class="ftco-section">
@@ -28,18 +29,19 @@
 
 			<!-- 코디월드컵 : 누르면 코디월드컵 실행 -->
 			<div class="col-md-4">
-				<a href="{% url 'codi:codiWorldcup' %}">
-				<div class="listing-wrap img rounded d-flex align-items-end"
-					style='background-image: url("{% static "images/home_codiworldcup.png" %}");'>
-				</div>
+				<a href="" class="goCodicupLinkOnMain">
+					<div class="listing-wrap img rounded d-flex align-items-end"
+						style='background-image: url("{% static "images/home_codiworldcup.png" %}");'>
+					</div>
+				</a>
 			</div>
 
 			<!-- 코디북 : 누르면 코디북 작성 페이지 or 로그인 페이지 -->
 			<div class="col-md-4">
 				<a href="{% url 'codi:codiBook' %}">
-				<div class="listing-wrap img rounded d-flex align-items-end"
-					style='background-image: url("{% static "images/home_codibook.png" %}");'>
-				</div>
+					<div class="listing-wrap img rounded d-flex align-items-end"
+						style='background-image: url("{% static "images/home_codibook.png" %}");'>
+					</div>
 				</a>
 			</div>
 		</div>
@@ -214,6 +216,11 @@
 <script>
 	var latitude;
 	var longitude;
+	var min;
+	var max;
+	var now;
+	var nowDate;
+	var nowMonth;
 
 	function getLocation() {
 		if (navigator.geolocation) {
@@ -230,9 +237,17 @@
 					},
 					success: function (data) {
 						console.log(data)
-						$('#now_temp').append(data.now)
-						$('#min_temp').append(data.min)
-						$('#max_temp').append(data.max)
+						min = data.min
+						now = data.now
+						max = data.max
+						nowDate = data.nowDate
+						nowMonth = data.nowMonth
+						// console.log(nowDate)
+						$('#nowMonth').attr('value', nowMonth)
+						$('#now_temp').append(now)
+						$('#max_temp').append(max)
+						$('#min_temp').append(min)
+
 					},
 					error: function (data) {
 						'요청이 정상적으로 완료되지 않았을 때'
@@ -247,5 +262,26 @@
 	$(function () {
 		getLocation()
 	})
+	$(function () {
+    $(document).on('click', '.goCodicupLinkOnMain', function () {
+        console.log("월드컵하자")
+        $.ajax({
+            url:'{% url "codi:codiWorldcup" %}',
+            method:'POST',
+            data:{
+                "csrfmiddlewaretoken": '{{csrf_token}}',
+                },
+            success: function(data){
+                console.log("나 옷 많아");
+
+            },
+            error: function(data){
+                console.log("ㅈㅅ");
+                alert("옷장에 옷을 추가하세요!\n--코디컵 진행시 필요한 옷 개수--\n상의,바지,치마,외투 : 4개이상\n원피스 : 2개이상")
+                location.href="{% url 'codi:addCloth' %}";
+            }
+        })
+    })
+})
 </script>
 {% endblock script %}
